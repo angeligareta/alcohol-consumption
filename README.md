@@ -6,12 +6,6 @@
   <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/angeligareta/AlcoholConsumption?style=flat-square">
 </p>
 
-![GitHub contributors](https://img.shields.io/github/contributors/angeligareta/AlcoholConsumption?style=for-the-badge)
-
-## Brief description
-
-Research about the global alcohol consumption related with facts such as nutrition, poverty or scholar marks.
-
 ## Domain of interest - Alcohol Consumption
 
 ### Interest in the field
@@ -22,9 +16,9 @@ The interest in the field arises from the recent increase in alcohol consumption
 
 #### Project 1: [How common is alcohol and drug dependency across the world?](https://ourworldindata.org/alcohol-and-drug-dependency)
 
-This project from the website _Our World in Data_ presents the trends in Alcohol Consumption and Substance Use in countries all over the world, with data from 1990 to 2016. The aim is to give a better understanding of the global prevalence of substance use disorders.
+This project from the website **_Our World in Data_** presents the trends in Alcohol Consumption and Substance Use in countries all over the world, with data from 1990 to 2016. The aim is to give a better understanding of the global prevalence of substance use disorders.
 
-Some of the conclusions are:
+Some of the conclusions in the research are:
 
 - Across most countries, the number of alcohol use disorders is higher than other drug use disorders.
 - Substance use disorders are more common among men than women.
@@ -43,9 +37,9 @@ Some of the conclusions are:
 
 ### Data Source 1: [Life Expectancy](https://www.kaggle.com/augustus0498/life-expectancy-who)
 
-- **Data source:** The source of this data is the Open Dataset platform Kaggle, it is public and available to use. Downloaded data path: [/data/life-expectancy/](./data/life-expectancy/)
+- **Data source:** The source of this data is the Open Dataset platform Kaggle, it is public and available to use. The path of the downloaded data is: [/data/life-expectancy/](./data/life-expectancy/)
 - **Data collection:** The data was collected from WHO (World Health Organization) and United Nations website with the support of Deeksha Russell and Duan Wang. This dataset is a merge of the WHO dataset, which is related to life expectancy and health factors for 193 countires and the corresponding economic data collected from the United Nations website.
-- **Dataset description:** The data is about how several factors such as demographic, mortality or economical can affect life expectancy. Among the observed variables some are Country, Status (developed or developing), Life Expectancy, Alcohol Consumption per capita, HIV, GDP and so on.
+- **Dataset description:** The data is about how several factors such as demographic, mortality or economical can affect life expectancy. Among the observed variables some are Country, Status (developed or developing), Life Expectancy, Alcohol Consumption per capita, HIV, GDP...
 - **Observations number:** The final merged dataset consists of 22 features and 2938 rows.
 - **Questions that could be answered in our domain:** As our goal is to relate factors with alcohol consumption, this dataset could be very useful to associate how alcohol relates with adult mortality, GDP, years of schooling and life expectancy. For this reason this dataset could be helpful to answer the first research question.
 
