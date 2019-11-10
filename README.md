@@ -23,14 +23,16 @@ Some of the conclusions in the research are:
 - Across most countries, the number of alcohol use disorders is higher than other drug use disorders.
 - Substance use disorders are more common among men than women.
 
-#### [Project 2]
+#### [Project 2]: [SDR, selected alcohol-related causes, per 100 000](https://gateway.euro.who.int/en/indicators/hfa_293-1970-sdr-selected-alcohol-related-causes-per-100-000/)
+
+This project carried out by the World Health Organization provide an interactive graph where we can see the age-standardized death rate per 100 000 related to alcohol. The study includes causes such as cancer of oesophagus and larynx, alcohol dependence syndrome, chronic liver disease, cirrhosis etc.
 
 #### [Project 3]
 
 ### Data driven research questions
 
 - **Question 1:** How is the alcohol consumption related with the economical situation a country? Does it get affected by the per capita income indicators and the development status of the countries?
-- **Question 2:**
+- **Question 2:** Do drinking habits change in a group of students depending on some personal situation?
 - **Question 3:**
 
 ## Data Sources
@@ -43,6 +45,12 @@ Some of the conclusions in the research are:
 - **Observations number:** The final merged dataset consists of 22 features and 2938 rows.
 - **Questions that could be answered in our domain:** As our goal is to relate factors with alcohol consumption, this dataset could be very useful to associate how alcohol relates with adult mortality, GDP, years of schooling and life expectancy. For this reason this dataset could be helpful to answer the first research question.
 
-### [Data Source 2]
+### [Data Source 2] [Effect of Alcohol Use on GPA](https://www.kaggle.com/javidimail/effect-of-alcohol-use-on-gpa)
+
+- **Data source:** The data were obtained in a survey of students math and portuguese language courses in secondary school.
+- **Data collection:** Cortez and A. Silva. Using Data Mining to Predict Secondary School Student Performance. In A. Brito and J. Teixeira Eds., Proceedings of 5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) pp. 5-12, Porto, Portugal, April, 2008, EUROSIS, ISBN 978-9077381-39-7
+- **Dataset description:** It contains a lot of interesting social, gender and study information about students.
+- **Observations number:** The studens math dataset has 395 observations and the student portuguese language has 649 observations. Both on them have 33 features
+- **Questions that could be answered in our domain:** With this dataset we think we can undestand how drinking habits change among students based on their characteristics
 
 ### [Data Source 3]
