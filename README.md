@@ -23,11 +23,11 @@ Some of the conclusions in the research are:
 - Across most countries, the number of alcohol use disorders is higher than other drug use disorders.
 - Substance use disorders are more common among men than women.
 
-#### [Project 2]: [SDR, selected alcohol-related causes, per 100 000](https://gateway.euro.who.int/en/indicators/hfa_293-1970-sdr-selected-alcohol-related-causes-per-100-000/)
+#### Project 2: [SDR, selected alcohol-related causes, per 100 000](https://gateway.euro.who.int/en/indicators/hfa_293-1970-sdr-selected-alcohol-related-causes-per-100-000/)
 
 This project carried out by the World Health Organization provide an interactive graph where we can see the age-standardized death rate per 100 000 related to alcohol. The study includes causes such as cancer of oesophagus and larynx, alcohol dependence syndrome, chronic liver disease, cirrhosis etc.
 
-#### [Project 3]
+#### Project 3
 
 ### Data driven research questions
 
@@ -45,7 +45,7 @@ This project carried out by the World Health Organization provide an interactive
 - **Observations number:** The final merged dataset consists of 22 features and 2938 rows.
 - **Questions that could be answered in our domain:** As our goal is to relate factors with alcohol consumption, this dataset could be very useful to associate how alcohol relates with adult mortality, GDP, years of schooling and life expectancy. For this reason this dataset could be helpful to answer the first research question.
 
-### [Data Source 2] [Student Alcohol Consumption](https://www.kaggle.com/javidimail/effect-of-alcohol-use-on-gpa)
+### Data Source 2: [Student Alcohol Consumption](https://www.kaggle.com/uciml/student-alcohol-consumption)
 
 - **Data source:** The data were obtained in a survey of students math and portuguese language courses in secondary school.
 - **Data collection:** Cortez and A. Silva. Using Data Mining to Predict Secondary School Student Performance. In A. Brito and J. Teixeira Eds., Proceedings of 5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) pp. 5-12, Porto, Portugal, April, 2008, EUROSIS, ISBN 978-9077381-39-7
@@ -53,4 +53,4 @@ This project carried out by the World Health Organization provide an interactive
 - **Observations number:** The students math dataset has 395 observations and the student portuguese language has 649 observations. Both on them have 33 features
 - **Questions that could be answered in our domain:** With this dataset we think we can understand how drinking habits change among students based on their characteristics.
 
-### [Data Source 3]
+### Data Source 3: 
