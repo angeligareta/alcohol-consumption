@@ -10,7 +10,7 @@
 
 ### Interest in the field
 
-We are interested in the causes and consequences of alcohol consumption especially in young people because this is something that affects our peers. Some research questions stem from pure curiosity, while others could actually lead us to information that would be useful for us personally. For instance, we are curious to relate this topic with other domains such as education and health and we are also looking forward to find out if the increase is due to facts like the economical situation or Human Development Index of the countries.
+We are interested in the causes and consequences of alcohol consumption especially in young people because this is something that affects our peers. Some research questions stem from pure curiosity, while others could actually lead us to information that would be useful for us personally. For instance, we are curious to relate this topic with other domains such as education and health and we are also looking forward to find out if the causes of alcohol consumption is due to facts like the economical situation or Human Development Index of the countries.
 
 ### Examples of related data driven projects
 
@@ -36,12 +36,12 @@ The main conclusion of this study is that it exists a relationship between alcoh
 ### Data driven research questions
 
 - **Question 1:** How is the alcohol consumption related with the economical situation of a country? Does it get affected by the per capita income indicators and the development status of the countries?
-- **Question 2:** Do drinking habits change in a group of students depending on some personal situation?
+- **Question 2:** Are drinking habits in students related to the family situation, the amount of free time, health and other related factors?
 - **Question 3:** Which is the relation between alcohol consumption and mental illnesses, such as depression or weight disorders? Does this results change depending on age?
 
 ## Data Sources
 
-### Data Source 1: [Life Expectancy](https://www.kaggle.com/augustus0498/life-expectancy-who)
+### Data Source 1: [Life Expectancy (WHO)](https://www.kaggle.com/augustus0498/life-expectancy-who)
 
 - **Data source:** The source of this data is the Open Dataset platform Kaggle, it is public and available to use. The path to downloaded the data: [/data/life-expectancy/](./data/life-expectancy/)
 - **Data collection:** The data was originally collected from WHO (World Health Organization) and United Nations website with the support of Deeksha Russell and Duan Wang. This dataset is a merge of the WHO dataset, which is related to life expectancy and health factors for 193 countires and the corresponding economic data collected from the United Nations website.
@@ -49,7 +49,7 @@ The main conclusion of this study is that it exists a relationship between alcoh
 - **Observations number:** The final merged dataset consists of 22 features and 2938 rows.
 - **Questions that could be answered in our domain:** As our goal is to relate factors with alcohol consumption, this dataset could be very useful to associate how alcohol relates with adult mortality, GDP, years of schooling and life expectancy. For this reason this dataset could be helpful to answer the first research question.
 
-### Data Source 2: [Effect of alcohol use on gpa](https://www.kaggle.com/javidimail/effect-of-alcohol-use-on-gpa)
+### Data Source 2: [Student Alcohol Consumption](https://www.kaggle.com/uciml/student-alcohol-consumption)
 
 - **Data source:** The data were obtained in a survey of students math and portuguese language courses in secondary school.
 - **Data collection:** Cortez and A. Silva. Using Data Mining to Predict Secondary School Student Performance. In A. Brito and J. Teixeira Eds., Proceedings of 5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) pp. 5-12, Porto, Portugal, April, 2008, EUROSIS, ISBN 978-9077381-39-7
