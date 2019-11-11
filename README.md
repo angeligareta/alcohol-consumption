@@ -51,7 +51,7 @@ The main conclusion of this study is that a relationship exists between alcohol 
 
 ### Data Source 2: [Student Alcohol Consumption](https://www.kaggle.com/uciml/student-alcohol-consumption)
 
-- **Data source:** The data were obtained in a survey of students of Math and Portuguese language courses in secondary school.
+- **Data source:** The data were obtained in a survey of students of Math and Portuguese language courses in secondary school.The path where the data was saved: [/data/student_alcohol_consumption](./data/student_alcohol_consumption)
 - **Data collection:** Cortez and A. Silva. Using Data Mining to Predict Secondary School Student Performance. In A. Brito and J. Teixeira Eds., Proceedings of 5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) pp. 5-12, Porto, Portugal, April, 2008, EUROSIS, ISBN 978-9077381-39-7
 - **Dataset description:** It contains a lot of curious social, gender and study information about students, for instance: the number of family members, the educational background of parents, the job type of parents, the time it takes to commute to school, weekly study time, extra paid classes, the amount of free time and so on.
 - **Observations number:** The "students math dataset" has 395 observations and "the student portuguese language" has 649 observations. Both on them have 33 features
