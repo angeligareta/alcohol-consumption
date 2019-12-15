@@ -20,7 +20,7 @@
 
 
 ### Abstract (**5 points**)
-- Succinctly summarizes the importance and findings of the project within the 150 word limit.
+summary of the importance and findings of the project within the 150 word limit.
 
 ### Introduction and Related Work (**10 points**)
 
