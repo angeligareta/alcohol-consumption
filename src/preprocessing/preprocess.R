@@ -20,3 +20,15 @@ preprocessed_dataset <- dataset %>% select(one_of(names(selected_variables)))
 
 # Rename them
 preprocessed_dataset <- preprocessed_dataset %>% plyr::rename(replace = selected_variables)
+
+## Transform 7, 9, 77, 99... into NA (except 77 in age)
+for (na_values in na_values_per_column) {
+  ### Neccessary unlist to retrieve vectors contained within it
+  preprocessed_dataset <- preprocessed_dataset %>%
+    mutate_at(unlist(na_values[2]), function(column) {
+      substitute_column_if(column, unlist(na_values[1]))
+    })
+}
+
+## Convert some variables into readable factors
+# preprocessed_dataset$HighestEducationLevel <- 

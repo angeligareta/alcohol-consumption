@@ -10,6 +10,8 @@ selected_variables <-
     "DMDMARTL" = "MartialStatus",
     "RIAGENDR" = "Gender",
     "RIDAGEYR" = "Age",
+    "DBD905" = "JunkFoodLast30d",
+    "PAQ715" = "PlayVideoGamesLast30d",
     "SXQ292" = "SexualOrientationM",
     "SXQ294" = "SexualOrientationF",
     "SXQ410" = "SexWithMenLast12m",
@@ -47,3 +49,70 @@ selected_variables <-
     "ALQ120Q" = "AlcoholAmountAvgPerMonth",
     "ALQ120U" = "AlcoholAmountUnitPerMonth"
   )
+
+columns_na_7_9 <- c(
+  "HighestEducationLevel",
+  "SexualOrientationM",
+  "SexualOrientationF",
+  "HadHPV",
+  "HadHerpes",
+  "HadGenitalWarts",
+  "HadGonorrhea",
+  "HadChlamydia",
+  "HadHIV",
+  "ProblemsRememberingThingsLast30d",
+  "DifficultyConcentrating", 
+  "MemoryLossLast12m",
+  "Hypertension",
+  "Overweight",
+  "HadJaundice", 
+  "HadLostConcientiousness",
+  "FeelDownDepressedLast2W", 
+  "ProblemsConcentratingLast2w", 
+  "ThoughtSuicideLast2w",
+  "GreaterEqual35HoursWorkPerWeek",
+  "SpendTimeBar7d",
+  "AlcoholAmountUnitPerMonth"
+)
+
+columns_na_77_99 <- c(
+  "CountryBorn",
+  "MartialStatus",
+  "PlayVideoGamesLast30d",
+  "SleepHoursWorkdays",
+  "MonthlyFamilyIncome",
+  "SmokedCigsLast30d",
+  "CocaineLast30d",
+  "HeroineLast30d",
+  "MethanfetamineLast30d"
+)
+
+columns_na_777_999 <- c(
+  "MarijuanaLast30d",
+  "AlcoholDrink5Last30d",
+  "AlcoholAmountAvgPerMonth"
+)
+
+columns_na_7777_9999 <- c(
+  "JunkFoodLast30d",
+  "TimeVigorousActivitiesPerDay"
+)
+
+columns_na_77777_99999 <- c(
+  "SexWithMenLast12m",
+  "SexWithWomenLast12m",
+  "DaysInHospitalLast12m",
+  "HoursWorkPerWeek"
+)
+
+na_values_per_column = list(
+  na_7_9 = list(c(7, 9), columns_na_7_9),
+  na_77_99 = list(c(77, 99), columns_na_77_99),
+  na_777_999 = list(c(777, 999), columns_na_777_999),
+  na_7777_9999 = list(c(7777, 9999), columns_na_7777_9999),
+  na_77777_99999 = list(c(77777, 99999), columns_na_77777_99999)
+)
+
+substitute_column_if <- function(column, condition_values) {
+  column <- replace(column, column %in% condition_values, NA)
+}
