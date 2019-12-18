@@ -1,0 +1,50 @@
+library(dplyr)
+library(ggplot2)
+
+demographic <- read.csv("./data/national-health-survey/demographic.csv", stringsAsFactors = T)
+
+
+
+selected_variables <- 
+  c("DMDEDUC2",
+  "DMDBORN4",
+  "DMDFMSIZ",
+  "DMDMARTL",
+  "RIAGENDR",
+  "RIDAGEYR",
+  "SXQ292",
+  "SXQ294",
+  "SXQ490",
+  "SXQ550",
+  "SXQ410",
+  "SXQ130",
+  "SXQ260",
+  "SXQ265",
+  "SXQ270",
+  "SXQ272",
+  "LBDHI",
+  "MCQ380",
+  "DLQ040",
+  "MCQ084",
+  "BPQ020",
+  "MCQ080",
+  "MCQ160e",
+  "MCQ160f",
+  "MCQ203",
+  "HUD080",
+  "PAD660",
+  "CSQ240",
+  "SMD641",
+  "DPQ020",
+  "DPQ070",
+  "DPQ090",
+  "SMQ866",
+  "IND235",
+  "INDFMMPI",
+  "SLD010H",
+  "DUQ230",
+  "DUQ280",
+  "DUQ320",
+  "DUQ360",
+  "OCQ180",
+  "OCQ210")
