@@ -37,6 +37,18 @@
   - 0 to 79: Range of years
   - 80: 80+ years
 
+## Diet
+
+- [DBD905](http://data.nber.org/nhanes/2009-2010/DBQ_F.htm) - JunkFood30d
+  - 0: Never
+  - 1 to 150: Range of values
+  - 7777, 9999: Set to NA
+- [PAQ715](http://data.nber.org/nhanes/2015-2016/PAQ_I.htm#PAQ715) - PlayVideoGames30d
+  - 0, 8: Less than one hour
+  - 1 to 4: Range of values
+  - 5: 5 or more
+  - 77, 99: Set to NA
+
 ### Sex situation
 
 - [SXQ292](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ292) - SexualOrientationM
@@ -53,9 +65,6 @@
   - 4: Other
   - 5: Not sure
   - 7, 9: Set to NA
-- [SXQ241](https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/SXQ_C.htm#SXQ241) - SexLast30d. Note: Few data
-  - 0 to 8: range of values
-  - 77777 and 999999: Set to NA
 - [SXQ410](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ410) - SexWithMenLast12m
   - 1 to 100: range of values
   - 2000: 2000 or + (outlier)
@@ -114,14 +123,6 @@
   - 2: No
   - 7, 9: Set to NA
 - [MCQ080](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/MCQ_I.htm) - Overweight
-  - 1: Yes
-  - 2: No
-  - 7, 9: Set to NA
-- [MCQ160e](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/MCQ_I.htm) - HadHeartAttack
-  - 1: Yes
-  - 2: No
-  - 7, 9: Set to NA
-- [MCQ160f](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/MCQ_I.htm) - HadStroke
   - 1: Yes
   - 2: No
   - 7, 9: Set to NA
@@ -247,7 +248,6 @@ c(
     "RIDAGEYR" = "Age",
     "SXQ292" = "SexualOrientationM",
     "SXQ294" = "SexualOrientationF",
-    "SXQ241" = "SexLast30d",
     "SXQ410" = "SexWithMenLast12m",
     "SXQ130" = "SexWithWomenLast12m",
     "SXQ753" = "HadHPV",
@@ -261,8 +261,6 @@ c(
     "MCQ084" = "MemoryLossLast12m",
     "BPQ020" = "Hypertension",
     "MCQ080" = "Overweight",
-    "MCQ160e" = "HadHeartAttack",
-    "MCQ160f" = "HadStroke",
     "MCQ203" = "HadJaundice",
     "HUD080" = "DaysInHospitalLast12m",
     "PAD660" = "TimeVigorousActivitiesPerDay",
@@ -282,7 +280,7 @@ c(
     "OCQ180" = "HoursWorkPerWeek",
     "SMQ866" = "SpendTimeBar7d",
     "ALQ160" = "AlcoholDrink5Last30d",
-    "ALQ120Q", "AlcoholAmountAvgPerMonth",
+    "ALQ120Q" = "AlcoholAmountAvgPerMonth",
     "ALQ120U" = "AlcoholAmountUnitPerMonth"
     )
 ```
