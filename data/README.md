@@ -79,25 +79,75 @@
 
 ### Mental situation
 
-- DPQ020: feel down or depressed in the last two weeks.
-- DPQ070: problems concentrating in the last 2 weeks
-- DPQ090: how often have you thought in suicide over the last two weeks.
-- SLD010H: how much sleep do you have in workdays.
+- DPQ020 - FeelDownDepressedLast2W
+  0: Not at all
+  1: Several days
+  2: More than half the days
+  3: Nearly every day
+  7, 9: Set to NA  
+- DPQ070 - ProblemsConcentratingLast2w
+ - 0: Not at all
+ - 1: Several days
+ - 2: More than half days
+ - 3: Nearly every day
+ - 7, 9: Set to NA
+- DPQ090 - ThoughtSuicideLast2w
+  - 0: Not at all
+  - 1: Several days
+  - 2: More than half days
+  - 3: Nearly every day
+  - 7, 9: Set to NA
+- SLD010H - SleepHoursWorkdays
+  - 2 to 11: Range of hours
+  - 12: 12 hours or more
+  - 77, 99: Set to NA
 
 ### Economic situation
 
-- SMD641: on how many of the past 30 days do you have smoked a cigarrete?
-- IND235: monthly family incomes.
-- INDFMMPI: family poverty index.
+- SMD641 - SmokedCigsLast30d
+  - 0 to 30: Range of days
+  - 77, 99: Set to NA
+- IND235 - MonthlyFamilyIncome
+  - 1: $0 - $399
+  - 2: $400 - $799
+  - 3: $800 - $1249
+  - 4: $1250 - $1649
+  - 5: $1650 - $2099
+  - 6: $2100 - $2899
+  - 7: $2900 - $3749
+  - 8: $3750 - $4599
+  - 9: $4600 - $5399
+  - 10: $5400 - $6249
+  - 11: $6250 - $8399
+  - 12: $8400 and over
+  - 77, 99: Set to NA
+- INDFMMPI - FamilyPovertyIndex
+  - 0 to 4.99: Range of values
+  - 5: Value greater or equal to 5.00
+  - .: Set to NA
 
 ### Drugs variables
 
-- DUQ230: marijuana in last 30 days.
-- DUQ280: how many days you used cocaine in the last 30 days?
-- DUQ320: how many days did you used heroine in the las 30 days?
-- DUQ360: methanfetamine in last 30 days.
-- OCQ180: how many hours do you spend per week working?
-- OCQ210: usually work 35 hours or more?
+- DUQ230 - MarijuanaLast30d
+  - 1 to 30: Range of days
+  - 777, 999: Set to NA
+- DUQ280 - CocaineLast30d
+  - 1 to 30: Range of days
+  - 77, 99: Set to NA
+- DUQ320 - HeroineLast30d
+  - 1 to 30: Range of days
+  - 77, 99: Set to NA
+- DUQ360 - MethanfetamineLast30d
+  - 1 to 30: Range of days
+  - 77, 99: Set to NA
+- OCQ180 - HoursWorkPerWeek
+  - 1 to 79: Range of hours
+  - 80: 80 hours or more
+  - 77777, 99999: set to NA
+- OCQ210 - GreaterEqual35HoursWorkPerWeek
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
 
 ### Alcohol variables
 
@@ -143,20 +193,20 @@ c(
     "HUD080" = "HUD080",
     "PAD660" = "PAD660",
     "CSQ240" = "CSQ240",
-    "SMD641" = "SMD641",
-    "DPQ020" = "DPQ020",
-    "DPQ070" = "DPQ070",
-    "DPQ090" = "DPQ090",
+    "SMD641" = "SmokedCigsLast30d",
+    "DPQ020" = "FeelDownDepressedLast2W",
+    "DPQ070" = "ProblemsConcentratingLast2w",
+    "DPQ090" = "ThoughtSuicideLast2w",
     "SMQ866" = "SMQ866",
     "IND235" = "IND235",
-    "INDFMMPI" = "INDFMMPI",
-    "SLD010H" = "SLD010H",
-    "DUQ230" = "DUQ230",
-    "DUQ280" = "DUQ280",
-    "DUQ320" = "DUQ320",
-    "DUQ360" = "DUQ360",
-    "OCQ180" = "OCQ180",
-    "OCQ210" = "OCQ210",
+    "INDFMMPI" = "FamilyPovertyIndex",
+    "SLD010H" = "SleepHoursWorkdays",
+    "DUQ230" = "MarijuanaLast30d",
+    "DUQ280" = "CocaineLast30d",
+    "DUQ320" = "HeroineLast30d",
+    "DUQ360" = "MethanfetamineLast30d",
+    "OCQ180" = "HoursWorkPerWeek",
+    "OCQ210" = "GreaterEqual35HoursWorkPerWeek",
     "SMQ866" = "SMQ866",
     "ALQ120Q" = "ALQ120Q",
     "ALQ120U", "ALQ120U",
