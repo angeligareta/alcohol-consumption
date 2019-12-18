@@ -53,7 +53,7 @@
   - 4: Other
   - 5: Not sure
   - 7, 9: Set to NA
-- [SXQ241](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ490) - SexLast30d. Note: Few data
+- [SXQ241](https://wwwn.cdc.gov/Nchs/Nhanes/2003-2004/SXQ_C.htm#SXQ241) - SexLast30d. Note: Few data
   - 0 to 8: range of values
   - 77777 and 999999: Set to NA
 - [SXQ410](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ410) - SexWithMenLast12m
@@ -172,9 +172,6 @@
 
 ### Economic situation
 
-- [SMD641](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/SMQ_H.htm#SMD641) - SmokedCigsLast30d
-  - 0 to 30: Range of days
-  - 77, 99: Set to NA
 - [IND235](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/INQ_F.htm#IND235) - MonthlyFamilyIncome
   - 1: $0 - $399
   - 2: $400 - $799
@@ -196,6 +193,9 @@
 
 ### Drugs variables
 
+- [SMD641](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/SMQ_H.htm#SMD641) - SmokedCigsLast30d
+  - 0 to 30: Range of days
+  - 77, 99: Set to NA
 - [DUQ230](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DUQ_H.htm#DUQ230) - MarijuanaLast30d
   - 1 to 30: Range of days
   - 777, 999: Set to NA
@@ -247,15 +247,15 @@ c(
     "RIDAGEYR" = "Age",
     "SXQ292" = "SexualOrientationM",
     "SXQ294" = "SexualOrientationF",
-    "SXQ490" = "SXQ490",
-    "SXQ550" = "SXQ550",
-    "SXQ410" = "SXQ410",
-    "SXQ130" = "SXQ130",
-    "SXQ260" = "SXQ260",
-    "SXQ265" = "SXQ265",
-    "SXQ270" = "SXQ270",
-    "SXQ272" = "SXQ272",
-    "LBDHI" = "LBDHI",
+    "SXQ241" = "SexLast30d",
+    "SXQ410" = "SexWithMenLast12m",
+    "SXQ130" = "SexWithWomenLast12m",
+    "SXQ753" = "HadHPV",
+    "SXQ260" = "HadHerpes",
+    "SXQ265" = "HadGenitalWarts",
+    "SXQ270" = "HadGonorrhea",
+    "SXQ272" = "HadChlamydia",
+    "LBDHI" = "HadHIV",
     "MCQ380" = "ProblemsRememberingThingsLast30d",
     "DLQ040" = "DifficultyConcentrating",
     "MCQ084" = "MemoryLossLast12m",
@@ -267,25 +267,22 @@ c(
     "HUD080" = "DaysInHospitalLast12m",
     "PAD660" = "TimeVigorousActivitiesPerDay",
     "CSQ240" = "HadLostConcientiousness",
-    "SMD641" = "SmokedCigsLast30d",
     "DPQ020" = "FeelDownDepressedLast2W",
     "DPQ070" = "ProblemsConcentratingLast2w",
     "DPQ090" = "ThoughtSuicideLast2w",
-    "SMQ866" = "SMQ866",
-    "IND235" = "IND235",
-    "INDFMMPI" = "FamilyPovertyIndex",
     "SLD010H" = "SleepHoursWorkdays",
+    "OCQ210" = "GreaterEqual35HoursWorkPerWeek",
+    "IND235" = "MonthlyFamilyIncome",
+    "INDFMMPI" = "FamilyPovertyIndex",
+    "SMD641" = "SmokedCigsLast30d",
     "DUQ230" = "MarijuanaLast30d",
     "DUQ280" = "CocaineLast30d",
     "DUQ320" = "HeroineLast30d",
     "DUQ360" = "MethanfetamineLast30d",
     "OCQ180" = "HoursWorkPerWeek",
-    "OCQ210" = "GreaterEqual35HoursWorkPerWeek",
-    "SMQ866" = "SMQ866",
-    "ALQ120Q" = "ALQ120Q",
-    "ALQ120U", "ALQ120U",
-    "ALQ130" = "ALQ130",
-    "ALQ160" = "ALQ160",
-    "ALQ151" = "ALQ151"
+    "SMQ866" = "SpendTimeBar7d",
+    "ALQ160" = "AlcoholDrink5Last30d",
+    "ALQ120Q", "AlcoholAmountAvgPerMonth",
+    "ALQ120U" = "AlcoholAmountUnitPerMonth"
     )
 ```
