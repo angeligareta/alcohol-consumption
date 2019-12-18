@@ -6,7 +6,7 @@
 
 ## Final selected variables from multiple datasets
 
-### [Demographics variables]()
+### Demographics variables
 
 - [DMDEDUC2](https://wwwn.cdc.gov/nchs/nhanes/2011-2012/DEMO_G.htm#DMDEDUC2) - HighestEducationLevel
   - 1: Less than 9th grade
@@ -37,31 +37,60 @@
   - 0 to 79: Range of years
   - 80: 80+ years
 
-### [Sex situation](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm)
+### Sex situation
 
-- SXQ292 - SexualOrientationM
+- [SXQ292](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ292) - SexualOrientationM
   - 1: Heterosexual
   - 2: Homosexual
   - 3: Bisexual
   - 4: Other
   - 5: Not sure
   - 7, 9: Set to NA
-- SXQ294 - SexualOrientationF
+- [SXQ294](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ294) - SexualOrientationF
   - 1: Heterosexual
   - 2: Homosexual
   - 3: Bisexual
   - 4: Other
   - 5: Not sure
   - 7, 9: Set to NA
-- SXQ490: woman sex 12 months.
-- SXQ550: men sex 12 months.
-- SXQ410: men sex lifetime
-- SXQ130: women sex lifetime.
-- SXQ260: had you herpes?
-- SXQ265: had you had genital warts?
-- SXQ270: had you have gonorrea?
-- SXQ272: had you have chlamydia?
-- LBDHI: you have HIV // laboratory dataset
+- [SXQ241](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ490) - SexLast30d. Note: Few data
+  - 0 to 8: range of values
+  - 77777 and 999999: Set to NA
+- [SXQ410](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ410) - SexWithMenLast12m
+  - 1 to 100: range of values
+  - 2000: 2000 or + (outlier)
+  - 77777, 99999: Set to NA
+- [SXQ130](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ130) - SexWithWomenLast12m
+  - 1 to 700: range of values
+  - 2000: 2000 or + (outlier)
+  - 77777, 99999: Set to NA
+
+## Sexual STIs
+
+- [SXQ753](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ753) - HadHPV
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [SXQ260](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ260) - HadHerpes
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [SXQ265](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ265) - HadGenitalWarts
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [SXQ270](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ270) - HadGonorrhea
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [SXQ272](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/SXQ_F.htm#SXQ272) - HadChlamydia
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [LBDHI](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/HIV_H.htm#LBDHI) - HadHIV
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
 
 ### Mental illnesses
 
@@ -101,6 +130,10 @@
   - 2 to 11: Range of hours
   - 12: 12 hours or more
   - 77, 99: Set to NA
+- [OCQ210](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/OCQ_H.htm#OCQ210) - GreaterEqual35HoursWorkPerWeek
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
 
 ### Economic situation
 
@@ -144,20 +177,26 @@
   - 1 to 79: Range of hours
   - 80: 80 hours or more
   - 77777, 99999: set to NA
-- [OCQ210](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/OCQ_H.htm#OCQ210) - GreaterEqual35HoursWorkPerWeek
-  - 1: Yes
-  - 2: No
-  - 7, 9: Set to NA
 
 ### Alcohol variables
 
-- [SMQ866](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/SMQSHS_I.htm#SMQ866) - : during the last 7 days, did you spend time in a bar?
-- [ALQ120Q](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ120Q): how often drink alcohol over past 12 mos + ALQ120U unit
-- [ALQ130](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ130): alcoholic drinks/day - past 12 mos
-- [ALQ151](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ151): ever have 4/5 or more drinks every day?
-- [ALQ160](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ160): days have 4/5 or more drinks in 2 hrs
+- [SMQ866](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/SMQSHS_I.htm#SMQ866) - SpendTimeBar7d
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [ALQ160](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ160): AlcoholDrink5Last30d
+  - 0 to 30: range of values
+  - 777, 999: Set to NA
+- [ALQ120Q](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ120Q) - AlcoholAmountAvgPerMonth
+  - 0 to 365: range of values
+  - 777, 999: set to NA
+- [ALQ120U](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ120U) - AlcoholAmountUnitPerMonth
+  - 1: Week
+  - 2: Month
+  - 3: Year
+  - 7, 9: Set to NA
 
-##### Alcohol variables for young people are not the same, so we discard them
+Alcohol variables for young people are not the same, so we discard them when analyzig those variables.
 
 ### Selected variables possible values
 
