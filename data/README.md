@@ -6,23 +6,23 @@
 
 ## Final selected variables from multiple datasets
 
-### [Demographics variables](https://wwwn.cdc.gov/nchs/nhanes/2011-2012/DEMO_G.htm)
+### [Demographics variables]()
 
-- DMDEDUC2 - HighestEducationLevel
+- [DMDEDUC2](https://wwwn.cdc.gov/nchs/nhanes/2011-2012/DEMO_G.htm#DMDEDUC2) - HighestEducationLevel
   - 1: Less than 9th grade
   - 2: 9-11th grade
   - 3: High School
   - 4: College
   - 5: College graduate or above
   - 7, 9: Set to NA
-- DMDBORN4 - CountryBorn
+- [DMDBORN4](https://wwwn.cdc.gov/nchs/nhanes/2011-2012/DEMO_G.htm#DMDBORN4) - CountryBorn
   - 1: US
   - 2: Other
   - 77, 99: NA
-- DMDFMSIZ - NoPeopleFamily
+- [DMDFMSIZ](https://wwwn.cdc.gov/nchs/nhanes/2011-2012/DEMO_G.htm#DMDFMSIZ) - NoPeopleFamily
   - 1 to 6: Range of people in family
   - 7: 7+ people
-- DMDMARTL - MartialStatus
+- [DMDMARTL](https://wwwn.cdc.gov/nchs/nhanes/2011-2012/DEMO_G.htm#DMDMARTL) - MartialStatus
   - 1: Married
   - 2: Widowed
   - 3: Divorced
@@ -30,10 +30,10 @@
   - 5: Never Married
   - 6: Living with partner
   - 77, 99: Set to NA
-- RIAGENDR - Gender
+- [RIAGENDR](https://wwwn.cdc.gov/Nchs/Nhanes/2005-2006/DEMO_D.htm#RIAGENDR) - Gender
   - 1: M
   - 2: F
-- RIDAGEYR - Age
+- [RIDAGEYR](https://wwwn.cdc.gov/Nchs/Nhanes/2005-2006/DEMO_D.htm#RIDAGEYR) - Age
   - 0 to 79: Range of years
   - 80: 80+ years
 
@@ -79,35 +79,35 @@
 
 ### Mental situation
 
-- DPQ020 - FeelDownDepressedLast2W
-  0: Not at all
-  1: Several days
-  2: More than half the days
-  3: Nearly every day
-  7, 9: Set to NA  
-- DPQ070 - ProblemsConcentratingLast2w
- - 0: Not at all
- - 1: Several days
- - 2: More than half days
- - 3: Nearly every day
- - 7, 9: Set to NA
-- DPQ090 - ThoughtSuicideLast2w
+- [DPQ020](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DPQ_H.htm#DPQ020) - FeelDownDepressedLast2w
+  - 0: Not at all
+  - 1: Several days
+  - 2: More than half the days
+  - 3: Nearly every day
+  - 7, 9: Set to NA
+- [DPQ070](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DPQ_H.htm#DPQ070) - ProblemsConcentratingLast2w
   - 0: Not at all
   - 1: Several days
   - 2: More than half days
   - 3: Nearly every day
   - 7, 9: Set to NA
-- SLD010H - SleepHoursWorkdays
+- [DPQ090](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DPQ_H.htm#DPQ090) - ThoughtSuicideLast2w
+  - 0: Not at all
+  - 1: Several days
+  - 2: More than half days
+  - 3: Nearly every day
+  - 7, 9: Set to NA
+- [SLD010H](https://wwwn.cdc.gov/Nchs/Nhanes/2011-2012/SLQ_G.htm#SLD010H) - SleepHoursWorkdays
   - 2 to 11: Range of hours
   - 12: 12 hours or more
   - 77, 99: Set to NA
 
 ### Economic situation
 
-- SMD641 - SmokedCigsLast30d
+- [SMD641](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/SMQ_H.htm#SMD641) - SmokedCigsLast30d
   - 0 to 30: Range of days
   - 77, 99: Set to NA
-- IND235 - MonthlyFamilyIncome
+- [IND235](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/INQ_F.htm#IND235) - MonthlyFamilyIncome
   - 1: $0 - $399
   - 2: $400 - $799
   - 3: $800 - $1249
@@ -119,43 +119,43 @@
   - 9: $4600 - $5399
   - 10: $5400 - $6249
   - 11: $6250 - $8399
-  - 12: $8400 and over
+  - 12: \$8400 and over
   - 77, 99: Set to NA
-- INDFMMPI - FamilyPovertyIndex
+- [INDFMMPI](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/INQ_F.htm#INDFMMPI) - FamilyPovertyIndex
   - 0 to 4.99: Range of values
   - 5: Value greater or equal to 5.00
   - .: Set to NA
 
 ### Drugs variables
 
-- DUQ230 - MarijuanaLast30d
+- [DUQ230](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DUQ_H.htm#DUQ230) - MarijuanaLast30d
   - 1 to 30: Range of days
   - 777, 999: Set to NA
-- DUQ280 - CocaineLast30d
+- [DUQ280](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DUQ_H.htm#DUQ280) - CocaineLast30d
   - 1 to 30: Range of days
   - 77, 99: Set to NA
-- DUQ320 - HeroineLast30d
+- [DUQ320](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DUQ_H.htm#DUQ320) - HeroineLast30d
   - 1 to 30: Range of days
   - 77, 99: Set to NA
-- DUQ360 - MethanfetamineLast30d
+- [DUQ360](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DUQ_H.htm#DUQ360) - MethanfetamineLast30d
   - 1 to 30: Range of days
   - 77, 99: Set to NA
-- OCQ180 - HoursWorkPerWeek
+- [OCQ180](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/OCQ_H.htm#OCQ180) - HoursWorkPerWeek
   - 1 to 79: Range of hours
   - 80: 80 hours or more
   - 77777, 99999: set to NA
-- OCQ210 - GreaterEqual35HoursWorkPerWeek
+- [OCQ210](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/OCQ_H.htm#OCQ210) - GreaterEqual35HoursWorkPerWeek
   - 1: Yes
   - 2: No
   - 7, 9: Set to NA
 
 ### Alcohol variables
 
-- SMQ866: during the last 7 days, did you spend time in a bar?
-- ALQ120Q: how often drink alcohol over past 12 mos + ALQ120U unit
-- ALQ130: alcoholic drinks/day - past 12 mos
-- ALQ160: days have 4/5 or more drinks in 2 hrs
-- ALQ151: ever have 4/5 or more drinks every day?
+- [SMQ866](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/SMQSHS_I.htm#SMQ866) - : during the last 7 days, did you spend time in a bar?
+- [ALQ120Q](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ120Q): how often drink alcohol over past 12 mos + ALQ120U unit
+- [ALQ130](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ130): alcoholic drinks/day - past 12 mos
+- [ALQ151](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ151): ever have 4/5 or more drinks every day?
+- [ALQ160](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ160): days have 4/5 or more drinks in 2 hrs
 
 ##### Alcohol variables for young people are not the same, so we discard them
 
