@@ -65,17 +65,52 @@
 
 ### Mental illnesses
 
-- MCQ380: problems remembering things during the last 7 days.
-- DLQ040: difficulties remebering things.
-- MCQ084: have you experienced memory lost (12)
-- BPQ020: hypertension
-- MCQ080: overweight
-- MCQ160e: had a heart attack
-- MCQ160f: had a stroke
-- MCQ203: ever had jaundice
-- HUD080: how many days have you been in hospital?
-- PAD660: how much time do you spend doing vigorous activities?
-- CSQ240: ever had a lost of concientiousness?
+- [MCQ380](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/MCQ_H.htm) - ProblemsRememberingThingsLast30d
+  - 0: Never
+  - 1: About once
+  - 2: Two or three times
+  - 3: Nearly every day
+  - 4: Several times a day
+  - 7, 9: Set to NA
+- [DLQ040](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DLQ_I.htm) - DifficultyConcentrating
+  - 1: Yes
+  - 2: No
+  - 7,9: Set to NA
+- [MCQ084](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/MCQ_H.htm) - MemoryLossLast12m
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [BPQ020](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/BPQ_H.htm) - Hypertension
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [MCQ080](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/MCQ_I.htm) - Overweight
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [MCQ160e](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/MCQ_I.htm) - HadHeartAttack
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [MCQ160f](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/MCQ_I.htm) - HadStroke
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [MCQ203](https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/MCQ_I.htm) - HadJaundice
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
+- [HUD080](https://wwwn.cdc.gov/Nchs/Nhanes/2011-2012/HUQ_G.htm) - DaysInHospitalLast12m
+  - 1 to 5: Range of days
+  - 6: 6 or more
+  - 77777, 99999: Set to NA
+- [PAD660](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/PAQ_H.htm) - TimeVigorousActivitiesPerDay
+  - 10 to 600: Range of minutes
+  - 7777, 9999: Set to NA
+- [CSQ240](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/CSQ_H.htm) - HadLostConcientiousness
+  - 1: Yes
+  - 2: No
+  - 7, 9: Set to NA
 
 ### Mental situation
 
@@ -182,17 +217,17 @@ c(
     "SXQ270" = "SXQ270",
     "SXQ272" = "SXQ272",
     "LBDHI" = "LBDHI",
-    "MCQ380" = "MCQ380",
-    "DLQ040" = "DLQ040",
-    "MCQ084" = "MCQ084",
-    "BPQ020" = "BPQ020",
-    "MCQ080" = "MCQ080",
-    "MCQ160e" = "MCQ160e",
-    "MCQ160f" = "MCQ160f",
-    "MCQ203" = "MCQ203",
-    "HUD080" = "HUD080",
-    "PAD660" = "PAD660",
-    "CSQ240" = "CSQ240",
+    "MCQ380" = "ProblemsRememberingThingsLast30d",
+    "DLQ040" = "DifficultyConcentrating",
+    "MCQ084" = "MemoryLossLast12m",
+    "BPQ020" = "Hypertension",
+    "MCQ080" = "Overweight",
+    "MCQ160e" = "HadHeartAttack",
+    "MCQ160f" = "HadStroke",
+    "MCQ203" = "HadJaundice",
+    "HUD080" = "DaysInHospitalLast12m",
+    "PAD660" = "TimeVigorousActivitiesPerDay",
+    "CSQ240" = "HadLostConcientiousness",
     "SMD641" = "SmokedCigsLast30d",
     "DPQ020" = "FeelDownDepressedLast2W",
     "DPQ070" = "ProblemsConcentratingLast2w",
