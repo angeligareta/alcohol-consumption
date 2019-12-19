@@ -7,7 +7,7 @@ selected_variables <-
     "DMDEDUC2" = "HighestEducationLevel",
     "DMDBORN4" = "CountryBorn",
     "DMDFMSIZ" = "NoPeopleFamily",
-    "DMDMARTL" = "MartialStatus",
+    "DMDMARTL" = "MaritalStatus",
     "RIAGENDR" = "Gender",
     "RIDAGEYR" = "Age",
     "DBD905" = "JunkFoodLast30d",
@@ -77,7 +77,7 @@ columns_na_7_9 <- c(
 
 columns_na_77_99 <- c(
   "CountryBorn",
-  "MartialStatus",
+  "MaritalStatus",
   "PlayVideoGamesLast30d",
   "SleepHoursWorkdays",
   "MonthlyFamilyIncome",

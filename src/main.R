@@ -11,5 +11,7 @@ dataset <- preprocessed_dataset
 # Start with researches related with alcohol
 
 ## Alcohol and Sex ----
+## TODO: Handle NA values
+dataset %>% ggplot(aes(x = Age, y = log(AlcoholDrink5Last30d))) + ylim(0, 5) + geom_boxplot(aes(color = MaritalStatus)) 
 
 ## ??? ----

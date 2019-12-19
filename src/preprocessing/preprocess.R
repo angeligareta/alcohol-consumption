@@ -31,4 +31,43 @@ for (na_values in na_values_per_column) {
 }
 
 ## Convert some variables into readable factors
-# preprocessed_dataset$HighestEducationLevel <- 
+transformed_dataset = preprocessed_dataset
+# HighestEducationLevel Transformation 1-2 => Basic, 3 => Intermediate, 4-5 => Advanced
+transformed_dataset$HighestEducationLevel <-
+  cut(
+    transformed_dataset$HighestEducationLevel,
+    br = c(0, 2, 3, 6),
+    labels = c("Basic", "Intermediate", "Advanced")
+  )
+
+# CountryBorn Transformation 1 => US, 2 => NoUS
+transformed_dataset$CountryBorn <-
+  factor(
+    transformed_dataset$CountryBorn,
+    levels = c(1, 2),
+    labels = c("US", "NoUS")
+  )
+
+transformed_dataset$MaritalStatus <-
+  factor(
+    transformed_dataset$MaritalStatus,
+    levels = c(1, 2, 3, 4, 5, 6),
+    labels = c(
+      "Married",
+      "Widowed",
+      "Divorced",
+      "Separated",
+      "NeverMarried",
+      "LivingWithPartner"
+    )
+  )
+
+transformed_dataset$Gender <-
+  factor(
+    transformed_dataset$Gender,
+    levels = c(1, 2),
+    labels = c("Male", "Female")
+  )
+
+preprocessed_dataset = transformed_dataset
+
