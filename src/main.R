@@ -11,6 +11,7 @@ source("./preprocessing/preprocess.R")
 
 # Show summary of preprocessed dataset
 summary(preprocessed_dataset)
+head(preprocessed_dataset)
 
 # Use preprocessed dataset as main one
 dataset <- preprocessed_dataset
@@ -23,6 +24,39 @@ dataset %>% ggplot(aes(x = Age))  + geom_histogram()
 
 ### AlcoholAmountAvgPerMonth distribution
 dataset %>% ggplot(aes(x = AlcoholAmountAvgPerMonth))  + geom_histogram()
+
+### MonthlyFamilyIncome distribution
+dataset %>% ggplot(aes(x = MonthlyFamilyIncome))  + geom_histogram()
+
+#########################################################
+##Some correlation coefficients
+age_dataset <- DataCombine::DropNA(dataset, Var = "Age")
+#datatypes
+sapply(dataset, class)
+
+cor(dataset$Age, dataset$AlcoholAmountAvgPerMonth, method = "pearson")
+#0.049 - low
+
+cor(dataset$Age, dataset$AlcoholAmountAvgPerMonth, method = "spearman")
+#-0.145
+
+income_dataset <- DataCombine::DropNA(dataset, Var = "MonthlyFamilyIncome")
+cor(income_dataset$MonthlyFamilyIncome, income_dataset$AlcoholAmountAvgPerMonth, method = "pearson") #use = "complete.obs" to ingore nulls
+#0.102 - low
+
+cor(income_dataset$MonthlyFamilyIncome, income_dataset$AlcoholAmountAvgPerMonth, method = "spearman")
+#0.16
+
+cor(income_dataset$FamilyPovertyIndex, income_dataset$AlcoholAmountAvgPerMonth, method = "spearman")
+#0.19
+
+cor(income_dataset$PlayVideoGamesLast30d, income_dataset$AlcoholAmountAvgPerMonth, method = "spearman")
+
+#Correlation matrix
+dataset[] <- lapply(dataset,as.integer)
+cor(dataset)
+
+##########################################################
 
 ### Does Marital Status affect alcohol amount per month
 dataset %>% ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonth)) + geom_bar(aes(fill = MaritalStatus), stat="identity")
