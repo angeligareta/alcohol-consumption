@@ -46,8 +46,8 @@ selected_variables <-
     "OCQ180" = "HoursWorkPerWeek",
     "SMQ866" = "SpendTimeBar7d",
     "ALQ160" = "AlcoholDrink5Last30d",
-    "ALQ120Q" = "AlcoholAmountAvgPerMonth",
-    "ALQ120U" = "AlcoholAmountUnitPerMonth"
+    "ALQ120Q" = "AlcoholAmountAvg",
+    "ALQ120U" = "AlcoholAmountUnit"
   )
 
 columns_na_7_9 <- c(
@@ -72,7 +72,7 @@ columns_na_7_9 <- c(
   "ThoughtSuicideLast2w",
   "GreaterEqual35HoursWorkPerWeek",
   "SpendTimeBar7d",
-  "AlcoholAmountUnitPerMonth"
+  "AlcoholAmountUnit"
 )
 
 columns_na_77_99 <- c(
@@ -90,7 +90,7 @@ columns_na_77_99 <- c(
 columns_na_777_999 <- c(
   "MarijuanaLast30d",
   "AlcoholDrink5Last30d",
-  "AlcoholAmountAvgPerMonth"
+  "AlcoholAmountAvg"
 )
 
 columns_na_7777_9999 <- c(

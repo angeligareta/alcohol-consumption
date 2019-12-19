@@ -10,10 +10,10 @@ source("./main.R")
 ```
 
 ### Abstract (**5 points**)
+
 - Succinctly summarizes the importance and findings of the project within the 150 word limit.
 
-
-### Introduction 
+### Introduction
 
 - Provides a clear motivation for answering a _specific_ data driven question of interest (**5 points**)
 
@@ -35,6 +35,7 @@ Some of the conclusions in the research are:
 - Substance use disorders are more common among men than women.
 
 ##### **Project 2**: [SDR, selected alcohol-related causes, per 100
+
 000](https://gateway.euro.who.int/en/indicators/hfa_293-1970-sdr-selected-alcohol-related-causes-per-100-000/)
 
 This project carried out by the World Health Organization provide an interactive graph where we can see the age-standardized death rate per 100000 related to alcohol. The study includes causes such as cancer of esophagus and larynx, alcohol dependence syndrome, chronic liver disease, cirrhosis etc.
@@ -45,21 +46,21 @@ This study by the University of Toronto tries to measure the relation between al
 
 The main conclusion of this study is that a relationship exists between alcohol consumption and the presence or diabetes in an _u-shaped_ way, both for men and women.
 
-##### **Project 4:** [Risk thresholds for alcohol consumption: combined analysis of individual-participant data for 599 912 current drinkers in 83 prospective studies](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(18)30134-X/fulltext)
+##### **Project 4:** [Risk thresholds for alcohol consumption: combined analysis of individual-participant data for 599 912 current drinkers in 83 prospective studies](<https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(18)30134-X/fulltext>)
 
-One of the reasons behind initializing this project by Angela M Wood et al. was the fact that there is no universal low-risk limit for alcohol consumption. In order to define this threshold - to see how much alcohol can be tolerated without causing significant harm -  the researchers studied individual-participant data from 599912 current drinkers without previous cardiovascular disease.
+One of the reasons behind initializing this project by Angela M Wood et al. was the fact that there is no universal low-risk limit for alcohol consumption. In order to define this threshold - to see how much alcohol can be tolerated without causing significant harm - the researchers studied individual-participant data from 599912 current drinkers without previous cardiovascular disease.
 
 The main finding was that the threshold for lowest risk for all-cause mortality was about 100 g per week. Long-term reduction of alcohol consumption (below the limit recommended in US guidelines) was associated with an increase of longer life expectancy. Exploratory analyses suggested that drinkers of beer or spirits, as well as binge drinkers, had the highest risk for all-cause mortality.
 
 ##### **Project 5:** [Consuming Alcohol in Moderation Can Lower Mortality Risks](https://www.acc.org/latest-in-cardiology/articles/2017/08/14/12/54/consuming-alcohol-in-moderation-can-lower-mortality-risks)
 
-This is a study conducted by Bo Xi et al. and published in the Journal of the American College of Cardiology. As in the fourth project, heavy or binge drinking was associated with increased risk of all-cause mortality, while light and moderate alcohol intake might have, according to their study, a protective effect on all-cause and CVD-specific mortality in U.S. adults. 
+This is a study conducted by Bo Xi et al. and published in the Journal of the American College of Cardiology. As in the fourth project, heavy or binge drinking was associated with increased risk of all-cause mortality, while light and moderate alcohol intake might have, according to their study, a protective effect on all-cause and CVD-specific mortality in U.S. adults.
 
 ### Exploratory Data Analysis (**20 points**)
 
 ### Data Source 3: [National health and nutrition examination survey](https://www.kaggle.com/cdc/national-health-and-nutrition-examination-survey)
 
-##### Data source 
+##### Data source
 
 This data was obtained by the United States center of health statistics. It is an annual survey done for the civilian resident population of the United States. This is the public dataset corresponding to the period 2013-2014, and it was saved in the following folder: [/data/national-health-survey/](./data/national-health-survey/)
 
@@ -69,7 +70,7 @@ The data collection of this survey was a complex task that involved several part
 
 #### Dataset description
 
-The dataset is divided in several sections: demographic, medications or questionnaires. For our study, we are going to focus on the questionnaire section which is a dataset composed of several columns, where each one is a response to a certain question, such as: _In the past 12 months, how often did you drink any type of alcoholic beverage?_ The questionnaire dataset is composed of 10175 rows and 953 columns. 15 of those columns are the answers for questions related with alcohol consumption and 22 are related with mental health. Some of the features we considered during our analysis were the following: 
+The dataset is divided in several sections: demographic, medications or questionnaires. For our study, we are going to focus on the questionnaire section which is a dataset composed of several columns, where each one is a response to a certain question, such as: _In the past 12 months, how often did you drink any type of alcoholic beverage?_ The questionnaire dataset is composed of 10175 rows and 953 columns. 15 of those columns are the answers for questions related with alcohol consumption and 22 are related with mental health. Some of the features we considered during our analysis were the following:
 
 - HighestEducationLevel
 - MartialStatus
@@ -83,13 +84,16 @@ The dataset is divided in several sections: demographic, medications or question
 - AlcoholAmountUnitPerMonth.
 
 - Creates 5 well designed and formatted graphics (**15 points**, 3 each)
+
   - The visual uses the appropriate visual encodings based on the data type (**1 point**)
   - Written interpretation of graphic is provided (**1 point**)
   - Clear axis labels, titles, and legends are included, where appropriate (**1 point**)
-  
+
 ### Methods (**30 points**)
+
 The appropriate methods are employed to answer the question of interest, including:
-- **Strength of relationships**: Uses the appropriate technique to assess the strength of relationships amongst your variables of interest. You should include: 
+
+- **Strength of relationships**: Uses the appropriate technique to assess the strength of relationships amongst your variables of interest. You should include:
   - A formula describing how you believe your features (independent variables) are related to your outcome of interest (dependent variable) (**5 points**)
   - A defense of the variables included in your formula (**5 points**)
   - Creating the appropriate model based on your dataset (**5 points**)
@@ -102,14 +106,19 @@ The appropriate methods are employed to answer the question of interest, includi
   - Employing the algorithm of interest (**3 points**)
 
 ### Results (**20 points**)
+
 You must provide a clear interpretation of your statistical and machine learning results, including at least **one visual or table** for each.
+
 - **Strengths of relationships**: For the features you included in your model, you must describe the strength (significance) and magnitude of the relationships. This can be presented in a table or chart, and pertinent observations should be described in the text. (**10 points**)
 - **Predictions**: How well were you able to predict values in the dataset? You should both report appropriate metrics based on the type of outcome you're predicting (e.g., root mean squared error v.s. accuracy), as well as a high quality visual showing the strength of your model (**10 points**)
 
 ### Discussion and Future Work (**10 points**)
+
 Based on _specific observations_ from the results section, the report clearly provides:
-  - An analysis of the real world implications of the results, at least one full paragraph (**5 points**)
-  - Clear suggestion for directions of future research, at least one full paragraph (**5 points**)
+
+- An analysis of the real world implications of the results, at least one full paragraph (**5 points**)
+- Clear suggestion for directions of future research, at least one full paragraph (**5 points**)
 
 ### Code Quality (**5 points**)
+
 Code is well commented and structured (e.g., indented), organized across multiple different files, uses clear variable names, and runs on any computer.
