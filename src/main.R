@@ -44,12 +44,9 @@ dataset %>% ggplot(aes(x = Age, y = AlcoholAmountAvgPerMonthCubeRoot))  + geom_b
 # STEFANO
 # alcohol related variable: SpendTimeBar7d, AlcoholDrink5Last30d, AlcoholAmountAvgPerMonth, AlcoholAmountAvgPerMonth
 # Looking for correlation between alcohol and drugs
-<<<<<<< HEAD
 
-dataset %>% ggplot(aes(x = SmokedCigsLast30d, 
-=======
 dataset %>% ggplot(aes(x = SmokedCigsLast30d,
->>>>>>> master
+
                        y = AlcoholDrink5Last30d)) +
   geom_hex()
 
