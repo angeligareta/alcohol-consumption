@@ -33,26 +33,35 @@ dataset_with_alcohol_mean_marital_status = dataset %>% group_by(MaritalStatus) %
   NumberOfPeopleInMaritalStatus = length(AlcoholAmountAvgPerMonth),
   AlcoholAmountAvgPerMonthPonderatedMean = AlcoholAmountAvgPerMonthMean / NumberOfPeopleInMaritalStatus
 )
-# Show mean per marital status group
+## Show mean per marital status group
 dataset_with_alcohol_mean_marital_status %>% 
   ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthMean)) + 
   geom_bar(aes(fill = MaritalStatus), stat = "identity") + 
   geom_text(aes(label = "Nº People"), vjust=2) +
   geom_text(aes(label = NumberOfPeopleInMaritalStatus), vjust=4, color = "white")
 
-## See Marital Status and 
-dataset_with_alcohol_mean_marital_status %>% 
-  ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthPonderatedMean)) + 
-  geom_bar(aes(fill = MaritalStatus), stat = "identity") + 
-  geom_text(aes(label = NumberOfPeopleInMaritalStatus), vjust=2) +
-  geom_text(aes(label = format(round(AlcoholAmountAvgPerMonthMean, 2), nsmall = 2)), vjust=4, color="white")
+## Show ponderated mean per marital status group
+#dataset_with_alcohol_mean_marital_status %>% 
+#  ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthPonderatedMean)) + 
+#  geom_bar(aes(fill = MaritalStatus), stat = "identity") + 
+#  geom_text(aes(label = NumberOfPeopleInMaritalStatus), vjust=2) +
+#  geom_text(aes(label = format(round(AlcoholAmountAvgPerMonthMean, 2), nsmall = 2)), vjust=4, color="white")
+
+## See Marital Status and SpendTimeBar7d
+dataset %>% 
+  ggplot(aes(x = factor(1), y = ..count.., fill = MaritalStatus)) + 
+  geom_bar(stat="count", position = "fill") +
+  ggtitle("Spend Time In Bar in the last 7 days?") +
+  theme(axis.text.x=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.y=element_blank(),
+        axis.title.x=element_blank()) + 
+  coord_polar("y") +
+  facet_wrap(~SpendTimeBar7d)
 
 ## Alcohol and Sex ----
 ## TODO: Handle NA values
-dataset %>% 
-  ggplot(aes(x = "", y = MaritalStatus, fill = MaritalStatus)) + 
-  geom_bar(width = 1, stat = "identity") + 
-  coord_polar("x", start=0) 
+
 
 # Relation beween mental situation, mental illnesses, economic situation and alcohol consumption ----
 
