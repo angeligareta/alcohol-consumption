@@ -20,11 +20,8 @@ dataset %>% ggplot(aes(x = Age, y = log(AlcoholDrink5Last30d))) + ylim(0, 5) + g
 
 # Preprocesing, choosing the right variables and handling NA Values.
 
-na.omit(dataset, cols="AlcoholAmountAvgPerMonth")
-
 q1_dataset <- DataCombine::DropNA(dataset, Var="AlcoholAmountAvgPerMonth")
 
-q1_dataset <- dataset  %>% drop_na(AlcoholAmountAvgPerMonth)
 
 
 
