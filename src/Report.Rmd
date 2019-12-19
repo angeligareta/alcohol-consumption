@@ -9,15 +9,21 @@ knitr::opts_chunk$set(echo = TRUE)
 source("./main.R")
 ```
 
-### Abstract
+### Abstract (**5 points**)
 
-### Introduction and related work
+- Succinctly summarizes the importance and findings of the project within the 150 word limit.
 
-CHANGE THAT USING AN SPECIFIC DATA DRIVEN QUESTION
+### Introduction
 
-We are interested to know which are the potential causes and consequences of alcohol consumption based on our data. Especially we looked for data related to young people. We planned on relating this topic with other domains such as education and health and find out if the causes of alcohol consumption is due to facts like the economical situation or Human Development Index of the countries.
+- Provides a clear motivation for answering a _specific_ data driven question of interest (**5 points**)
+
+INSERT QUESTIONS HERE
+
+INSERT MOTIVATION HERE
 
 We search for different related projects that could help us in how to drive our research:
+
+### Related Work
 
 ##### **Project 1**: [How common is alcohol and drug dependency across the world?](https://ourworldindata.org/alcohol-and-drug-dependency)
 
@@ -28,7 +34,9 @@ Some of the conclusions in the research are:
 - Across most countries, the number of alcohol use disorders is higher than other drug use disorders.
 - Substance use disorders are more common among men than women.
 
-##### **Project 2**: [SDR, selected alcohol-related causes, per 100 000](https://gateway.euro.who.int/en/indicators/hfa_293-1970-sdr-selected-alcohol-related-causes-per-100-000/)
+##### **Project 2**: [SDR, selected alcohol-related causes, per 100
+
+000](https://gateway.euro.who.int/en/indicators/hfa_293-1970-sdr-selected-alcohol-related-causes-per-100-000/)
 
 This project carried out by the World Health Organization provide an interactive graph where we can see the age-standardized death rate per 100000 related to alcohol. The study includes causes such as cancer of esophagus and larynx, alcohol dependence syndrome, chronic liver disease, cirrhosis etc.
 
@@ -38,25 +46,79 @@ This study by the University of Toronto tries to measure the relation between al
 
 The main conclusion of this study is that a relationship exists between alcohol consumption and the presence or diabetes in an _u-shaped_ way, both for men and women.
 
-##### **Project 4:** [Risk thresholds for alcohol consumption: combined analysis of individual-participant data for 599 912 current drinkers in 83 prospective studies](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(18)30134-X/fulltext)
+##### **Project 4:** [Risk thresholds for alcohol consumption: combined analysis of individual-participant data for 599 912 current drinkers in 83 prospective studies](<https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(18)30134-X/fulltext>)
 
-One of the reasons behind initializing this project was the fact that there is no universal low-risk limit for alcohol consumption. In order to define this threshold - to see how much alcohol can be tolerated without causing significant harm -  the researchers studied individual-participant data from 599912 current drinkers without previous cardiovascular disease.
+One of the reasons behind initializing this project by Angela M Wood et al. was the fact that there is no universal low-risk limit for alcohol consumption. In order to define this threshold - to see how much alcohol can be tolerated without causing significant harm - the researchers studied individual-participant data from 599912 current drinkers without previous cardiovascular disease.
 
 The main finding was that the threshold for lowest risk for all-cause mortality was about 100 g per week. Long-term reduction of alcohol consumption (below the limit recommended in US guidelines) was associated with an increase of longer life expectancy. Exploratory analyses suggested that drinkers of beer or spirits, as well as binge drinkers, had the highest risk for all-cause mortality.
 
 ##### **Project 5:** [Consuming Alcohol in Moderation Can Lower Mortality Risks](https://www.acc.org/latest-in-cardiology/articles/2017/08/14/12/54/consuming-alcohol-in-moderation-can-lower-mortality-risks)
 
-As in the fourth project, heavy or binge drinking was associated with increased risk of all-cause mortality, while
-light and moderate alcohol intake might have, according to their study, a protective effect on all-cause and CVD-specific mortality in U.S. adults. 
+This is a study conducted by Bo Xi et al. and published in the Journal of the American College of Cardiology. As in the fourth project, heavy or binge drinking was associated with increased risk of all-cause mortality, while light and moderate alcohol intake might have, according to their study, a protective effect on all-cause and CVD-specific mortality in U.S. adults.
 
-### Exploratory data analisys
+### Exploratory Data Analysis (**20 points**)
 
-```{r setup, include=FALSE}
+### Data Source 3: [National health and nutrition examination survey](https://www.kaggle.com/cdc/national-health-and-nutrition-examination-survey)
 
-ggplot(dataset, aes(x = HadLostConcientiousness)) + geom_histogram()
+##### Data source
 
-```
+This data was obtained by the United States center of health statistics. It is an annual survey done for the civilian resident population of the United States. This is the public dataset corresponding to the period 2013-2014, and it was saved in the following folder: [/data/national-health-survey/](./data/national-health-survey/)
 
+##### Data collection
 
+The data collection of this survey was a complex task that involved several parts, starting with body measurements to questionnaires to evaluate the mental health. A further description of the methodology can be found [here](https://www.cdc.gov/nchs/data/series/sr_01/sr01_056.pdf).
 
+#### Dataset description
 
+The dataset is divided in several sections: demographic, medications or questionnaires. For our study, we are going to focus on the questionnaire section which is a dataset composed of several columns, where each one is a response to a certain question, such as: _In the past 12 months, how often did you drink any type of alcoholic beverage?_ The questionnaire dataset is composed of 10175 rows and 953 columns. 15 of those columns are the answers for questions related with alcohol consumption and 22 are related with mental health. Some of the features we considered during our analysis were the following:
+
+- HighestEducationLevel
+- MartialStatus
+- Gender
+- Age
+- DifficultyConcentrating
+- ThoughtSuicideLast2w
+- MonthlyFamilyIncome
+- FamilyPovertyIndex
+- AlcoholAmountAvgPerMonth
+- AlcoholAmountUnitPerMonth.
+
+- Creates 5 well designed and formatted graphics (**15 points**, 3 each)
+
+  - The visual uses the appropriate visual encodings based on the data type (**1 point**)
+  - Written interpretation of graphic is provided (**1 point**)
+  - Clear axis labels, titles, and legends are included, where appropriate (**1 point**)
+
+### Methods (**30 points**)
+
+The appropriate methods are employed to answer the question of interest, including:
+
+- **Strength of relationships**: Uses the appropriate technique to assess the strength of relationships amongst your variables of interest. You should include:
+  - A formula describing how you believe your features (independent variables) are related to your outcome of interest (dependent variable) (**5 points**)
+  - A defense of the variables included in your formula (**5 points**)
+  - Creating the appropriate model based on your dataset (**5 points**)
+- **Prediction**: You must also make predictions for your outcome of interest. In doing so, you must demonstrate a clear use of:
+  - Splitting your data into testing/training data (**2 points**)
+  - Applying cross validation to your model (**3 points**)
+  - Appropriately handling any missing values (**2 points**)
+  - Appropriately using categorical variables (**3 points**)
+  - Using a grid search to find the best parameters for you model of interest (**2 points**)
+  - Employing the algorithm of interest (**3 points**)
+
+### Results (**20 points**)
+
+You must provide a clear interpretation of your statistical and machine learning results, including at least **one visual or table** for each.
+
+- **Strengths of relationships**: For the features you included in your model, you must describe the strength (significance) and magnitude of the relationships. This can be presented in a table or chart, and pertinent observations should be described in the text. (**10 points**)
+- **Predictions**: How well were you able to predict values in the dataset? You should both report appropriate metrics based on the type of outcome you're predicting (e.g., root mean squared error v.s. accuracy), as well as a high quality visual showing the strength of your model (**10 points**)
+
+### Discussion and Future Work (**10 points**)
+
+Based on _specific observations_ from the results section, the report clearly provides:
+
+- An analysis of the real world implications of the results, at least one full paragraph (**5 points**)
+- Clear suggestion for directions of future research, at least one full paragraph (**5 points**)
+
+### Code Quality (**5 points**)
+
+Code is well commented and structured (e.g., indented), organized across multiple different files, uses clear variable names, and runs on any computer.
