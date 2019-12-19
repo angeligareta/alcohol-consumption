@@ -1,7 +1,5 @@
 library(dplyr)
-<<<<<<< HEAD
-library(e1071) # skewness of data
-=======
+
 if(!require(plyr)){
   install.packages("plyr")
   library(plyr) # cuberoot transformation
@@ -14,15 +12,10 @@ if(!require(e1071)){
   install.packages("DataCombine")
   library(e1071) # cuberoot transformation
 }
->>>>>>> master
 if(!require(kader)){
   install.packages("kader")
   library(kader) # cuberoot transformation
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 
 # Import utils
 source("./utils/utils.R")
