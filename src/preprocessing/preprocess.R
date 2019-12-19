@@ -1,6 +1,8 @@
 library(plyr)
 library(dplyr)
 library(DataCombine)
+library(e1071) # skewness of data
+library(kader) # cuberoot transformation
 
 # Import utils
 source("./utils/utils.R")
@@ -96,7 +98,7 @@ for (index in seq_along(alcohol_variables)) {
 }
 
 ## We can not take AlcoholDrink5Last30d because it has lot of NA values, we will try to transform
-## AlcoholAmountAvg with AlcoholAmountUnitPerMonth to make an alcohol amount per month
+## AlcoholAmountAvg with AlcoholAmountUnit to make an alcohol amount per month
 ## as now it can be in years and days too which AlcoholAmountUnit explains
 transformed_dataset <- DataCombine::DropNA(transformed_dataset, Var = "AlcoholAmountAvg")
 
@@ -128,6 +130,25 @@ transformAlcoholAmountAvgPerMonth <- function(amountRows, unitRows) {
 }
 
 transformed_dataset <- transformed_dataset %>% mutate(AlcoholAmountAvgPerMonth = transformAlcoholAmountAvgPerMonth(AlcoholAmountAvg, AlcoholAmountUnit))
+
+
+## Transformations ----
+print("Transformation of data, adding new variables...")
+# Distribution of AlcoholAmountAvgPerMonth
+# dataset %>% ggplot(aes(AlcoholAmountAvgPerMonth)) + geom_histogram(fill = "brown") + ylab("Number of People") + xlab("Mothly Alcohol Consumption")
+
+# AlcoholAmountAvg month has a high right skewness of 2.0 (normal between -0.5 and 0.5)
+print("Skewness for AlcoholAmountAvgPerMonth")
+skewness(dataset$AlcoholAmountAvgPerMonth)
+
+## Try possible transformations
+print("Skewness for cuberoot of AlcoholAmountAvgPerMonth")
+skewness(kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))
+
+# Plot after transformation
+# dataset %>% ggplot(aes(kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))) + geom_histogram(fill = "brown") + ylab("Number of People") + xlab("Mothly Alcohol Consumption")
+print("Adding new column AlcoholAmountAvgPerMonthCubeRoot...")
+transformed_dataset <- transformed_dataset %>% mutate(AlcoholAmountAvgPerMonthCubeRoot = kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))
 
 preprocessed_dataset = transformed_dataset
 

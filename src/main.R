@@ -1,6 +1,9 @@
 library(ggplot2)
 library(tidyr)
 
+library(hexbin)
+library(GGally)
+
 source("./preprocessing/preprocess.R")
 
 # Show summary of preprocessed dataset
@@ -13,7 +16,8 @@ dataset <- preprocessed_dataset
 
 ## Alcohol and Sex ----
 ## TODO: Handle NA values
-dataset %>% ggplot(aes(x = Age, y = AlcoholAmountAvgPerMonth))  + geom_boxplot(aes(color = MaritalStatus))
+dataset %>% ggplot(aes(x = Age, y = AlcoholAmountAvgPerMonthCubeRoot))  + geom_boxplot(aes(color = MaritalStatus))
+
 
 # Relation beween mental situation, mental illnesses, economic situation and alcohol consumption ----
 
@@ -65,7 +69,6 @@ ggplot(data = dataset_drug, aes(x = DrugLast30d, y = AlcoholDrink5Last30d)) +
 ggplot(data = dataset_drug, aes(x = Drug_CigsLast30d, y = AlcoholDrink5Last30d)) +
   geom_bar(stat = "identity", width = 0.5)
 
-library(GGally)
 # Looking for correlations between drugs
 df <- dataset %>% select('AlcoholDrink5Last30d', 'SmokedCigsLast30d', 'MarijuanaLast30d', 'CocaineLast30d', 'HeroineLast30d')
 ggpairs(df)
@@ -75,7 +78,6 @@ df_2 <- dataset %>% select('AlcoholDrink5Last30d', 'MonthlyFamilyIncome', 'Famil
 ggpairs(df_2)
 
 # Looking if income affects Alcohol consumption
-library(hexbin)
 ggplot(data = dataset) +
   geom_hex(mapping = aes(x = MonthlyFamilyIncome, y = AlcoholDrink5Last30d))
 
