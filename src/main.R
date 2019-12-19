@@ -18,15 +18,17 @@ dataset <- preprocessed_dataset
 ###############################################################
 
 ##Checking some distributions
-barplot(sort(table(dataset["HighestEducationLevel"]),decreasing=T))
-barplot(sort(table(dataset$MaritalStatus),decreasing=T))
-barplot(sort(table(dataset$Gender),decreasing=T)) #good
-barplot(sort(table(dataset$Age),decreasing=T))
-barplot(sort(table(dataset$DifficultyConcentrating),decreasing=T))
-barplot(sort(table(dataset$ThoughtSuicideLast2w),decreasing=T)) 
-barplot(sort(table(dataset$MonthlyFamilyIncome),decreasing=T)) #ok
-barplot(sort(table(dataset$FamilyPovertyIndex),decreasing=T)) #very skewed
-barplot(sort(table(dataset$SmokedCigsLast30d),decreasing=T)) 
+dataset %>% ggplot(aes(x = HighestEducationLevel))  + geom_histogram() #ok
+dataset %>% ggplot(aes(x = MaritalStatus))  + geom_histogram()
+barplot(sort(table(dataset$Gender))) #good
+dataset %>% ggplot(aes(x = DifficultyConcentrating))  + geom_histogram()
+dataset %>% ggplot(aes(x = ThoughtSuicideLast2w))  + geom_histogram()
+dataset %>% ggplot(aes(x = MonthlyFamilyIncome))  + geom_histogram() #ok
+dataset %>% ggplot(aes(x = FamilyPovertyIndex))  + geom_histogram()
+dataset %>% ggplot(aes(x = SmokedCigsLast30d))  + geom_histogram()
+dataset %>% ggplot(aes(x = Age))  + geom_histogram()
+dataset %>% ggplot(aes(x = AlcoholAmountAvg))  + geom_histogram()
+
 
 
 ###############################################################
