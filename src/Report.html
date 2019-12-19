@@ -366,14 +366,23 @@ summary {
 </div>
 
 
-<div id="abstract" class="section level3">
-<h3>Abstract</h3>
+<div id="abstract-5-points" class="section level3">
+<h3>Abstract (<strong>5 points</strong>)</h3>
+<ul>
+<li>Succinctly summarizes the importance and findings of the project within the 150 word limit.</li>
+</ul>
 </div>
-<div id="introduction-and-related-work" class="section level3">
-<h3>Introduction and related work</h3>
-<p>CHANGE THAT USING AN SPECIFIC DATA DRIVEN QUESTION</p>
-<p>We are interested to know which are the potential causes and consequences of alcohol consumption based on our data. Especially we looked for data related to young people. We planned on relating this topic with other domains such as education and health and find out if the causes of alcohol consumption is due to facts like the economical situation or Human Development Index of the countries.</p>
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<ul>
+<li>Provides a clear motivation for answering a <em>specific</em> data driven question of interest (<strong>5 points</strong>)</li>
+</ul>
+<p>INSERT QUESTIONS HERE</p>
+<p>INSERT MOTIVATION HERE</p>
 <p>We search for different related projects that could help us in how to drive our research:</p>
+</div>
+<div id="related-work" class="section level3">
+<h3>Related Work</h3>
 <div id="project-1-how-common-is-alcohol-and-drug-dependency-across-the-world" class="section level5">
 <h5><strong>Project 1</strong>: <a href="https://ourworldindata.org/alcohol-and-drug-dependency">How common is alcohol and drug dependency across the world?</a></h5>
 <p>This project from the website <em>Our World in Data</em> presents the trends in alcohol consumption and substance use in countries all over the world, with data from 1990 to 2016. The aim is to give a better understanding of the global prevalence of substance use disorders.</p>
@@ -392,18 +401,67 @@ summary {
 <p>This study by the University of Toronto tries to measure the relation between alcohol consumption and the presence of type 2 diabetes. For obtaining the data, the researchers have found several data sources both from public sources or from previous articles.</p>
 <p>The main conclusion of this study is that a relationship exists between alcohol consumption and the presence or diabetes in an <em>u-shaped</em> way, both for men and women.</p>
 </div>
-<div id="project-4-risk-thresholds-for-alcohol-consumption-combined-analysis-of-individual-participant-data-for-599912-current-drinkers-in-83-prospective-studies" class="section level5">
+<div id="project-4-risk-thresholds-for-alcohol-consumption-combined-analysis-of-individual-participant-data-for-599-912-current-drinkers-in-83-prospective-studies" class="section level5">
 <h5><strong>Project 4:</strong> <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(18)30134-X/fulltext">Risk thresholds for alcohol consumption: combined analysis of individual-participant data for 599 912 current drinkers in 83 prospective studies</a></h5>
-<p>One of the reasons behind initializing this project was the fact that there is no universal low-risk limit for alcohol consumption. In order to define this threshold - to see how much alcohol can be tolerated without causing significant harm - the researchers studied individual-participant data from 599912 current drinkers without previous cardiovascular disease.</p>
+<p>One of the reasons behind initializing this project by Angela M Wood et al. was the fact that there is no universal low-risk limit for alcohol consumption. In order to define this threshold - to see how much alcohol can be tolerated without causing significant harm - the researchers studied individual-participant data from 599912 current drinkers without previous cardiovascular disease.</p>
 <p>The main finding was that the threshold for lowest risk for all-cause mortality was about 100 g per week. Long-term reduction of alcohol consumption (below the limit recommended in US guidelines) was associated with an increase of longer life expectancy. Exploratory analyses suggested that drinkers of beer or spirits, as well as binge drinkers, had the highest risk for all-cause mortality.</p>
 </div>
 <div id="project-5-consuming-alcohol-in-moderation-can-lower-mortality-risks" class="section level5">
 <h5><strong>Project 5:</strong> <a href="https://www.acc.org/latest-in-cardiology/articles/2017/08/14/12/54/consuming-alcohol-in-moderation-can-lower-mortality-risks">Consuming Alcohol in Moderation Can Lower Mortality Risks</a></h5>
-<p>As in the fourth project, heavy or binge drinking was associated with increased risk of all-cause mortality, while light and moderate alcohol intake might have, according to their study, a protective effect on all-cause and CVD-specific mortality in U.S. adults.</p>
+<p>This is a study conducted by Bo Xi et al. and published in the Journal of the American College of Cardiology. As in the fourth project, heavy or binge drinking was associated with increased risk of all-cause mortality, while light and moderate alcohol intake might have, according to their study, a protective effect on all-cause and CVD-specific mortality in U.S. adults.</p>
 </div>
 </div>
-<div id="exploratory-data-analisys" class="section level3">
-<h3>Exploratory data analisys</h3>
+<div id="exploratory-data-analysis-20-points" class="section level3">
+<h3>Exploratory Data Analysis (<strong>20 points</strong>)</h3>
+</div>
+<div id="data-source-3-national-health-and-nutrition-examination-survey" class="section level3">
+<h3>Data Source 3: <a href="https://www.kaggle.com/cdc/national-health-and-nutrition-examination-survey">National health and nutrition examination survey</a></h3>
+<div id="data-source" class="section level5">
+<h5>Data source</h5>
+<p>This data was obtained by the United States center of health statistics. It is an annual survey done for the civilian resident population of the United States. This is the public dataset corresponding to the period 2013-2014, and it was saved in the following folder: <a href="./data/national-health-survey/">/data/national-health-survey/</a></p>
+</div>
+<div id="data-collection" class="section level5">
+<h5>Data collection</h5>
+<p>The data collection of this survey was a complex task that involved several parts, starting with body measurements to questionnaires to evaluate the mental health. A further description of the methodology can be found <a href="https://www.cdc.gov/nchs/data/series/sr_01/sr01_056.pdf">here</a>.</p>
+</div>
+<div id="dataset-description" class="section level4">
+<h4>Dataset description</h4>
+<p>The dataset is divided in several sections: demographic, medications or questionnaires. For our study, we are going to focus on the questionnaire section which is a dataset composed of several columns, where each one is a response to a certain question, such as: <em>In the past 12 months, how often did you drink any type of alcoholic beverage?</em> The questionnaire dataset is composed of 10175 rows and 953 columns. 15 of those columns are the answers for questions related with alcohol consumption and 22 are related with mental health. Some of the features we considered during our analysis were the following:</p>
+<ul>
+<li><p>HighestEducationLevel</p></li>
+<li><p>MartialStatus</p></li>
+<li><p>Gender</p></li>
+<li><p>Age</p></li>
+<li><p>DifficultyConcentrating</p></li>
+<li><p>ThoughtSuicideLast2w</p></li>
+<li><p>MonthlyFamilyIncome</p></li>
+<li><p>FamilyPovertyIndex</p></li>
+<li><p>AlcoholAmountAvgPerMonth</p></li>
+<li><p>AlcoholAmountUnitPerMonth.</p></li>
+<li><p>Creates 5 well designed and formatted graphics (<strong>15 points</strong>, 3 each)</p>
+<ul>
+<li>The visual uses the appropriate visual encodings based on the data type (<strong>1 point</strong>)</li>
+<li>Written interpretation of graphic is provided (<strong>1 point</strong>)</li>
+<li>Clear axis labels, titles, and legends are included, where appropriate (<strong>1 point</strong>)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="methods-30-points" class="section level3">
+<h3>Methods (<strong>30 points</strong>)</h3>
+<p>The appropriate methods are employed to answer the question of interest, including: - <strong>Strength of relationships</strong>: Uses the appropriate technique to assess the strength of relationships amongst your variables of interest. You should include: - A formula describing how you believe your features (independent variables) are related to your outcome of interest (dependent variable) (<strong>5 points</strong>) - A defense of the variables included in your formula (<strong>5 points</strong>) - Creating the appropriate model based on your dataset (<strong>5 points</strong>) - <strong>Prediction</strong>: You must also make predictions for your outcome of interest. In doing so, you must demonstrate a clear use of: - Splitting your data into testing/training data (<strong>2 points</strong>) - Applying cross validation to your model (<strong>3 points</strong>) - Appropriately handling any missing values (<strong>2 points</strong>) - Appropriately using categorical variables (<strong>3 points</strong>) - Using a grid search to find the best parameters for you model of interest (<strong>2 points</strong>) - Employing the algorithm of interest (<strong>3 points</strong>)</p>
+</div>
+<div id="results-20-points" class="section level3">
+<h3>Results (<strong>20 points</strong>)</h3>
+<p>You must provide a clear interpretation of your statistical and machine learning results, including at least <strong>one visual or table</strong> for each. - <strong>Strengths of relationships</strong>: For the features you included in your model, you must describe the strength (significance) and magnitude of the relationships. This can be presented in a table or chart, and pertinent observations should be described in the text. (<strong>10 points</strong>) - <strong>Predictions</strong>: How well were you able to predict values in the dataset? You should both report appropriate metrics based on the type of outcome you’re predicting (e.g., root mean squared error v.s. accuracy), as well as a high quality visual showing the strength of your model (<strong>10 points</strong>)</p>
+</div>
+<div id="discussion-and-future-work-10-points" class="section level3">
+<h3>Discussion and Future Work (<strong>10 points</strong>)</h3>
+<p>Based on <em>specific observations</em> from the results section, the report clearly provides: - An analysis of the real world implications of the results, at least one full paragraph (<strong>5 points</strong>) - Clear suggestion for directions of future research, at least one full paragraph (<strong>5 points</strong>)</p>
+</div>
+<div id="code-quality-5-points" class="section level3">
+<h3>Code Quality (<strong>5 points</strong>)</h3>
+<p>Code is well commented and structured (e.g., indented), organized across multiple different files, uses clear variable names, and runs on any computer.</p>
 </div>
 
 
