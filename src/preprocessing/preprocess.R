@@ -1,7 +1,5 @@
 library(plyr)
 library(dplyr)
-library(DataCombine)
-install.packages("e1071")
 library(e1071) # skewness of data
 if(!require(kader)){
   install.packages("kader")
