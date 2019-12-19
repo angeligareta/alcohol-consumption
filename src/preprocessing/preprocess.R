@@ -45,6 +45,7 @@ transformed_dataset$HighestEducationLevel <-
     br = c(0, 2, 3, 6),
     labels = c("Basic", "Intermediate", "Advanced")
   )
+transformed_dataset$HighestEducationLevel <- forcats::fct_explicit_na(transformed_dataset$HighestEducationLevel, na_level = "NA")
 
 # CountryBorn Transformation 1 => US, 2 => NoUS
 transformed_dataset$CountryBorn <-
@@ -53,6 +54,8 @@ transformed_dataset$CountryBorn <-
     levels = c(1, 2),
     labels = c("US", "NoUS")
   )
+
+transformed_dataset$CountryBorn <- forcats::fct_explicit_na(transformed_dataset$CountryBorn, na_level = "NA")
 
 transformed_dataset$MaritalStatus <-
   factor(
@@ -68,11 +71,20 @@ transformed_dataset$MaritalStatus <-
     )
   )
 
+transformed_dataset$MaritalStatus <- forcats::fct_explicit_na(transformed_dataset$MaritalStatus, na_level = "NA")
+
 transformed_dataset$Gender <-
   factor(
     transformed_dataset$Gender,
     levels = c(1, 2),
     labels = c("Male", "Female")
+  )
+
+transformed_dataset$SpendTimeBar7d <-
+  factor(
+    transformed_dataset$SpendTimeBar7d,
+    levels = c(1, 2),
+    labels = c("Yes", "No")
   )
 
 # Preprocesing, choosing the right variables and handling NA Values.
@@ -139,16 +151,16 @@ print("Transformation of data, adding new variables...")
 
 # AlcoholAmountAvg month has a high right skewness of 2.0 (normal between -0.5 and 0.5)
 print("Skewness for AlcoholAmountAvgPerMonth")
-skewness(dataset$AlcoholAmountAvgPerMonth)
+skewness(transformed_dataset$AlcoholAmountAvgPerMonth)
 
 ## Try possible transformations
 print("Skewness for cuberoot of AlcoholAmountAvgPerMonth")
-skewness(kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))
+skewness(kader:::cuberoot(transformed_dataset$AlcoholAmountAvgPerMonth))
 
 # Plot after transformation
 # dataset %>% ggplot(aes(kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))) + geom_histogram(fill = "brown") + ylab("Number of People") + xlab("Mothly Alcohol Consumption")
 print("Adding new column AlcoholAmountAvgPerMonthCubeRoot...")
-transformed_dataset <- transformed_dataset %>% mutate(AlcoholAmountAvgPerMonthCubeRoot = kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))
+transformed_dataset <- transformed_dataset %>% mutate(AlcoholAmountAvgPerMonthCubeRoot = kader:::cuberoot(transformed_dataset$AlcoholAmountAvgPerMonth))
 
 preprocessed_dataset = transformed_dataset
 

@@ -14,10 +14,42 @@ dataset <- preprocessed_dataset
 
 # Start with researches related with alcohol
 
+## Some general plots
+### Age distribution
+dataset %>% ggplot(aes(x = Age))  + geom_histogram()
+
+### AlcoholAmountAvgPerMonth distribution
+dataset %>% ggplot(aes(x = AlcoholAmountAvgPerMonth))  + geom_histogram()
+
+### Does Marital Status affect alcohol amount per month
+dataset %>% ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonth)) + geom_bar(aes(fill = MaritalStatus), stat="identity")
+
+## Add new variable with a ponderated mean per Marital Status category 
+dataset_with_alcohol_mean_marital_status = dataset %>% group_by(MaritalStatus) %>% summarise(
+  AlcoholAmountAvgPerMonthMean = mean(AlcoholAmountAvgPerMonth),
+  NumberOfPeopleInMaritalStatus = length(AlcoholAmountAvgPerMonth),
+  AlcoholAmountAvgPerMonthPonderatedMean = AlcoholAmountAvgPerMonthMean / NumberOfPeopleInMaritalStatus
+)
+# Show mean per marital status group
+dataset_with_alcohol_mean_marital_status %>% 
+  ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthMean)) + 
+  geom_bar(aes(fill = MaritalStatus), stat = "identity") + 
+  geom_text(aes(label = "Nº People"), vjust=2) +
+  geom_text(aes(label = NumberOfPeopleInMaritalStatus), vjust=4, color = "white")
+
+## See Marital Status and 
+dataset_with_alcohol_mean_marital_status %>% 
+  ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthPonderatedMean)) + 
+  geom_bar(aes(fill = MaritalStatus), stat = "identity") + 
+  geom_text(aes(label = NumberOfPeopleInMaritalStatus), vjust=2) +
+  geom_text(aes(label = format(round(AlcoholAmountAvgPerMonthMean, 2), nsmall = 2)), vjust=4, color="white")
+
 ## Alcohol and Sex ----
 ## TODO: Handle NA values
-dataset %>% ggplot(aes(x = Age, y = AlcoholAmountAvgPerMonthCubeRoot))  + geom_boxplot(aes(color = MaritalStatus))
-
+dataset %>% 
+  ggplot(aes(x = "", y = MaritalStatus, fill = MaritalStatus)) + 
+  geom_bar(width = 1, stat = "identity") + 
+  coord_polar("x", start=0) 
 
 # Relation beween mental situation, mental illnesses, economic situation and alcohol consumption ----
 
@@ -82,4 +114,4 @@ ggplot(data = dataset) +
   geom_hex(mapping = aes(x = MonthlyFamilyIncome, y = AlcoholDrink5Last30d))
 
 ggplot(data = dataset) +
-  geom_hex(mapping = aes(x = MonthlyFamilyIncome, y = AlcoholAmountAvgPerMonth))
+  geom_point(mapping = aes(x = MonthlyFamilyIncome, y = AlcoholAmountAvgPerMonth))

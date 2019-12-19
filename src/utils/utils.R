@@ -113,6 +113,7 @@ na_values_per_column = list(
   na_77777_99999 = list(c(77777, 99999), columns_na_77777_99999)
 )
 
+# Convert to explicit NA
 substitute_column_if <- function(column, condition_values) {
   column <- replace(column, column %in% condition_values, NA)
 }
