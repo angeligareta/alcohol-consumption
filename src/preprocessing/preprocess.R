@@ -1,8 +1,21 @@
-library(plyr)
 library(dplyr)
-library(DataCombine)
-library(e1071) # skewness of data
-library(kader) # cuberoot transformation
+if(!require(plyr)){
+  install.packages("plyr")
+  library(plyr) # cuberoot transformation
+}
+if(!require(DataCombine)){
+  install.packages("DataCombine")
+  library(DataCombine) # cuberoot transformation
+}
+if(!require(e1071)){
+  install.packages("DataCombine")
+  library(e1071) # cuberoot transformation
+}
+if(!require(kader)){
+  install.packages("kader")
+  library(kader) # cuberoot transformation
+}
+
 
 # Import utils
 source("./utils/utils.R")
