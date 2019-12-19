@@ -10,6 +10,24 @@ dataset <- preprocessed_dataset
 
 # Start with researches related with alcohol
 
+###############################################################
+###############################################################
+
+##Checking some distributions
+barplot(sort(table(dataset["HighestEducationLevel"]),decreasing=T))
+barplot(sort(table(dataset$MaritalStatus),decreasing=T))
+barplot(sort(table(dataset$Gender),decreasing=T)) #good
+barplot(sort(table(dataset$Age),decreasing=T))
+barplot(sort(table(dataset$DifficultyConcentrating),decreasing=T))
+barplot(sort(table(dataset$ThoughtSuicideLast2w),decreasing=T)) 
+barplot(sort(table(dataset$MonthlyFamilyIncome),decreasing=T)) #ok
+barplot(sort(table(dataset$FamilyPovertyIndex),decreasing=T)) #very skewed
+barplot(sort(table(dataset$SmokedCigsLast30d),decreasing=T)) 
+
+
+###############################################################
+###############################################################
+
 ## Alcohol and Sex ----
 ## TODO: Handle NA values
 dataset %>% ggplot(aes(x = Age, y = log(AlcoholDrink5Last30d))) + ylim(0, 5) + geom_boxplot(aes(color = MaritalStatus)) 
@@ -19,6 +37,7 @@ dataset %>% ggplot(aes(x = Age, y = log(AlcoholDrink5Last30d))) + ylim(0, 5) + g
 # STEFANO
 # alcohol related variable: SpendTimeBar7d, AlcoholDrink5Last30d, AlcoholAmountAvgPerMonth, AlcoholAmountAvgPerMonth
 # Looking for correlation between alcohol and drugs
+
 dataset %>% ggplot(aes(x = SmokedCigsLast30d, 
                        y = AlcoholDrink5Last30d)) +
   geom_hex()
