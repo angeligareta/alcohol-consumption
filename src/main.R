@@ -1,7 +1,10 @@
 library(ggplot2)
 library(tidyr)
+if(!require(hexbin)){
+  install.packages("hexbin")
+  library(hexbin) # cuberoot transformation
+}
 
-library(hexbin)
 library(GGally)
 
 source("./preprocessing/preprocess.R")
