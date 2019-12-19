@@ -223,10 +223,10 @@
 - [ALQ160](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ160): AlcoholDrink5Last30d
   - 0 to 30: range of values
   - 777, 999: Set to NA
-- [ALQ120Q](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ120Q) - AlcoholAmountAvgPerMonth
+- [ALQ120Q](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ120Q) - AlcoholAmountAvg
   - 0 to 365: range of values
   - 777, 999: set to NA
-- [ALQ120U](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ120U) - AlcoholAmountUnitPerMonth
+- [ALQ120U](https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/ALQ_H.htm#ALQ120U) - AlcoholAmountUnit
   - 1: Week
   - 2: Month
   - 3: Year
@@ -280,7 +280,7 @@ c(
     "OCQ180" = "HoursWorkPerWeek",
     "SMQ866" = "SpendTimeBar7d",
     "ALQ160" = "AlcoholDrink5Last30d",
-    "ALQ120Q" = "AlcoholAmountAvgPerMonth",
-    "ALQ120U" = "AlcoholAmountUnitPerMonth"
+    "ALQ120Q" = "AlcoholAmountAvg",
+    "ALQ120U" = "AlcoholAmountUnit"
     )
 ```

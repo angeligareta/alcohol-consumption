@@ -1,9 +1,11 @@
 library(plyr)
 library(dplyr)
+library(DataCombine)
 
 # Import utils
 source("./utils/utils.R")
 
+print("Reading datasets...")
 # Read datasets from relative path (check working directory in case of error)
 demographic <- read.csv("../data/demographic.csv", stringsAsFactors = T)
 diet <- read.csv("../data/diet.csv", stringsAsFactors = T)
@@ -12,6 +14,7 @@ labs <- read.csv("../data/labs.csv", stringsAsFactors = T)
 questionnaire <- read.csv("../data/questionnaire.csv", stringsAsFactors = T)
 
 # Select datasets were the selected variables can be found and merge them in a new dataset
+print("Merging datasets...")
 datasets_to_merge <- list(demographic, questionnaire, labs)
 dataset <- plyr::join_all(datasets_to_merge, "SEQN")
 
@@ -31,6 +34,7 @@ for (na_values in na_values_per_column) {
 }
 
 ## Convert some variables into readable factors
+print("Converting variables to custom readable factors...")
 transformed_dataset = preprocessed_dataset
 # HighestEducationLevel Transformation 1-2 => Basic, 3 => Intermediate, 4-5 => Advanced
 transformed_dataset$HighestEducationLevel <-
@@ -68,6 +72,62 @@ transformed_dataset$Gender <-
     levels = c(1, 2),
     labels = c("Male", "Female")
   )
+
+# Preprocesing, choosing the right variables and handling NA Values.
+## Alcohol variables
+print("Reading NA Values in alcohol variables...")
+alcohol_variables <-
+  list(
+    transformed_dataset$SpendTimeBar7d,
+    transformed_dataset$AlcoholDrink5Last30d,
+    transformed_dataset$AlcoholAmountAvgPerMonth,
+    transformed_dataset$AlcoholAmountUnitPerMonth
+  )
+alcohol_variables_labels <-
+  c(
+    "SpendTimeBar7d",
+    "AlcoholDrink5Last30d",
+    "AlcoholAmountAvg",
+    "AlcoholAmountUnit"
+  )
+for (index in seq_along(alcohol_variables)) {
+  print(alcohol_variables_labels[index])
+  print(sum(is.na(alcohol_variables[[index]])))
+}
+
+## We can not take AlcoholDrink5Last30d because it has lot of NA values, we will try to transform
+## AlcoholAmountAvg with AlcoholAmountUnitPerMonth to make an alcohol amount per month
+## as now it can be in years and days too which AlcoholAmountUnit explains
+transformed_dataset <- DataCombine::DropNA(transformed_dataset, Var = "AlcoholAmountAvg")
+
+# There are 882 people that answer they didnt drink at all
+transformed_dataset %>% filter(AlcoholAmountAvg == 0) %>% count()
+
+## Normalize to all units of AlcoholAmountAvg to month
+print("Normalizing NA Values...")
+transformAlcoholAmountAvgPerMonth <- function(amountRows, unitRows) {
+  newColumn <- amountRows
+  
+  for (column_index in seq_along(amountRows)) {
+      alcohol_amount <- amountRows[column_index]
+      alcohol_unit <- unitRows[column_index]
+      # If NA or unit is month asign to amount 
+      if (is.na(alcohol_unit) || alcohol_unit == 2) {
+        newColumn[column_index] = alcohol_amount
+      }
+      # If unit is week, multiply by for
+      else if (alcohol_unit == 1) {
+        newColumn[column_index] = alcohol_amount * 4
+      }
+      else {
+        newColumn[column_index] = alcohol_amount / 12
+      }
+  }
+  
+  newColumn
+}
+
+transformed_dataset <- transformed_dataset %>% mutate(AlcoholAmountAvgPerMonth = transformAlcoholAmountAvgPerMonth(AlcoholAmountAvg, AlcoholAmountUnit))
 
 preprocessed_dataset = transformed_dataset
 
