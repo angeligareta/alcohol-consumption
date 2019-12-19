@@ -51,7 +51,11 @@ light and moderate alcohol intake might have, according to their study, a protec
 
 ### Exploratory data analisys
 
+```{r setup, include=FALSE}
 
+ggplot(dataset, aes(x = HadLostConcientiousness)) + geom_histogram()
+
+```
 
 
 
