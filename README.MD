@@ -47,13 +47,17 @@ This study by the University of Toronto tries to measure the relation between al
 
 The main conclusion of this study is that a relationship exists between alcohol consumption and the presence or diabetes in an _u-shaped_ way, both for men and women.
 
-##### Project 4:[Risk thresholds for alcohol consumption: combined analysis of individual-participant data for 599 912 current drinkers in 83 prospective studies](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(18)30134-X/fulltext)
+##### Project 4: [Risk thresholds for alcohol consumption: combined analysis of individual-participant data for 599 912 current drinkers in 83 prospective studies](https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(18)30134-X/fulltext)
 
 One of the reasons behind initializing this project was the fact that there is no universal low-risk limit for alcohol consumption. In order to define this threshold - to see how much alcohol can be tolerated without causing significant harm -  the researchers studied individual-participant data from 599 912 current drinkers without previous cardiovascular disease.
 
 The main finding was that the threshold for lowest risk for all-cause mortality was about 100 g per week. Long-term reduction of alcohol consumption (below the limit recommended in US guidelines) was associated with an increase of longer life expectancy. Exploratory analyses suggested that drinkers of beer or spirits, as well as binge drinkers, had the highest risk for all-cause mortality.
 
 ##### Project 5: 
+[Consuming Alcohol in Moderation Can Lower Mortality Risks](https://www.acc.org/latest-in-cardiology/articles/2017/08/14/12/54/consuming-alcohol-in-moderation-can-lower-mortality-risks)
+
+As in the fourth project, heavy or binge drinking was associated with increased risk of all-cause mortality, while
+light and moderate alcohol intake might have, according to their study, a protective effect on all-cause and CVD-specific mortality in U.S. adults. 
 
 ### Exploratory Data Analysis (**20 points**)
 - Introduces the dataset by describing the origin (source) and structure (shape, relevant features) of the data being used (**5 points**)
