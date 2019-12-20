@@ -368,3 +368,8 @@ df_cigs <- data.frame(DrugLast30d = c("DoDrugs", "DontDoDrugs"),
 
 ggplot(df_cigs, aes(x = DrugLast30d, y = MeanAlcoholAmountAvgPerMonth)) + 
   geom_col() + labs(x = "Drug usage", y = "Average monthly alcohol consumption")
+
+####Independence tests
+chisq.test(dataset$Gender, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
+chisq.test(dataset$MaritalStatus, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
+
