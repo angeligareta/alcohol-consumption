@@ -15,13 +15,11 @@ source("./main.R")
 
 ### Introduction
 
-- Provides a clear motivation for answering a _specific_ data driven question of interest (**5 points**)
+Is alcohol consumption related to factors such as mental health, marital status, income, gender and age?
 
-INSERT QUESTIONS HERE
+We did not have a very specific question in mind as we were more curious to analyze the factors related to alcohol consumption in general and find significant or unexpected insights. Some of our initial questions lead us to dead-ends after analyzing the data more in depth, this is why we decided to focus on a broader research, centered around alcohol consumption and with a focus on mental health and personal situations.
 
-INSERT MOTIVATION HERE
-
-We search for different related projects that could help us in how to drive our research:
+One of the initial purpose of developing this project was to find out how mental health relates to alcohol consumption and this has been quite challenging. Establishing this correlation could potentially raise awareness on how alcohol consumption might affect the mental health or that certain untreated mental issues could lead to higher amount consumptions. We were also interested in knowing how alcohol consumption relates to income. For instance, if people of lower income or higher income tend to consume more alcohol. This could potentially raise awareness of vicious cycles in our society. This study could also help verify or deny common beliefs or expectations. For instance, do males consume more alcohol than females? Do married people consume less alcohol than the single and separated/widowed ones? All these could show results that would futher lead researches to continue with more in depth analysis such as why certain relations exist.
 
 ### Related Work
 
@@ -83,6 +81,10 @@ The dataset is divided in several sections: demographic, medications or question
 
 - Creates 5 well designed and formatted graphics (**15 points**, 3 each)
 
+1. marital status average
+2. gender average
+3. a graph from mental health
+
   - The visual uses the appropriate visual encodings based on the data type (**1 point**)
   - Written interpretation of graphic is provided (**1 point**)
   - Clear axis labels, titles, and legends are included, where appropriate (**1 point**)
@@ -91,10 +93,14 @@ The dataset is divided in several sections: demographic, medications or question
 
 The appropriate methods are employed to answer the question of interest, including:
 
-- **Strength of relationships**: Uses the appropriate technique to assess the strength of relationships amongst your variables of interest. You should include:
+- **Strength of relationships**:
+
   - A formula describing how you believe your features (independent variables) are related to your outcome of interest (dependent variable) (**5 points**)
+   We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.  
+ We have also ran some Chi Squared tests between selected features and alcohol consumptions. 
   - A defense of the variables included in your formula (**5 points**)
-  ENOUGH DATA, DISTRIBUTION - uniform/normal, RELEVANT
+  Based on our motivation for the project, we decided to include relevant features. It was rather challenging, since the dataset had a huge number of variables. During the analysis of the data, we looked at the distributions and planned to focus more on the variables that are normally distributed or uniformly distributed among all groups, however that was challenging since most of them were not. It was also important to have enough data, since in some cases, there were a lot of missing values.
+ 
   - Creating the appropriate model based on your dataset (**5 points**)
 - **Prediction**: You must also make predictions for your outcome of interest. In doing so, you must demonstrate a clear use of:
   - Splitting your data into testing/training data (**2 points**)
@@ -105,12 +111,19 @@ The appropriate methods are employed to answer the question of interest, includi
   - Employing the algorithm of interest (**3 points**)
 
 ### Results (**20 points**)
-
+ADD VISUAL
 You must provide a clear interpretation of your statistical and machine learning results, including at least **one visual or table** for each.
 
 - **Strengths of relationships**: For the features you included in your model, you must describe the strength (significance) and magnitude of the relationships. This can be presented in a table or chart, and pertinent observations should be described in the text.
-LOW CORRELATION ON NUMERICAL FEATURES SUCH AS AGE
 (**10 points**)
+
+Regarding the correlation between age and alcohol consumption, using the Pearson method gave us a 0.049 correlation, while the Spearman method returned a -0.145 coefficient. Although both coefficients are low, we notice a 10% difference between the two methods. This could possibly mean that there is a relation between these two variables that is not linear.
+
+Trying to correlate monthly average alcohol consumption with the Poverty Index, using the Spearman method resulted in a 19% correlation. Although it is also quite low, we can assume a weak correlation, especially given the social context. 
+
+After computing the Chi squared tests, we concluded based on the low p-value that alcohol consumption depends on the gender and marital status. It was very clear from the graphs that the gender is related to alcohol consumption as well.
+
+
 - **Predictions**: How well were you able to predict values in the dataset? You should both report appropriate metrics based on the type of outcome you're predicting (e.g., root mean squared error v.s. accuracy), as well as a high quality visual showing the strength of your model (**10 points**)
 
 ### Discussion and Future Work (**10 points**)
@@ -119,7 +132,3 @@ Based on _specific observations_ from the results section, the report clearly pr
 
 - An analysis of the real world implications of the results, at least one full paragraph (**5 points**)
 - Clear suggestion for directions of future research, at least one full paragraph (**5 points**)
-
-### Code Quality (**5 points**)
-
-Code is well commented and structured (e.g., indented), organized across multiple different files, uses clear variable names, and runs on any computer.
