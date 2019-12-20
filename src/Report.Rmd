@@ -6,9 +6,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # Include the main file in order to do preprocessing.
-library(ggplot2)
-library(dplyr)
 source("./preprocessing/preprocess.R")
+library(ggplot2)
 dataset <- preprocessed_dataset
 
 income_dataset <-
@@ -142,13 +141,12 @@ ggplot(dataset,aes(kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))) +
 
 ### Relationships among ariables
 
-- Creates 5 well designed and formatted graphics (**15 points**, 3 each)
-
 For exploring the relations between variables, before performing the statisticaly analysis, we displayed some plots.
 
 First of all, we studied the relation between the average monthly alcohol consumption and the martial status of the respondants. We can see that the individuals that are married drink less than the separated or widowed ones. Despite a large group of the respondants are married, the other groups have a considerable amount of individuals, so we can say it is representative.
 
 ```{r, warning=FALSE}
+
 ## Add new variable with a ponderated mean per Marital Status category
 dataset_with_alcohol_mean_marital_status <-
   transformed_dataset %>% filter(MaritalStatus != "NA") %>% group_by(MaritalStatus) %>% summarise(
