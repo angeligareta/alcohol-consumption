@@ -6,14 +6,20 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # Include the main file in order to do preprocessing.
-source("./main.R")
+source("./preprocessing/preprocess.R")
+dataset <- preprocessed_dataset
+
+income_dataset <-
+  DataCombine::DropNA(dataset, Var = "MonthlyFamilyIncome")
 ```
 
 ### Abstract
 
-We found out that there is a weak correlation between the poverty index and alcohol consumption. Additionally, alcohol consumption depends on the gender and marital status. Males tend to consume more alcohol than females and those who never married tend to drink more than those separated.
+The aim of this project is to discover and identify the relationships between alcohol consumption and other physical and social variables of the individuals. For achieving this we explored the dataset of the [National Health survey of United States](https://www.kaggle.com/cdc/national-health-and-nutrition-examination-survey#questionnaire.csv).
 
-The aim of this project is to discover and identify the relationships between alcohol consumption and other physical and social variables of the individuals. For achieving this we explored the dataset of the national health survey of United States.
+The main challenge we had to face was to select from over 2000 variables available in the dataset only those that were useful for our research. Apart from that, we had to transform the encountered variables and subsistute missing values from the response variable.
+
+We found out that there is a weak but significant correlation between the family poverty index and alcohol consumption. Additionally, alcohol consumption depends on the gender and marital status. Males tend to consume more alcohol than females and those who never married tend to drink more than those separated. On top of that, we found other relations to alcohol consumption with drug use and the education of the individual.
 
 ### Introduction
 
@@ -21,7 +27,7 @@ Is alcohol consumption related to factors such as mental health, marital status,
 
 We did not have a very specific question in mind as we were more curious to analyze the factors related to alcohol consumption in general and find significant or unexpected insights. Some of our initial questions lead us to dead-ends after analyzing the data more in depth, this is why we decided to focus on a broader research, centered around alcohol consumption and with a focus on mental health and personal situations.
 
-One of the initial purpose of developing this project was to find out how mental health relates to alcohol consumption and this has been quite challenging. Establishing this correlation could potentially raise awareness on how alcohol consumption might affect the mental health or that certain untreated mental issues could lead to higher amount consumptions. We were also interested in knowing how alcohol consumption relates to income. For instance, if people of lower income or higher income tend to consume more alcohol. This could potentially raise awareness of vicious cycles in our society. This study could also help verify or deny common beliefs or expectations. For instance, do males consume more alcohol than females? Do married people consume less alcohol than the single and separated/widowed ones? All these could show results that would futher lead researches to continue with more in depth analysis such as why certain relations exist.
+One of the initial purposes of developing this project was to find out how mental health relates to alcohol consumption and this has been quite challenging. Establishing this correlation could potentially raise awareness on how alcohol consumption might affect the mental health or that certain untreated mental issues could lead to higher amount consumptions. We were also interested in knowing how alcohol consumption relates to income. For instance, if people of lower income or higher income tend to consume more alcohol. This could potentially raise awareness of vicious cycles in our society. This study could also help verify or deny common beliefs or expectations. For instance, do males consume more alcohol than females? Do married people consume less alcohol than the single and separated/widowed ones? All these could show results that would futher lead researches to continue with more in depth analysis such as why certain relations exist.
 
 ### Related Work
 
@@ -56,7 +62,7 @@ The main finding was that the threshold for lowest risk for all-cause mortality 
 
 This is a study conducted by Bo Xi et al. and published in the Journal of the American College of Cardiology. As in the fourth project, heavy or binge drinking was associated with increased risk of all-cause mortality, while light and moderate alcohol intake might have, according to their study, a protective effect on all-cause and CVD-specific mortality in U.S. adults.
 
-### Exploratory Data Analysis (**20 points**)
+### Exploratory Data Analysis
 
 ### Data Source: [National health and nutrition examination survey](https://www.kaggle.com/cdc/national-health-and-nutrition-examination-survey)
 
