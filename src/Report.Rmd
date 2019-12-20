@@ -97,7 +97,7 @@ As we can see from the presented features, there are four variables related with
 
 Also, there are some of the variables we chose which represent the mental health of the individual: `DifficultyConcentrating`, `ThoughtSuicideLast2w`,
 
-And finally, we have three variables selected for alcohol consumption. One is `AlcoholDrink5Last30d`, which we could not use as there were missing many of the values, and `AlcoholAmountAvg` and `AlcoholAmountUnit`. In order to have the AlcoholAmountAvg in the same unit, we had to normalize the variable and transform the values to store the AlcoholAmountAvg per month. In order to do so, if the unit was week, we multiplied the value by 4, otherwise, if it was Year, it would be divided by 12. After that, we are going to select that new variable `AlcoholAmountAvgPerMonth` as our response variable.
+And finally, we have three variables selected for alcohol consumption. One is `AlcoholDrink5Last30d`, which we could not use as there were missing many of the values, and `AlcoholAmountAvg` and `AlcoholAmountUnit`. In order to have the AlcoholAmountAvg (average of number of alcoholic drinks) in the same unit, we had to normalize the variable and transform the values to store the AlcoholAmountAvg per month. In order to do so, if the unit was week, we multiplied the value by 4, otherwise, if it was Year, it would be divided by 12. After that, we are going to select that new variable `AlcoholAmountAvgPerMonth` as our response variable.
 
 ### Data Preprocess
 
@@ -144,7 +144,79 @@ ggplot(dataset,aes(kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))) +
 
 - Creates 5 well designed and formatted graphics (**15 points**, 3 each)
 
-For exploring the relations between variables, we made some plots.
+For exploring the relations between variables, before performing the statisticaly analysis, we displayed some plots.
+
+First of all, we studied the relation between the average monthly alcohol consumption and the martial status of the respondants. We can see that the individuals that are married drink less than the separated or widowed ones. Despite a large group of the respondants are married, the other groups have a considerable amount of individuals, so we can say it is representative.
+
+```{r, warning=FALSE}
+## Add new variable with a ponderated mean per Marital Status category
+dataset_with_alcohol_mean_marital_status <-
+  transformed_dataset %>% filter(MaritalStatus != "NA") %>% group_by(MaritalStatus) %>% summarise(
+    AlcoholAmountAvgPerMonthMean = mean(AlcoholAmountAvgPerMonth),
+    NumberOfPeopleInMaritalStatus = length(AlcoholAmountAvgPerMonth),
+    AlcoholAmountAvgPerMonthPonderatedMean = mean(AlcoholAmountAvgPerMonth) / length(AlcoholAmountAvgPerMonth)
+  )
+
+## Show alcohol consumption mean per marital status group
+dataset_with_alcohol_mean_marital_status %>%
+  ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthMean)) +
+  geom_bar(aes(fill = MaritalStatus), stat = "identity") +
+  ggtitle("Average Monthly consumption and Marital Status") +
+  fancy_plot_no_legend
+```
+
+If we analyze the individuals that answer they have spend time in a bar in the last 7 days with the marital status, we can see that the people that have never been married go more often to a bar than the widowed people, for instance.
+
+```{r, warning=FALSE}
+dataset_without_na_marital_status <-
+  dataset %>% filter(MaritalStatus != "NA")
+
+## See Marital Status and SpendTimeBar7d Per Marital Status (Stacked Bar) ALl 100%
+dataset_without_na_marital_status %>%
+  ggplot(aes(x = factor(1), fill = SpendTimeBar7d)) +
+  geom_bar(stat = "count", position = "fill") +
+  ggtitle("Spend Time In Bar in the last 7 days?") +
+  facet_wrap(~MaritalStatus, switch = "both") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Reds") +
+  fancy_plot
+```
+
+According to the FeelDownDepressedLast2W variable, we found an interesting fact, apaprently the individuals that have more often felt depressed in the last 2 weeks, are the ones with lower alcohol consumption per month. We represented the y axis with the cube root of the AlcoholConsumptionAvgPerMonth as the results are more normalized. To know the real alcohol consumption we will have to power the values from the y axis to 3.
+
+```{r, warning=FALSE}
+dataset %>%
+  filter(FeelDownDepressedLast2W != "NA") %>%
+  ggplot(aes(x = FeelDownDepressedLast2W, y = AlcoholAmountAvgPerMonthCubeRoot, fill = FeelDownDepressedLast2W)) +
+  geom_boxplot() +
+  ggtitle("Alcohol Consumption per month cube Root - Feel Down or Depressed") +
+  theme_minimal() +
+  fancy_plot_no_legend
+```
+
+According to the family poverty index, we found a week correlation between it and our response variable, so we decided to study the relation between poverty index and time in bar. We found out that the individuals with lower poverty index have spend fewer time in a bar in the last 7 days, a logic result. As the family poverty increases, the number of respondants that have spend more time in a bar increase.
+
+```{r, warning=FALSE}
+dataset %>%
+  ggplot(aes(x = FamilyPovertyIndex, fill = SpendTimeBar7d)) +
+  geom_density(alpha = 0.5) +
+  ggtitle("Poverty Index - Time in Bar") +
+  theme_minimal() +
+  fancy_plot
+```
+
+Finally, we found an interesting relation between gender and alcohol consumption. As we can see in the next graph, males appararently consume more alcoholic drinks per month.
+
+```{r, warning=FALSE}
+dataset %>%
+  group_by(Gender) %>%
+  summarize(AlcoholAmountAvgPerMonthMean = mean(AlcoholAmountAvgPerMonth)) %>%
+  ggplot(aes(x = Gender, y = AlcoholAmountAvgPerMonthMean, fill = Gender)) +
+  geom_bar(stat="identity") +
+  ggtitle("Monthly Alcohol Consumption per Gender") +
+  theme_minimal() +
+  fancy_plot_no_legend
+```
 
 ```{r, warning=FALSE}
 cor(

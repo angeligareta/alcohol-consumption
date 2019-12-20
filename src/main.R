@@ -49,6 +49,8 @@ dataset %>% ggplot(aes(x = Age)) + geom_histogram()
 
 ### AlcoholAmountAvgPerMonth distribution
 dataset %>% ggplot(aes(x = AlcoholAmountAvgPerMonth)) + geom_histogram()
+### AlcoholAmountAvgPerMonth distribution
+dataset %>% ggplot(aes(x = AlcoholAmountAvgPerMonth)) + geom_histogram()
 
 ### MonthlyFamilyIncome distribution
 dataset %>% ggplot(aes(x = MonthlyFamilyIncome)) + geom_histogram()
@@ -126,7 +128,9 @@ dataset_with_alcohol_mean_marital_status %>%
 ## Show alcohol consumption mean per marital status group
 dataset_with_alcohol_mean_marital_status %>%
   ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthMean)) +
-  geom_bar(aes(fill = MaritalStatus), stat = "identity")
+  geom_bar(aes(fill = MaritalStatus), stat = "identity") + 
+  ggtitle("Average Monthly consumption and Marital Status") +
+  fancy_plot_no_legend
 
 
 ## Show ponderated mean per marital status group
@@ -267,6 +271,15 @@ dataset %>%
   ggplot(aes(x = FamilyPovertyIndex, fill = SpendTimeBar7d)) +
   geom_density(alpha = 0.5) +
   ggtitle("Poverty Index - Time in Bar") +
+  theme_minimal() +
+  fancy_plot
+
+dataset %>% 
+  group_by(Gender) %>% 
+  summarize(AlcoholAmountAvgPerMonthMean = mean(AlcoholAmountAvgPerMonth)) %>% 
+  ggplot(aes(x = Gender, y = AlcoholAmountAvgPerMonthMean, fill = Gender)) +
+  geom_bar(stat="identity") +
+  ggtitle("Monthly Alcohol Consumption per Gender") +
   theme_minimal() +
   fancy_plot
 
