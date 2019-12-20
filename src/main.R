@@ -211,11 +211,26 @@ ggplot(dataset,
 ggplot(dataset,
        aes(x = ProblemsConcentratingLast2w, y = AlcoholAmountAvgPerMonthCubeRoot)) + geom_boxplot()
 
+dataset %>% 
+  filter(ThoughtSuicideLast2w != "NA") %>% 
+  ggplot(aes(x = ThoughtSuicideLast2w, y = AlcoholAmountAvgPerMonthCubeRoot, fill = ThoughtSuicideLast2w)) + 
+  geom_boxplot() + 
+  ggtitle("Alcohol Consumption per month cube Root - Thought about suicide") + 
+  theme_minimal() +
+  fancy_plot_no_legend
+
+dataset %>% 
+  filter(FeelDownDepressedLast2W != "NA") %>% 
+  ggplot(aes(x = FeelDownDepressedLast2W, y = AlcoholAmountAvgPerMonthCubeRoot, fill = FeelDownDepressedLast2W)) + 
+  geom_boxplot() + 
+  ggtitle("Alcohol Consumption per month cube Root - Feel Down or Depressed") + 
+  theme_minimal() +
+  fancy_plot_no_legend
+
 ggplot(dataset,
        aes(x = ThoughtSuicideLast2w, y = AlcoholAmountAvgPerMonth)) + geom_boxplot()
 
-ggplot(dataset,
-       aes(x = ThoughtSuicideLast2w, y = AlcoholAmountAvgPerMonthCubeRoot)) + geom_boxplot()
+dataset %% ggplot(aes(x = ThoughtSuicideLast2w, y = AlcoholAmountAvgPerMonthCubeRoot)) + geom_boxplot()
 
 ggplot(dataset,
        aes(x = GreaterEqual35HoursWorkPerWeek, y = AlcoholAmountAvgPerMonth)) + geom_boxplot()
@@ -226,21 +241,37 @@ ggplot(
 ) + geom_boxplot()
 
 ggplot(dataset,
+       aes(x = SleepHoursWorkdays)) + geom_density(fill = "brown", alpha = 0.55)
+
+ggplot(dataset,
        aes(x = SleepHoursWorkdays, y = AlcoholAmountAvgPerMonth)) + geom_point()
 
 ggplot(dataset,
        aes(x = SleepHoursWorkdays, y = AlcoholAmountAvgPerMonthCubeRoot)) + geom_point()
 
-
 ggplot(dataset,
        aes(x = SleepHoursWorkdays, y = AlcoholAmountAvgPerMonthCubeRoot)) + geom_point()
 
 ggplot(dataset,
+       aes(x = FamilyPovertyIndex)) + geom_density()
+
+ggplot(dataset,
        aes(x = FamilyPovertyIndex, y = AlcoholAmountAvgPerMonth)) + geom_point()
-ggplot(dataset, aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonth)) + geom_boxplot()
+
+ggplot(dataset, aes(x = SpendTimeBar7d)) + geom_histogram(aes(color = FamilyPovertyIndex))
+
+dataset %>%
+  ggplot(aes(x = FamilyPovertyIndex, fill = SpendTimeBar7d)) +
+  geom_density(alpha= 0.5) + 
+  ggtitle("Poverty Index - Time in Bar") + 
+  theme_minimal() +
+  fancy_plot
+
+dataset %>% 
+  ggplot(aes(x = DifficultyConcentrating, y = AlcoholAmountAvgPerMonth)) + 
+  geom_boxplot()
 
 ## Create and train the models.
-
 train_dataset <- dataset %>% select(
   AlcoholAmountAvgPerMonth,
   ## Demographic variables.
@@ -373,3 +404,45 @@ ggplot(df_cigs, aes(x = DrugLast30d, y = MeanAlcoholAmountAvgPerMonth)) +
 chisq.test(dataset$Gender, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
 chisq.test(dataset$MaritalStatus, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
 
+
+#### Brief research with drugs again
+convert_to_class <- function(drug, cig) {
+  new_column <- drug
+  for (index in seq_along(drug)) {
+    if (drug[index] == T && cig[index] == T) {
+      new_column[index] <- "Drugs and Cig"
+    }
+    else if (drug[index] == T) {
+      new_column[index] <- "Drugs"
+    }
+    else if (cig[index] == T) {
+      new_column[index] <- "Cig"
+    }
+    else {
+      new_column[index] <- "Nothing"
+    }
+  }
+  new_column
+}
+  
+dataset_drug_mean <- dataset_drug %>%
+  group_by(DrugLast30d, Drug_CigsLast30d) %>%
+  mutate(
+    Class = convert_to_class(DrugLast30d, SmokedCigsLast30d)
+  ) %>% 
+  group_by(Class) %>% 
+  summarise(Mean = mean(AlcoholAmountAvgPerMonth), Count = length(AlcoholAmountAvgPerMonth))
+
+# Mean of Alcohol consumption per drug usage class
+ggplot(dataset_drug_mean, aes(x = Class, y = Mean, fill =Class)) + 
+  geom_col() + 
+  ggtitle("Average monthly alcohol consumption - Drug Usage Class") + 
+  theme_minimal() +
+  fancy_plot_no_legend
+
+## Density per class
+ggplot(dataset_drug_mean, aes(x = Class, y = Count, fill = Class)) + 
+  geom_col() + 
+  ggtitle("Average monthly alcohol consumption - Drug Usage Class") + 
+  theme_minimal() +
+  fancy_plot_no_legend

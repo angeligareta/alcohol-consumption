@@ -117,6 +117,36 @@ transformed_dataset$DifficultyConcentrating <-
     )
   )
 
+transformed_dataset$Overweight <-
+  factor(
+    transformed_dataset$Overweight,
+    levels = c(1, 2),
+    labels = c(
+      "Yes",
+      "No"
+    )
+  )
+
+transformed_dataset$Hypertension <-
+  factor(
+    transformed_dataset$Hypertension,
+    levels = c(1, 2),
+    labels = c(
+      "Yes",
+      "No"
+    )
+  )
+
+transformed_dataset$MemoryLossLast12m <-
+  factor(
+    transformed_dataset$MemoryLossLast12m,
+    levels = c(1, 2),
+    labels = c(
+      "Yes",
+      "No"
+    )
+  )
+
 transformed_dataset$ProblemsRememberingThingsLast30d <-
   factor(
     transformed_dataset$ProblemsRememberingThingsLast30d,

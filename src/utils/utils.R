@@ -137,3 +137,12 @@ fancy_plot <-
     legend.title = element_blank(),
   ) +
   fancy_text_title
+
+fancy_plot_no_legend <-
+  theme(
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    legend.position = "none",
+  ) +
+  fancy_text_title
