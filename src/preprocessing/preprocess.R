@@ -43,6 +43,8 @@ preprocessed_dataset <-
 preprocessed_dataset <-
   preprocessed_dataset %>% plyr::rename(replace = selected_variables)
 
+original_dataset <- preprocessed_dataset
+
 ## Transform 7, 9, 77, 99... into NA (except 77 in age)
 for (na_values in na_values_per_column) {
   ### Neccessary unlist to retrieve vectors contained within it
@@ -56,7 +58,7 @@ for (na_values in na_values_per_column) {
 print("Converting variables to custom readable factors...")
 transformed_dataset = preprocessed_dataset
 # HighestEducationLevel Transformation 1-2 => Basic, 3 => Intermediate, 4-5 => Advanced
-transformed_dataset$HighestEducationLevel <-
+transformed_dataset$HighestEducationLevelDisc <-
   cut(
     transformed_dataset$HighestEducationLevel,
     br = c(0, 2, 3, 6),
@@ -297,7 +299,7 @@ print("Adding new boolean column DrugUseLast30d")
 transformed_dataset <- transformed_dataset %>% 
   mutate(DrugUseLast30d = transform_continuous_to_boolean(DrugUseLast30dSum))
 
-print("Adding new boolean column DrugUseLast30d")
+print("Adding new boolean column DrugCigsUseLast30d")
 transformed_dataset <- transformed_dataset %>% 
   mutate(DrugCigsUseLast30d = transform_continuous_to_boolean(DrugCigsUseLast30dSum))
 

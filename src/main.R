@@ -32,13 +32,13 @@ if (!require(ggthemes)){
 library(ggplot2)
 
 source("./preprocessing/preprocess.R")
+dataset <- preprocessed_dataset
 
 # Show summary of preprocessed dataset
-summary(preprocessed_dataset)
-head(preprocessed_dataset)
+summary(dataset)
+head(dataset)
 
 # Use preprocessed dataset as main one
-dataset <- preprocessed_dataset
 
 # Start with researches related with alcohol
 
@@ -276,7 +276,7 @@ dataset %>%
 train_dataset <- dataset %>% select(
   AlcoholAmountAvgPerMonth,
   ## Demographic variables.
-  HighestEducationLevel,
+  HighestEducationLevelDisc,
   CountryBorn,
   NoPeopleFamily,
   MaritalStatus,
@@ -342,7 +342,6 @@ vars.to.replace <-
   c("MarijuanaLast30d", 
     "CocaineLast30d", 
     "HeroineLast30d",
-    "MethanfetamineLast30d",
     "SmokedCigsLast30d")
 df2 <- dataset_drug[vars.to.replace]
 df2[!is.na(df2)] <- TRUE
@@ -532,11 +531,58 @@ anova(logit)
 
 p<- predict(logit,test_set)
 
-lm1 <- lm(AlcoholAmountAvgPerMonth ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevel, dataset)
+lm1 <- lm(AlcoholAmountAvgPerMonth ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc, dataset)
 summary(lm1)
 
-glm1 <- glm(AlcoholAmountAvgPerMonth ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevel, data =dataset, family="gaussian")
+glm1 <- glm(AlcoholAmountAvgPerMonth ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc, data =dataset, family="gaussian")
 summary(glm1)
 
-lm2 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevel + HighestEducationLevel * FamilyPovertyIndex, dataset)
+lm2 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + HighestEducationLevelDisc * FamilyPovertyIndex, dataset)
 summary(lm2)
+
+## Higuest one for the moment and all significatives!
+lm3 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum, dataset)
+summary(lm3)
+
+lm4 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ CountryBorn + Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum + SpendTimeBar7d, dataset_without_sti_na)
+summary(lm4)
+
+## It gives an AIC of 26086
+glm2 <- glm(AlcoholAmountAvgPerMonth ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum, data = dataset, family="gaussian")
+summary(glm2)
+
+# If we use the transformed variable we get a AIC of 9737
+glm3 <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum, data = dataset, family="gaussian")
+summary(glm3)
+
+## If we add SpendTimeBar and HadSTI we get an AIC of 2829, however we would be deleting ~3300 rows, so it is not representative
+glm4 <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDiscDisc + DrugCigsUseLast30dSum + SpendTimeBar7d, data = dataset, family="gaussian")
+summary(glm4)
+
+# We can deal with the missing values of FamilyPovertyIndex by doing an average
+dataset_without_na <- dataset
+mean_fpi <- mean(dataset_without_na$FamilyPovertyIndex, na.rm = T)
+dataset_without_na$FamilyPovertyIndex[is.na(dataset_without_na$FamilyPovertyIndex)] <- mean_fpi
+
+# For the highest education level we would do the mean and subsitute for the corresponding factor
+mean_hel <- mean(dataset_without_na$HighestEducationLevel, na.rm = T) # It is 3.52, rounded to 4, which is Advanced
+dataset_without_na$HighestEducationLevelDisc[is.na(dataset_without_na$HighestEducationLevelDisc)] <- "Advanced" 
+dataset_without_na$HighestEducationLevel[is.na(dataset_without_na$HighestEducationLevel)] <- mean_hel
+
+dataset_without_na <-
+  DataCombine::DropNA(dataset_without_na, Var = "CountryBorn")
+
+## If we try the no discretized one we get better values
+lm4 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum + SpendTimeBar7d, dataset_without_na)
+summary(lm4)
+
+## Best combination
+lm5 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d, dataset_without_na)
+summary(lm5)
+
+## Over 4471 rows
+length(row.names(dataset_without_na))
+
+## try same combination for glm, same so let us use lr
+glm5 <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d, data=dataset_without_na, family="gaussian")
+summary(glm5)
