@@ -9,9 +9,11 @@ knitr::opts_chunk$set(echo = TRUE)
 source("./main.R")
 ```
 
-### Abstract (**5 points**)
+### Abstract 
 
-- Succinctly summarizes the importance and findings of the project within the 150 word limit.
+We found out that there is a weak correlation between the poverty index and alcohol consumption. Additionally, alcohol consumption depends on the gender and marital status. Males tend to consume more alcohol than females and those who never married tend to drink more than those separated.
+
+ADD SUMMARY OF PREDICTION
 
 ### Introduction
 
