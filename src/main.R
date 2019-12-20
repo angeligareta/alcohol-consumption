@@ -15,7 +15,7 @@ if (!require(randomForest)) {
 }
 if (!require(caTools)) {
   install.packages("caTools")
-  library(caTools) 
+  library(caTools)
 }
 if (!require(e1071)) {
   install.packages("e1071")
@@ -25,11 +25,12 @@ if (!require(caret)) {
   install.packages("caret")
   library(caret)
 }
-if (!require(ggthemes)){
+if (!require(ggthemes)) {
   install.packages("ggthemes")
   library(ggthemes)
 }
 library(ggplot2)
+library(e1071)
 
 source("./preprocessing/preprocess.R")
 dataset <- preprocessed_dataset
@@ -44,13 +45,13 @@ head(dataset)
 
 ## Some general plots
 ### Age distribution
-dataset %>% ggplot(aes(x = Age))  + geom_histogram()
+dataset %>% ggplot(aes(x = Age)) + geom_histogram()
 
 ### AlcoholAmountAvgPerMonth distribution
-dataset %>% ggplot(aes(x = AlcoholAmountAvgPerMonth))  + geom_histogram()
+dataset %>% ggplot(aes(x = AlcoholAmountAvgPerMonth)) + geom_histogram()
 
 ### MonthlyFamilyIncome distribution
-dataset %>% ggplot(aes(x = MonthlyFamilyIncome))  + geom_histogram()
+dataset %>% ggplot(aes(x = MonthlyFamilyIncome)) + geom_histogram()
 
 #########################################################
 ##Some correlation coefficients
@@ -119,8 +120,8 @@ dataset_with_alcohol_mean_marital_status <-
 dataset_with_alcohol_mean_marital_status %>%
   ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthMean)) +
   geom_bar(aes(fill = MaritalStatus), stat = "identity") #+
-  # geom_text(aes(label = "Nº People"), vjust = 2) +
-  # geom_text(aes(label = NumberOfPeopleInMaritalStatus), vjust = 4, color = "white")
+# geom_text(aes(label = "Nº People"), vjust = 2) +
+# geom_text(aes(label = NumberOfPeopleInMaritalStatus), vjust = 4, color = "white")
 
 ## Show alcohol consumption mean per marital status group
 dataset_with_alcohol_mean_marital_status %>%
@@ -137,7 +138,8 @@ dataset_with_alcohol_mean_marital_status %>%
 #  geom_text(aes(label = format(round(AlcoholAmountAvgPerMonthMean, 2), nsmall = 2)), vjust=4, color="white")
 
 ## See Marital Status and SpendTimeBar7d (Pie chart)
-dataset_without_na_marital_status <- dataset %>% filter(MaritalStatus != "NA")
+dataset_without_na_marital_status <-
+  dataset %>% filter(MaritalStatus != "NA")
 dataset_without_na_marital_status %>%
   ggplot(aes(x = factor(1), y = ..count.., fill = MaritalStatus)) +
   geom_bar(stat = "count", position = "fill") +
@@ -149,7 +151,7 @@ dataset_without_na_marital_status %>%
     axis.title.x = element_blank()
   ) +
   coord_polar("y") +
-  facet_wrap( ~ SpendTimeBar7d)
+  facet_wrap(~SpendTimeBar7d)
 
 ## See Marital Status and SpendTimeBar7d Per SpendTimeBar7d (Stacked Bar)
 dataset_without_na_marital_status %>%
@@ -162,14 +164,14 @@ dataset_without_na_marital_status %>%
     axis.title.y = element_blank(),
     axis.title.x = element_blank()
   ) +
-  facet_wrap( ~ SpendTimeBar7d)
+  facet_wrap(~SpendTimeBar7d)
 
 ## See Marital Status and SpendTimeBar7d Per Marital Status (Stacked Bar)
 dataset_without_na_marital_status %>%
   ggplot(aes(x = factor(1), fill = SpendTimeBar7d)) +
   geom_bar(stat = "count", position = "stack") +
   ggtitle("Spend Time In Bar in the last 7 days?") +
-  facet_grid( ~ MaritalStatus, switch="both") +
+  facet_grid(~MaritalStatus, switch = "both") +
   theme_minimal() +
   scale_fill_brewer(palette = "Reds") +
   fancy_plot
@@ -179,7 +181,7 @@ dataset_without_na_marital_status %>%
   ggplot(aes(x = factor(1), fill = SpendTimeBar7d)) +
   geom_bar(stat = "count", position = "fill") +
   ggtitle("Spend Time In Bar in the last 7 days?") +
-  facet_wrap( ~ MaritalStatus, switch="both") +
+  facet_wrap(~MaritalStatus, switch = "both") +
   theme_minimal() +
   scale_fill_brewer(palette = "Reds") +
   fancy_plot
@@ -212,19 +214,19 @@ ggplot(dataset,
 ggplot(dataset,
        aes(x = ProblemsConcentratingLast2w, y = AlcoholAmountAvgPerMonthCubeRoot)) + geom_boxplot()
 
-dataset %>% 
-  filter(ThoughtSuicideLast2w != "NA") %>% 
-  ggplot(aes(x = ThoughtSuicideLast2w, y = AlcoholAmountAvgPerMonthCubeRoot, fill = ThoughtSuicideLast2w)) + 
-  geom_boxplot() + 
-  ggtitle("Alcohol Consumption per month cube Root - Thought about suicide") + 
+dataset %>%
+  filter(ThoughtSuicideLast2w != "NA") %>%
+  ggplot(aes(x = ThoughtSuicideLast2w, y = AlcoholAmountAvgPerMonthCubeRoot, fill = ThoughtSuicideLast2w)) +
+  geom_boxplot() +
+  ggtitle("Alcohol Consumption per month cube Root - Thought about suicide") +
   theme_minimal() +
   fancy_plot_no_legend
 
-dataset %>% 
-  filter(FeelDownDepressedLast2W != "NA") %>% 
-  ggplot(aes(x = FeelDownDepressedLast2W, y = AlcoholAmountAvgPerMonthCubeRoot, fill = FeelDownDepressedLast2W)) + 
-  geom_boxplot() + 
-  ggtitle("Alcohol Consumption per month cube Root - Feel Down or Depressed") + 
+dataset %>%
+  filter(FeelDownDepressedLast2W != "NA") %>%
+  ggplot(aes(x = FeelDownDepressedLast2W, y = AlcoholAmountAvgPerMonthCubeRoot, fill = FeelDownDepressedLast2W)) +
+  geom_boxplot() +
+  ggtitle("Alcohol Consumption per month cube Root - Feel Down or Depressed") +
   theme_minimal() +
   fancy_plot_no_legend
 
@@ -263,13 +265,13 @@ ggplot(dataset, aes(x = SpendTimeBar7d)) + geom_histogram(aes(color = FamilyPove
 
 dataset %>%
   ggplot(aes(x = FamilyPovertyIndex, fill = SpendTimeBar7d)) +
-  geom_density(alpha= 0.5) + 
-  ggtitle("Poverty Index - Time in Bar") + 
+  geom_density(alpha = 0.5) +
+  ggtitle("Poverty Index - Time in Bar") +
   theme_minimal() +
   fancy_plot
 
-dataset %>% 
-  ggplot(aes(x = DifficultyConcentrating, y = AlcoholAmountAvgPerMonth)) + 
+dataset %>%
+  ggplot(aes(x = DifficultyConcentrating, y = AlcoholAmountAvgPerMonth)) +
   geom_boxplot()
 
 ## Create and train the models.
@@ -288,25 +290,42 @@ train_dataset <- dataset %>% select(
   FeelDownDepressedLast2W,
   ProblemsConcentratingLast2w,
   ThoughtSuicideLast2w,
-  GreaterEqual35HoursWorkPerWeek
+  GreaterEqual35HoursWorkPerWeek,
+# Mental variables.,
+  SmokedCigsLast30d,
+  MarijuanaLast30d,
+  CocaineLast30d,
+  HeroineLast30d,
+  HoursWorkPerWeek
 )
+
+train_dataset <-
+  train_dataset %>%
+  mutate(SmokedCigsLast30d = ifelse(is.na(SmokedCigsLast30d), 0.0, SmokedCigsLast30d)) %>%
+  mutate(MarijuanaLast30d = ifelse(is.na(MarijuanaLast30d), 0.0, MarijuanaLast30d)) %>%
+  mutate(CocaineLast30d = ifelse(is.na(CocaineLast30d), 0.0, CocaineLast30d)) %>%
+  mutate(HeroineLast30d = ifelse(is.na(HeroineLast30d), 0.0, HeroineLast30d)) %>%
+  mutate(HoursWorkPerWeek = ifelse(is.na(HoursWorkPerWeek), 0.0, HoursWorkPerWeek))
+
 
 # treat na in independent variables.
 train_dataset <- na.omit(train_dataset)
 
+set.seed(100)
+
 cvControl <- caret::trainControl(method = "cv", number = 10)
-dtGrid <- expand.grid(cp = seq(0, 0.4, 0.01))
+dtGrid <- expand.grid(cp = (0:10) * 0.01)
 
 fit_dt_grid <- caret::train(
-  x = train_dataset %>% select(-AlcoholAmountAvgPerMonth),
-  y = train_dataset$AlcoholAmountAvgPerMonth,
+  AlcoholAmountAvgPerMonth ~ SmokedCigsLast30d + MarijuanaLast30d + CocaineLast30d + HeroineLast30d + HoursWorkPerWeek,
+  data = train_dataset,
   method = "rpart",
   trControl = cvControl,
   tuneGrid = dtGrid
 )
 
-# summarize the fit
-summary(fit_dt_grid)
+# summarize the fitted model.
+fit_dt_grid
 
 ## ??? ----
 
@@ -335,9 +354,17 @@ dataset %>% ggplot(aes(x = HeroineLast30d,
 
 # See if people that uses any kind of drugs also drink more than those that doesn't
 # Creating small dataset with alcohol and drugs
-dataset_drug <- dataset %>% select("AlcoholAmountAvgPerMonth", "SmokedCigsLast30d", "MarijuanaLast30d", "CocaineLast30d", "HeroineLast30d")
+dataset_drug <-
+  dataset %>% select(
+    "AlcoholAmountAvgPerMonth",
+    "SmokedCigsLast30d",
+    "MarijuanaLast30d",
+    "CocaineLast30d",
+    "HeroineLast30d"
+  )
 
 # turning drugs from range of values to True and False
+
 vars.to.replace <- 
   c("MarijuanaLast30d", 
     "CocaineLast30d", 
@@ -349,57 +376,53 @@ df2[is.na(df2)] <- FALSE
 dataset_drug[vars.to.replace] <- df2
 
 # Add a general column: people have used any kind of drugs in the last 30d
-dataset_drug$DrugLast30d <- 
+dataset_drug$DrugLast30d <-
   (
-    dataset_drug$MarijuanaLast30d | 
+    dataset_drug$MarijuanaLast30d |
       dataset_drug$CocaineLast30d | dataset_drug$HeroineLast30d
   )
 
 # Same as before but it takes into account also Cigarettes
-dataset_drug$Drug_CigsLast30d <- 
+dataset_drug$Drug_CigsLast30d <-
   (
-    dataset_drug$MarijuanaLast30d | 
-      dataset_drug$CocaineLast30d | 
-      dataset_drug$HeroineLast30d | dataset_drug$SmokedCigsLast30d)
+    dataset_drug$MarijuanaLast30d |
+      dataset_drug$CocaineLast30d |
+      dataset_drug$HeroineLast30d | dataset_drug$SmokedCigsLast30d
+  )
 
 # Mean of average alcohol consumption per month of the people who do and don't do drug
-meanAlcoholAmountAvgPerMonth_dodrugs <- 
-  dataset_drug %>% 
-  filter(DrugLast30d == T) %>% 
+meanAlcoholAmountAvgPerMonth_dodrugs <-
+  dataset_drug %>%
+  filter(DrugLast30d == T) %>%
   summarize(mean(AlcoholAmountAvgPerMonth))
 
-meanAlcoholAmountAvgPerMonth_dontdrugs <- 
-  dataset_drug %>% 
-  filter(DrugLast30d == F) %>% 
+meanAlcoholAmountAvgPerMonth_dontdrugs <-
+  dataset_drug %>%
+  filter(DrugLast30d == F) %>%
   summarize(mean(AlcoholAmountAvgPerMonth))
 
 # Mean of average alcohol consumption per month of the people who do and don't do drug including cigarettes
-meanAlcoholAmountAvgPerMonth_dodrugs_cig <- 
-  dataset_drug %>% 
-  filter(Drug_CigsLast30d == T) %>% 
+meanAlcoholAmountAvgPerMonth_dodrugs_cig <-
+  dataset_drug %>%
+  filter(Drug_CigsLast30d == T) %>%
   summarize(mean(AlcoholAmountAvgPerMonth))
 
-meanAlcoholAmountAvgPerMonth_dontdrugs_cig <- 
-  dataset_drug %>% 
-  filter(Drug_CigsLast30d == F) %>% 
+meanAlcoholAmountAvgPerMonth_dontdrugs_cig <-
+  dataset_drug %>%
+  filter(Drug_CigsLast30d == F) %>%
   summarize(mean(AlcoholAmountAvgPerMonth))
 
-# Alcohol consumption of people who do drugs vs those who don't 
-df <- data.frame(DrugLast30d = c("DoDrugs", "DontDoDrugs"), 
-                 MeanAlcoholAmountAvgPerMonth = c(meanAlcoholAmountAvgPerMonth_dodrugs[[1]], 
-                                                  meanAlcoholAmountAvgPerMonth_dontdrugs_cig[[1]]))
+# Alcohol consumption of people who do drugs vs those who don't
+df <- data.frame(
+  DrugLast30d = c("DoDrugs", "DontDoDrugs"),
+  MeanAlcoholAmountAvgPerMonth = c(
+    meanAlcoholAmountAvgPerMonth_dodrugs[[1]],
+    meanAlcoholAmountAvgPerMonth_dontdrugs_cig[[1]]
+  )
+)
 
-ggplot(df, aes(x = DrugLast30d, y = MeanAlcoholAmountAvgPerMonth)) + 
+ggplot(df, aes(x = DrugLast30d, y = MeanAlcoholAmountAvgPerMonth)) +
   geom_col() + labs(x = "Drug usage", y = "Average monthly alcohol consumption")
-
-# Alcohol consumption of people who do drugs including cigarettes vs those who don't 
-df_cigs <- data.frame(DrugLast30d = c("DoDrugs", "DontDoDrugs"), 
-                      MeanAlcoholAmountAvgPerMonth = c(meanAlcoholAmountAvgPerMonth_dodrugs_cig[[1]], 
-                                                       meanAlcoholAmountAvgPerMonth_dontdrugs_cig[[1]]))
-
-ggplot(df_cigs, aes(x = DrugLast30d, y = MeanAlcoholAmountAvgPerMonth)) + 
-  geom_col() + labs(x = "Drug usage", y = "Average monthly alcohol consumption")
-
 # STIs
 
 dataset_STIs <- dataset %>% select("AlcoholAmountAvgPerMonth","HadHPV", "HadHerpes", "HadGenitalWarts", "HadGonorrhea", "HadChlamydia", "HadHIV")
@@ -508,29 +531,26 @@ ggplot(dataset_drug_mean, aes(x = Class, y = Count, fill = Class)) +
   theme_minimal() +
   fancy_plot_no_legend
 
-###########################
-#Logistic regression attempt
-training_labels <- dataset
-
-# Create a set of training indices
-trainIndex <- createDataPartition(
-  training_labels$AlcoholAmountAvgPerMonth, # Sample proportionally based on the outcome variable
-  p = .8,           # Percentage to be used for training
-  list = FALSE,     # Return the indices as a vector (not a list)
-  times = 1         # Only create one set of indices
+# Alcohol consumption of people who do drugs including cigarettes vs those who don't
+df_cigs <- data.frame(
+  DrugLast30d = c("DoDrugs", "DontDoDrugs"),
+  MeanAlcoholAmountAvgPerMonth = c(
+    meanAlcoholAmountAvgPerMonth_dodrugs_cig[[1]],
+    meanAlcoholAmountAvgPerMonth_dontdrugs_cig[[1]]
+  )
 )
 
-# Subset your data into training and testing set
-training_set <- training_labels[ trainIndex, ] # Use indices to get training data
-test_set <- training_labels[ -trainIndex, ]    # Remove train indices to get test data
+ggplot(df_cigs, aes(x = DrugLast30d, y = MeanAlcoholAmountAvgPerMonth)) +
+  geom_col() + labs(x = "Drug usage", y = "Average monthly alcohol consumption")
 
-logit <- glm(AlcoholAmountAvgPerMonth ~ Gender * MaritalStatus * FamilyPovertyIndex, data=training_set, family="gaussian")
+####Independence tests
+chisq.test(dataset$Gender, dataset$AlcoholAmountAvgPerMonth, correct = FALSE)
+chisq.test(dataset$MaritalStatus,
+           dataset$AlcoholAmountAvgPerMonth,
+           correct = FALSE)
 
-summary(logit)
-anova(logit)
-
-p<- predict(logit,test_set)
-
+###########################
+# Logistic and linear regression attempts
 lm1 <- lm(AlcoholAmountAvgPerMonth ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc, dataset)
 summary(lm1)
 
@@ -586,3 +606,40 @@ length(row.names(dataset_without_na))
 ## try same combination for glm, same so let us use lr
 glm5 <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d, data=dataset_without_na, family="gaussian")
 summary(glm5)
+
+
+training_labels <- dataset_without_na
+
+# Create a set of training indices
+trainIndex <- createDataPartition(
+  training_labels$AlcoholAmountAvgPerMonthCubeRoot, # Sample proportionally based on the outcome variable
+  p = .8,           # Percentage to be used for training
+  list = FALSE,     # Return the indices as a vector (not a list)
+  times = 1         # Only create one set of indices
+)
+
+# Subset your data into training and testing set
+training_set <- training_labels[ trainIndex, ] # Use indices to get training data
+test_set <- training_labels[ -trainIndex, ]    # Remove train indices to get test data
+
+glm_test <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d, data=training_set, family="gaussian")
+
+summary(glm_test_set)
+anova(glm_test_set)
+
+glm_test_prediction_train <- predict(glm_test, training_set)
+glm_test_prediction_test <- predict(glm_test, test_set)
+
+glm_test_r2_train <- R2(glm_test_prediction_train,training_set$AlcoholAmountAvgPerMonthCubeRoot)
+glm_test_r2_test <- R2(glm_test_prediction_test, test_set$AlcoholAmountAvgPerMonthCubeRoot)
+
+lm_test <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d, data = training_set)
+
+lm_test_prediction_train <- predict(lm_test, training_set)
+lm_test_prediction_test <- predict(lm_test, test_set)
+
+lm_test_r2_train <- R2(lm_test_prediction_train, training_set$AlcoholAmountAvgPerMonthCubeRoot)
+lm_test_r2_test <- R2(lm_test_prediction_test, test_set$AlcoholAmountAvgPerMonthCubeRoot)
+
+# The result is the same
+## TODO: Compare with decision tree

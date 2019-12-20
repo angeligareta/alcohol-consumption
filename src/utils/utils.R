@@ -1,4 +1,5 @@
 # Utils
+library(ggplot2)
 
 ## Select variables that could be useful for alcohol and explanation
 ## Made use of character vector

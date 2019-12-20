@@ -9,11 +9,11 @@ knitr::opts_chunk$set(echo = TRUE)
 source("./main.R")
 ```
 
-### Abstract 
+### Abstract
 
 We found out that there is a weak correlation between the poverty index and alcohol consumption. Additionally, alcohol consumption depends on the gender and marital status. Males tend to consume more alcohol than females and those who never married tend to drink more than those separated.
 
-ADD SUMMARY OF PREDICTION
+The aim of this project is to discover and identify the relationships between alcohol consumption and other physical and social variables of the individuals. For achieving this we explored the dataset of the national health survey of United States.
 
 ### Introduction
 
@@ -71,7 +71,7 @@ The data collection of this survey was a complex task that involved several part
 The dataset is divided in several sections: demographic, medications or questionnaires. For our study, we are going to focus on the questionnaire section which is a dataset composed of several columns, where each one is a response to a certain question, such as: _In the past 12 months, how often did you drink any type of alcoholic beverage?_ The questionnaire dataset is composed of 10175 rows and 953 columns. 15 of those columns are the answers for questions related with alcohol consumption and 22 are related with mental health. Some of the features we considered during our analysis were the following:
 
 - HighestEducationLevel
-- MartialStatus
+- MaritalStatus
 - Gender
 - Age
 - DifficultyConcentrating
@@ -81,28 +81,38 @@ The dataset is divided in several sections: demographic, medications or question
 - AlcoholAmountAvgPerMonth
 - AlcoholAmountUnitPerMonth.
 
+As we can see, there are four variables related with the demographics of the individual (`HightestEducationLevel`, `MaritalStatus`, `Gender`, `Age`, `MonthlyFamilyIncome`).
+
+Also, we have variables which represents the mental health of the individual: `DifficultyConcentrating`, `ThoughtSuicideLast2w`,
+
+And finally, we have two variables selected for alcohol consumption, and we are going to select `AlcoholAmountAvgPerMonth` as our response variable.
+
 - Creates 5 well designed and formatted graphics (**15 points**, 3 each)
+
+For exploring the relations between variables, we made some plots.
+
+For exploring the variables that are related to the mental health of the individual, we created some
 
 1. marital status average
 2. gender average
 3. a graph from mental health
 
-  - The visual uses the appropriate visual encodings based on the data type (**1 point**)
-  - Written interpretation of graphic is provided (**1 point**)
-  - Clear axis labels, titles, and legends are included, where appropriate (**1 point**)
+- The visual uses the appropriate visual encodings based on the data type (**1 point**)
+- Written interpretation of graphic is provided (**1 point**)
+- Clear axis labels, titles, and legends are included, where appropriate (**1 point**)
 
-### Methods 
+### Methods
 
 - **Strength of relationships**:
 
   - A formula describing how you believe your features (independent variables) are related to your outcome of interest (dependent variable) (**5 points**)
-  I AM NOT SURE IF THIS IS WHAT KE ASKS FOR:
-   We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.  
-   We also made several graphs and ran some Chi Squared tests between selected categorical features and alcohol consumptions. 
+    We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.  
+    We have also ran some Chi Squared tests between selected features and alcohol consumptions.
+  - A defense of the variables included in your formula (**5 points**)
+    Based on our motivation for the project, we decided to include relevant features. It was rather challenging, since the dataset had a huge number of variables. During the analysis of the data, we looked at the distributions and planned to focus more on the variables that are normally distributed or uniformly distributed among all groups, however that was challenging since most of them were not. It was also important to have enough data, since in some cases, there were a lot of missing values.
 
-  Based on our motivation for the project, we decided to include relevant features. It was rather challenging, since the dataset had a huge number of variables. During the analysis of the data, we looked at the distributions and planned to focus more on the variables that are normally distributed or uniformly distributed among all groups, however that was challenging since most of them were not. It was also important to have enough data, since in some cases, there were a lot of missing values.
- 
   - Creating the appropriate model based on your dataset (**5 points**)
+
 - **Prediction**: You must also make predictions for your outcome of interest. In doing so, you must demonstrate a clear use of:
   - Splitting your data into testing/training data (**2 points**)
   - Applying cross validation to your model (**3 points**)
@@ -112,30 +122,16 @@ The dataset is divided in several sections: demographic, medications or question
   - Employing the algorithm of interest (**3 points**)
 
 ### Results (**20 points**)
+
+ADD VISUAL
 You must provide a clear interpretation of your statistical and machine learning results, including at least **one visual or table** for each.
 
 - **Strengths of relationships**: For the features you included in your model, you must describe the strength (significance) and magnitude of the relationships. This can be presented in a table or chart, and pertinent observations should be described in the text.
-(**10 points**)
+  (**10 points**)
 
 Regarding the correlation between age and alcohol consumption, using the Pearson method gave us a 0.049 correlation, while the Spearman method returned a -0.145 coefficient. Although both coefficients are low, we notice a 10% difference between the two methods. This could possibly mean that there is a relation between these two variables that is not linear.
 
-
-```{r, warning=FALSE}
-cor(
-  dataset$Age, 
-  dataset$AlcoholAmountAvgPerMonth, 
-  method = "pearson"
-)
-```
-```{r, warning=FALSE}
-cor(
-  dataset$Age, 
-  dataset$AlcoholAmountAvgPerMonth, 
-  method = "spearman"
-)
-```
-
-Trying to correlate monthly average alcohol consumption with the Poverty Index, using the Spearman method resulted in a 19% correlation. Although it is also quite low, we can assume a weak correlation, especially given the social context. 
+Trying to correlate monthly average alcohol consumption with the Poverty Index, using the Spearman method resulted in a 19% correlation. Although it is also quite low, we can assume a weak correlation, especially given the social context.
 
 ```{r, warning=FALSE}
 cor(
@@ -145,18 +141,7 @@ cor(
 )
 ```
 
-
 After computing the Chi squared tests, we concluded based on the low p-value that alcohol consumption depends on the gender and marital status. It was very clear from the graphs that the gender is related to alcohol consumption as well.
-
-```{r, warning=FALSE}
-chisq.test(dataset$Gender, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
-```
-```{r, warning=FALSE}
-chisq.test(dataset$MaritalStatus, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
-```
-
-ADD VISUAL FOR GENDER
-
 
 - **Predictions**: How well were you able to predict values in the dataset? You should both report appropriate metrics based on the type of outcome you're predicting (e.g., root mean squared error v.s. accuracy), as well as a high quality visual showing the strength of your model (**10 points**)
 
@@ -164,11 +149,11 @@ ADD VISUAL FOR GENDER
 
 Based on _specific observations_ from the results section, the report clearly provides:
 
-We were expecting to have more surprising and intriguing results, but unfortunately we were many times disappointed. Although we have chosen a huge dataset, it still felt like there was not enough data. Nevertheless, our methods had some clear results such as that alcohol consumption depends on the gender and marital status. Unfortuantely, we did not have the same sample size for all the marital status groups so this could be something to be improved for the future - a better dataset to check the dependence. 
+We were expecting to have more surprising and intriguing results, but unfortunately we were many times disappointed. Although we have chosen a huge dataset, it still felt like there was not enough data. Nevertheless, our methods had some clear results such as that alcohol consumption depends on the gender and marital status. Unfortuantely, we did not have the same sample size for all the marital status groups so this could be something to be improved for the future - a better dataset to check the dependence.
 
 The gender dependence was something we expected. In a new project this could futher be studied in relation to other variables, such as the amount of swear words used by each gender, crime activity and other factors that come in a full suite of cultural behaviour.
 
-We also conclude that it is quite difficult to predict alcohol drinking habits as it is not strongly correlated to the factors about which we had information in the dataset. 
+We also conclude that it is quite difficult to predict alcohol drinking habits as it is not strongly correlated to the factors about which we had information in the dataset.
 
 It is also important to note that the data was gathered from questionnaires, therefore its accuracy is not granted. For future, it would also be interesting to work with datasets that have a different source such as purchase statements.
 
