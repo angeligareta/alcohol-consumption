@@ -130,5 +130,12 @@ After computing the Chi squared tests, we concluded based on the low p-value tha
 
 Based on _specific observations_ from the results section, the report clearly provides:
 
-- An analysis of the real world implications of the results, at least one full paragraph (**5 points**)
-- Clear suggestion for directions of future research, at least one full paragraph (**5 points**)
+We were expecting to have more surprising and intriguing results, but unfortunately we were many times disappointed. Although we have chosen a huge dataset, it still felt like there was not enough data. Nevertheless, our methods had some clear results such as that alcohol consumption depends on the gender and marital status. Unfortuantely, we did not have the same sample size for all the marital status groups so this could be something to be improved for the future - a better dataset to check the dependence. 
+
+The gender dependence was something we expected. In a new project this could futher be studied in relation to other variables, such as the amount of swear words used by each gender, crime activity and other factors that come in a full suite of cultural behaviour.
+
+We also conclude that it is quite difficult to predict alcohol drinking habits as it is not strongly correlated to the factors about which we had information in the dataset. 
+
+It is also important to note that the data was gathered from questionnaires, therefore its accuracy is not granted. For future, it would also be interesting to work with datasets that have a different source such as purchase statements.
+
+Finally, as we improve our data processing skills and come across better data and in greater amounts, it would be ideal if we could use artificial neural networks to find patterns regarding alcohol consumption and mental health, as there migt be some tings that we are unable to detect using other methods. The results could potentially show the risks involved with alcohol consumption.
