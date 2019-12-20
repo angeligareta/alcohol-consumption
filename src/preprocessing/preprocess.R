@@ -1,27 +1,26 @@
-library(dplyr)
 if (!require(plyr)) {
   install.packages("plyr")
-  library(plyr) # cuberoot transformation
+  library(plyr)
 }
 if (!require(DataCombine)) {
   install.packages("DataCombine")
-  library(DataCombine) # cuberoot transformation
+  library(DataCombine)
 }
 if (!require(e1071)) {
   install.packages("DataCombine")
-  library(e1071) # cuberoot transformation
+  library(e1071)
 }
 if (!require(kader)) {
   install.packages("kader")
   library(kader) # cuberoot transformation
 }
-
+library(dplyr)
 
 # Import utils
 source("./utils/utils.R")
 
 print("Reading datasets...")
-# Read datasets from relative path (check working directory in case of error)
+# Read datasets from relative path (check working directory in case of error) ----
 demographic <-
   read.csv("../data/demographic.csv", stringsAsFactors = T)
 diet <- read.csv("../data/diet.csv", stringsAsFactors = T)
@@ -63,8 +62,6 @@ transformed_dataset$HighestEducationLevel <-
     br = c(0, 2, 3, 6),
     labels = c("Basic", "Intermediate", "Advanced")
   )
-transformed_dataset$HighestEducationLevel <-
-  forcats::fct_explicit_na(transformed_dataset$HighestEducationLevel, na_level = "NA")
 
 # CountryBorn Transformation 1 => US, 2 => NoUS
 transformed_dataset$CountryBorn <-
@@ -73,9 +70,6 @@ transformed_dataset$CountryBorn <-
     levels = c(1, 2),
     labels = c("US", "NoUS")
   )
-
-transformed_dataset$CountryBorn <-
-  forcats::fct_explicit_na(transformed_dataset$CountryBorn, na_level = "NA")
 
 transformed_dataset$MaritalStatus <-
   factor(
@@ -108,7 +102,7 @@ transformed_dataset$SpendTimeBar7d <-
     labels = c("Yes", "No")
   )
 
-# Preprocesing, choosing the right variables and handling NA Values.
+# Preprocesing, choosing the right variables and handling NA Values. ----
 
 ## Mental situation variables.
 print("Processing mental situation variables...")
@@ -164,7 +158,7 @@ transformed_dataset$GreaterEqual35HoursWorkPerWeek <-
     labels = c("Yes", "No")
   )
 
-## Alcohol variables
+## Normalizing ----
 print("Reading NA Values in alcohol variables...")
 alcohol_variables <-
   list(
@@ -219,6 +213,7 @@ transformAlcoholAmountAvgPerMonth <-
 
 transformed_dataset <-
   transformed_dataset %>% mutate(AlcoholAmountAvgPerMonth = transformAlcoholAmountAvgPerMonth(AlcoholAmountAvg, AlcoholAmountUnit))
+
 
 
 ## Transformations ----

@@ -1,30 +1,34 @@
 
-library(ggplot2)
 library(tidyr)
 if (!require(hexbin)) {
   install.packages("hexbin")
-  library(hexbin) # cuberoot transformation
+  library(hexbin)
 }
 if (!require(GGally)) {
   install.packages("GGally")
-  library(GGally) # cuberoot transformation
+  library(GGally)
 }
 if (!require(randomForest)) {
   install.packages("randomForest")
-  library(randomForest) # cuberoot transformation
+  library(randomForest)
 }
 if (!require(caTools)) {
   install.packages("caTools")
-  library(caTools) # cuberoot transformation
+  library(caTools) 
 }
 if (!require(e1071)) {
   install.packages("e1071")
-  library(e1071) # cuberoot transformation
+  library(e1071)
 }
 if (!require(caret)) {
   install.packages("caret")
-  library(caret) # cuberoot transformation
+  library(caret)
 }
+if (!require(ggthemes)){
+  install.packages("ggthemes")
+  library(ggthemes)
+}
+library(ggplot2)
 
 source("./preprocessing/preprocess.R")
 
@@ -103,19 +107,25 @@ dataset %>% ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonth)) + geom_
 
 ## Add new variable with a ponderated mean per Marital Status category
 dataset_with_alcohol_mean_marital_status <-
-  dataset %>% group_by(MaritalStatus) %>% summarise(
+  transformed_dataset %>% filter(MaritalStatus != "NA") %>% group_by(MaritalStatus) %>% summarise(
     AlcoholAmountAvgPerMonthMean = mean(AlcoholAmountAvgPerMonth),
     NumberOfPeopleInMaritalStatus = length(AlcoholAmountAvgPerMonth),
-    AlcoholAmountAvgPerMonthPonderatedMean = AlcoholAmountAvgPerMonthMean / NumberOfPeopleInMaritalStatus
+    AlcoholAmountAvgPerMonthPonderatedMean = mean(AlcoholAmountAvgPerMonth) / length(AlcoholAmountAvgPerMonth)
   )
-## Show mean per marital status group
+
+
+## Show alcohol consumption mean per marital status group
 dataset_with_alcohol_mean_marital_status %>%
   ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthMean)) +
-  geom_bar(aes(fill = MaritalStatus), stat = "identity") +
-  geom_text(aes(label = "Nº People"), vjust = 2) +
-  geom_text(aes(label = NumberOfPeopleInMaritalStatus),
-            vjust = 4,
-            color = "white")
+  geom_bar(aes(fill = MaritalStatus), stat = "identity") #+
+  # geom_text(aes(label = "Nº People"), vjust = 2) +
+  # geom_text(aes(label = NumberOfPeopleInMaritalStatus), vjust = 4, color = "white")
+
+## Show alcohol consumption mean per marital status group
+dataset_with_alcohol_mean_marital_status %>%
+  ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthMean)) +
+  geom_bar(aes(fill = MaritalStatus), stat = "identity")
+
 
 ## Show ponderated mean per marital status group
 #The fact that the dataset contains more data on married people affects the results
@@ -125,8 +135,9 @@ dataset_with_alcohol_mean_marital_status %>%
 #  geom_text(aes(label = NumberOfPeopleInMaritalStatus), vjust=2) +
 #  geom_text(aes(label = format(round(AlcoholAmountAvgPerMonthMean, 2), nsmall = 2)), vjust=4, color="white")
 
-## See Marital Status and SpendTimeBar7d
-dataset %>%
+## See Marital Status and SpendTimeBar7d (Pie chart)
+dataset_without_na_marital_status <- dataset %>% filter(MaritalStatus != "NA")
+dataset_without_na_marital_status %>%
   ggplot(aes(x = factor(1), y = ..count.., fill = MaritalStatus)) +
   geom_bar(stat = "count", position = "fill") +
   ggtitle("Spend Time In Bar in the last 7 days?") +
@@ -139,15 +150,49 @@ dataset %>%
   coord_polar("y") +
   facet_wrap( ~ SpendTimeBar7d)
 
+## See Marital Status and SpendTimeBar7d Per SpendTimeBar7d (Stacked Bar)
+dataset_without_na_marital_status %>%
+  ggplot(aes(x = factor(1), fill = MaritalStatus)) +
+  geom_bar(stat = "count", position = "stack") +
+  ggtitle("Spend Time In Bar in the last 7 days?") +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank()
+  ) +
+  facet_wrap( ~ SpendTimeBar7d)
+
+## See Marital Status and SpendTimeBar7d Per Marital Status (Stacked Bar)
+dataset_without_na_marital_status %>%
+  ggplot(aes(x = factor(1), fill = SpendTimeBar7d)) +
+  geom_bar(stat = "count", position = "stack") +
+  ggtitle("Spend Time In Bar in the last 7 days?") +
+  facet_grid( ~ MaritalStatus, switch="both") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Reds") +
+  fancy_plot
+
+## See Marital Status and SpendTimeBar7d Per Marital Status (Stacked Bar) ALl 100%
+dataset_without_na_marital_status %>%
+  ggplot(aes(x = factor(1), fill = SpendTimeBar7d)) +
+  geom_bar(stat = "count", position = "fill") +
+  ggtitle("Spend Time In Bar in the last 7 days?") +
+  facet_wrap( ~ MaritalStatus, switch="both") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Reds") +
+  fancy_plot
+
 ## Alcohol and Sex ----
-## TODO: Handle NA values
+
+
 
 
 # Relation beween mental situation, mental illnesses, economic situation and alcohol consumption ----
 
 # Exploratory analisys.
 ggplot(dataset,
-       aes(x = ProblemsRememberingThingsLast30d, y = AlcoholAmountAvgPerMonth)) + geom_boxplot()
+       aes(x = ProblemsRememberingThingsLast30d, y = AlcoholAmountAvgPerMonth)) + geom_boxplot(outlier.size = 0)
 
 ggplot(
   dataset,

@@ -50,6 +50,10 @@ selected_variables <-
     "ALQ120U" = "AlcoholAmountUnit"
   )
 
+columns_na_3 <- c(
+  "HadHIV"
+)
+
 columns_na_7_9 <- c(
   "HighestEducationLevel",
   "SexualOrientationM",
@@ -59,7 +63,6 @@ columns_na_7_9 <- c(
   "HadGenitalWarts",
   "HadGonorrhea",
   "HadChlamydia",
-  "HadHIV",
   "ProblemsRememberingThingsLast30d",
   "DifficultyConcentrating", 
   "MemoryLossLast12m",
@@ -106,6 +109,7 @@ columns_na_77777_99999 <- c(
 )
 
 na_values_per_column = list(
+  na_3 = list(c(3), columns_na_3),
   na_7_9 = list(c(7, 9), columns_na_7_9),
   na_77_99 = list(c(77, 99), columns_na_77_99),
   na_777_999 = list(c(777, 999), columns_na_777_999),
@@ -117,3 +121,19 @@ na_values_per_column = list(
 substitute_column_if <- function(column, condition_values) {
   column <- replace(column, column %in% condition_values, NA)
 }
+
+fancy_text_title <- theme(title = element_text(color = "chocolate",
+                                                      size = 14, face = "bold", margin = 3, line = 2))
+
+fancy_text_legend <- theme(legend.title = element_text(color = "chocolate",
+                                                       size = 14, face = "bold"))
+
+fancy_plot <-
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    legend.title = element_blank(),
+  ) +
+  fancy_text_title
