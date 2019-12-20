@@ -95,13 +95,6 @@ cor(dataset)
 dataset <- preprocessed_dataset #retransforn
 ##########################################################
 
-dataset_with_alcohol_mean_gender<-
-  dataset %>% group_by(Gender) %>% summarise(
-    AlcoholAmountAvgPerMonthMean = mean(AlcoholAmountAvgPerMonth)
-   )
-dataset_with_alcohol_mean_gender %>% ggplot(aes(x = Gender, y = AlcoholAmountAvgPerMonth)) + geom_bar(aes(fill = MaritalStatus), stat =
-                                                                                      "identity")
-
 ### Does Marital Status affect alcohol amount per month
 
 #Total amount - misleading since the dataset contains more data on married people than the other groups
