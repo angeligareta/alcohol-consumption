@@ -267,4 +267,38 @@ transformed_dataset <-
     AlcoholAmountAvgPerMonthCubeRoot = kader:::cuberoot(transformed_dataset$AlcoholAmountAvgPerMonth)
   )
 
+
+
+print("Adding new column HadSTI")
+# Parse var to boolean
+temp <- transformed_dataset[sti_variables]
+temp[temp == 1] <- T
+temp[temp == 2] <- F
+transformed_dataset[sti_variables] <- temp
+
+transformed_dataset$HadSTI <-
+  (
+    transformed_dataset$HadHPV |
+      transformed_dataset$HadHerpes |
+      transformed_dataset$HadGenitalWarts |
+      transformed_dataset$HadGonorrhea |
+      transformed_dataset$HadChlamydia | transformed_dataset$HadHIV
+  )
+
+print("Adding new column DrugUseLast30dSum")
+transformed_dataset <- transformed_dataset %>% 
+  mutate(DrugUseLast30dSum = rowSums(transformed_dataset[, head(drug_variables, -1)], na.rm = TRUE))
+
+print("Adding new column DrugCigsUseLast30dSum")
+transformed_dataset <- transformed_dataset %>% 
+  mutate(DrugCigsUseLast30dSum = rowSums(transformed_dataset[, drug_variables], na.rm = TRUE))
+
+print("Adding new boolean column DrugUseLast30d")
+transformed_dataset <- transformed_dataset %>% 
+  mutate(DrugUseLast30d = transform_continuous_to_boolean(DrugUseLast30dSum))
+
+print("Adding new boolean column DrugUseLast30d")
+transformed_dataset <- transformed_dataset %>% 
+  mutate(DrugCigsUseLast30d = transform_continuous_to_boolean(DrugCigsUseLast30dSum))
+
 preprocessed_dataset <- transformed_dataset

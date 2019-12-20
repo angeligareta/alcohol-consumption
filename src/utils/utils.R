@@ -117,9 +117,36 @@ na_values_per_column = list(
   na_77777_99999 = list(c(77777, 99999), columns_na_77777_99999)
 )
 
+sti_variables <- c("HadHPV",
+                   "HadHerpes",
+                   "HadGenitalWarts",
+                   "HadGonorrhea",
+                   "HadChlamydia",
+                   "HadHIV")
+
+drug_variables <- 
+  c("MarijuanaLast30d", 
+    "CocaineLast30d", 
+    "HeroineLast30d", 
+    "MethanfetamineLast30d",
+    "SmokedCigsLast30d")
+
 # Convert to explicit NA
 substitute_column_if <- function(column, condition_values) {
   column <- replace(column, column %in% condition_values, NA)
+}
+
+transform_continuous_to_boolean <- function(column) {
+  boolean_column <- column
+  for (index in seq_along(column)) {
+    if (column[index] > 0) {
+      boolean_column[index] <- T
+    }
+    else {
+      boolean_column[index] <- F
+    }
+  }
+  boolean_column
 }
 
 fancy_text_title <- theme(title = element_text(color = "chocolate",

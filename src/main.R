@@ -341,7 +341,8 @@ dataset_drug <- dataset %>% select("AlcoholAmountAvgPerMonth", "SmokedCigsLast30
 vars.to.replace <- 
   c("MarijuanaLast30d", 
     "CocaineLast30d", 
-    "HeroineLast30d", 
+    "HeroineLast30d",
+    "MethanfetamineLast30d",
     "SmokedCigsLast30d")
 df2 <- dataset_drug[vars.to.replace]
 df2[!is.na(df2)] <- TRUE
@@ -428,22 +429,11 @@ dataset_STIs$HadSTI <-
       dataset_STIs$HadChlamydia | dataset_STIs$HadHIV)
 
 # Mean of average alcohol consumption per month of the people with and without STIs
-meanAlcoholAmountAvgPerMonth_HadSTI <- 
-  dataset_STIs %>% 
-  filter(HadSTI == T) %>% 
-  summarize(mean(AlcoholAmountAvgPerMonth))
+df_sti <- dataset_STIs %>% 
+  group_by(HadSTI) %>% 
+  summarize(AlcoholAmountAvgPerMonthMean = mean(AlcoholAmountAvgPerMonth))
 
-meanAlcoholAmountAvgPerMonth_HadntSTI <- 
-  dataset_STIs %>% 
-  filter(HadSTI == F) %>% 
-  summarize(mean(AlcoholAmountAvgPerMonth))
-
-# Alcohol consumption of people with STI and without 
-df_sti <- data.frame(STI = c("HadSTI", "HadntSTI"), 
-                     MeanAlcoholAmountAvgPerMonth = c(meanAlcoholAmountAvgPerMonth_HadSTI[[1]], 
-                                                      meanAlcoholAmountAvgPerMonth_HadntSTI[[1]]))
-
-ggplot(df_sti, aes(x = STI, y = MeanAlcoholAmountAvgPerMonth)) + 
+ggplot(df_sti, aes(x = HadSTI, y = AlcoholAmountAvgPerMonthMean)) + 
   geom_col() + labs(x = "STI", y = "Average monthly alcohol consumption")
 
 # chisq.test on drugs
@@ -535,9 +525,18 @@ trainIndex <- createDataPartition(
 training_set <- training_labels[ trainIndex, ] # Use indices to get training data
 test_set <- training_labels[ -trainIndex, ]    # Remove train indices to get test data
 
-logit <- glm(AlcoholAmountAvgPerMonth ~ Gender * MaritalStatus * FamilyPovertyIndex,data=training_set,family="gaussian")
+logit <- glm(AlcoholAmountAvgPerMonth ~ Gender * MaritalStatus * FamilyPovertyIndex, data=training_set, family="gaussian")
 
 summary(logit)
 anova(logit)
 
 p<- predict(logit,test_set)
+
+lm1 <- lm(AlcoholAmountAvgPerMonth ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevel, dataset)
+summary(lm1)
+
+glm1 <- glm(AlcoholAmountAvgPerMonth ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevel, data =dataset, family="gaussian")
+summary(glm1)
+
+lm2 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevel + HighestEducationLevel * FamilyPovertyIndex, dataset)
+summary(lm2)
