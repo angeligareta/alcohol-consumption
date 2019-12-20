@@ -215,14 +215,16 @@ summary(fit_dt_grid)
 ## ??? ----
 
 # STEFANO
-# alcohol related variable: SpendTimeBar7d, AlcoholDrink5Last30d, AlcoholAmountAvgPerMonth, AlcoholAmountAvgPerMonth
 # Looking for correlation between alcohol and drugs
+
+# Exploratory analisys.
 dataset %>% ggplot(aes(x = SmokedCigsLast30d,
                        y = AlcoholAmountAvgPerMonth)) +
-  geom_point()
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE)
 
 dataset %>% ggplot(aes(x = MarijuanaLast30d,
-                       y = AlcoholAmountAvgPerMonthCubeRoot)) +
+                       y = AlcoholAmountAvgPerMonth)) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE)
 
@@ -231,69 +233,74 @@ dataset %>% ggplot(aes(x = CocaineLast30d,
   geom_point() +
   geom_smooth(method = lm, se = FALSE)
 
-# useless
 dataset %>% ggplot(aes(x = HeroineLast30d,
-                       y = AlcoholDrink5Last30d)) +
-  geom_point()
+                       y = AlcoholAmountAvgPerMonth)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE)
 
-# See if people that drinks uses also some kind of drugs
+# See if people that uses any kind of drugs also drink more than those that doesn't
+# Creating small dataset with alcohol and drugs
+dataset_drug <- dataset %>% select("AlcoholAmountAvgPerMonth", "SmokedCigsLast30d", "MarijuanaLast30d", "CocaineLast30d", "HeroineLast30d")
 
-# creating a dataset turning drug usage from a range of value to True and False
-dataset_drug <- dataset
-vars.to.replace <-
-  c("MarijuanaLast30d",
-    "CocaineLast30d",
-    "HeroineLast30d",
+# turning drugs from range of values to True and False
+vars.to.replace <- 
+  c("MarijuanaLast30d", 
+    "CocaineLast30d", 
+    "HeroineLast30d", 
     "SmokedCigsLast30d")
 df2 <- dataset_drug[vars.to.replace]
 df2[!is.na(df2)] <- TRUE
 df2[is.na(df2)] <- FALSE
 dataset_drug[vars.to.replace] <- df2
 
-# View(dataset_drug)
-
 # Add a general column: people have used any kind of drugs in the last 30d
-dataset_drug$DrugLast30d <-
+dataset_drug$DrugLast30d <- 
   (
-    dataset_drug$MarijuanaLast30d |
+    dataset_drug$MarijuanaLast30d | 
       dataset_drug$CocaineLast30d | dataset_drug$HeroineLast30d
   )
 
 # Same as before but it takes into account also Cigarettes
-dataset_drug$Drug_CigsLast30d <-
+dataset_drug$Drug_CigsLast30d <- 
   (
-    dataset_drug$MarijuanaLast30d |
-      dataset_drug$CocaineLast30d |
-      dataset_drug$HeroineLast30d | dataset_drug$SmokedCigsLast30d
-  )
+    dataset_drug$MarijuanaLast30d | 
+      dataset_drug$CocaineLast30d | 
+      dataset_drug$HeroineLast30d | dataset_drug$SmokedCigsLast30d)
 
-ggplot(data = dataset_drug, aes(x = DrugLast30d, y = AlcoholDrink5Last30d)) +
-  geom_bar(stat = "identity", width = 0.5)
+# Mean of average alcohol consumption per month of the people who do and don't do drug
+meanAlcoholAmountAvgPerMonth_dodrugs <- 
+  dataset_drug %>% 
+  filter(DrugLast30d == T) %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
 
-ggplot(data = dataset_drug, aes(x = Drug_CigsLast30d, y = AlcoholDrink5Last30d)) +
-  geom_bar(stat = "identity", width = 0.5)
+meanAlcoholAmountAvgPerMonth_dontdrugs <- 
+  dataset_drug %>% 
+  filter(DrugLast30d == F) %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
 
-# Looking for correlations between drugs
-df <-
-  dataset %>% select(
-    'AlcoholDrink5Last30d',
-    'SmokedCigsLast30d',
-    'MarijuanaLast30d',
-    'CocaineLast30d',
-    'HeroineLast30d'
-  )
-ggpairs(df)
+# Mean of average alcohol consumption per month of the people who do and don't do drug including cigarettes
+meanAlcoholAmountAvgPerMonth_dodrugs_cig <- 
+  dataset_drug %>% 
+  filter(Drug_CigsLast30d == T) %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
 
-# Looking for correlation between income and alcohol consumption
-df_2 <-
-  dataset %>% select('AlcoholDrink5Last30d',
-                     'MonthlyFamilyIncome',
-                     'FamilyPovertyIndex')
-ggpairs(df_2)
+meanAlcoholAmountAvgPerMonth_dontdrugs_cig <- 
+  dataset_drug %>% 
+  filter(Drug_CigsLast30d == F) %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
 
-# Looking if income affects Alcohol consumption
-ggplot(data = dataset) +
-  geom_hex(mapping = aes(x = MonthlyFamilyIncome, y = AlcoholDrink5Last30d))
+# Alcohol consumption of people who do drugs vs those who don't 
+df <- data.frame(DrugLast30d = c("DoDrugs", "DontDoDrugs"), 
+                 MeanAlcoholAmountAvgPerMonth = c(meanAlcoholAmountAvgPerMonth_dodrugs[[1]], 
+                                                  meanAlcoholAmountAvgPerMonth_dontdrugs_cig[[1]]))
 
-ggplot(data = dataset) +
-  geom_point(mapping = aes(x = MonthlyFamilyIncome, y = AlcoholAmountAvgPerMonth))
+ggplot(df, aes(x = DrugLast30d, y = MeanAlcoholAmountAvgPerMonth)) + 
+  geom_col() + labs(x = "Drug usage", y = "Average monthly alcohol consumption")
+
+# Alcohol consumption of people who do drugs including cigarettes vs those who don't 
+df_cigs <- data.frame(DrugLast30d = c("DoDrugs", "DontDoDrugs"), 
+                      MeanAlcoholAmountAvgPerMonth = c(meanAlcoholAmountAvgPerMonth_dodrugs_cig[[1]], 
+                                                       meanAlcoholAmountAvgPerMonth_dontdrugs_cig[[1]]))
+
+ggplot(df_cigs, aes(x = DrugLast30d, y = MeanAlcoholAmountAvgPerMonth)) + 
+  geom_col() + labs(x = "Drug usage", y = "Average monthly alcohol consumption")
