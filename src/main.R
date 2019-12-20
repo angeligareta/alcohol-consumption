@@ -1,4 +1,5 @@
-
+library(dplyr)
+library(tidyverse)
 library(tidyr)
 if (!require(hexbin)) {
   install.packages("hexbin")
@@ -309,10 +310,9 @@ summary(fit_dt_grid)
 
 ## ??? ----
 
-# STEFANO
 # Looking for correlation between alcohol and drugs
 
-# Exploratory analisys.
+# Exploratory analisys
 dataset %>% ggplot(aes(x = SmokedCigsLast30d,
                        y = AlcoholAmountAvgPerMonth)) +
   geom_point() +
@@ -400,10 +400,82 @@ df_cigs <- data.frame(DrugLast30d = c("DoDrugs", "DontDoDrugs"),
 ggplot(df_cigs, aes(x = DrugLast30d, y = MeanAlcoholAmountAvgPerMonth)) + 
   geom_col() + labs(x = "Drug usage", y = "Average monthly alcohol consumption")
 
-####Independence tests
-chisq.test(dataset$Gender, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
-chisq.test(dataset$MaritalStatus, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
+# STIs
 
+dataset_STIs <- dataset %>% select("AlcoholAmountAvgPerMonth","HadHPV", "HadHerpes", "HadGenitalWarts", "HadGonorrhea", "HadChlamydia", "HadHIV")
+dataset_STIs$HadHIV[dataset_STIs$HadHIV == 3] <- NA
+dataset_STIs <- na.omit(dataset_STIs)
+
+# turning illnesses from 1 and 2 to True and False
+vars.to.replace <- 
+  c("HadHPV", 
+    "HadHerpes", 
+    "HadGenitalWarts", 
+    "HadGonorrhea",
+    "HadChlamydia",
+    "HadHIV")
+df2 <- dataset_STIs[vars.to.replace]
+df2[df2 == 1] <- T
+df2[df2 == 2] <- F
+dataset_STIs[vars.to.replace] <- df2
+
+dataset_STIs$HadSTI <- 
+  (
+    dataset_STIs$HadHPV | 
+      dataset_STIs$HadHerpes | 
+      dataset_STIs$HadGenitalWarts | 
+      dataset_STIs$HadGonorrhea | 
+      dataset_STIs$HadChlamydia | dataset_STIs$HadHIV)
+
+# Mean of average alcohol consumption per month of the people with and without STIs
+meanAlcoholAmountAvgPerMonth_HadSTI <- 
+  dataset_STIs %>% 
+  filter(HadSTI == T) %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
+
+meanAlcoholAmountAvgPerMonth_HadntSTI <- 
+  dataset_STIs %>% 
+  filter(HadSTI == F) %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
+
+# Alcohol consumption of people with STI and without 
+df_sti <- data.frame(STI = c("HadSTI", "HadntSTI"), 
+                     MeanAlcoholAmountAvgPerMonth = c(meanAlcoholAmountAvgPerMonth_HadSTI[[1]], 
+                                                      meanAlcoholAmountAvgPerMonth_HadntSTI[[1]]))
+
+ggplot(df_sti, aes(x = STI, y = MeanAlcoholAmountAvgPerMonth)) + 
+  geom_col() + labs(x = "STI", y = "Average monthly alcohol consumption")
+
+# chisq.test on drugs
+tbl <- table(dataset_drug$AlcoholAmountAvgPerMonth, dataset_drug$Drug_CigsLast30d)
+chisq.test(tbl)
+
+# chisq.test on STI
+tbl_2 <- table(dataset_STIs$AlcoholAmountAvgPerMonth, dataset_STIs$HadSTI)
+chisq.test(tbl_2)
+
+# chisq.test on ThoughtSuicide last 2 week
+tbl_3 <- table(dataset$AlcoholAmountAvgPerMonth,dataset$ThoughtSuicideLast2w)
+chisq.test(tbl_3)
+
+# Average alcohol by gender
+meanAlcoholAmountAvgPerMonth_Male <- 
+  dataset %>% 
+  filter(Gender == "Male") %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
+
+meanAlcoholAmountAvgPerMonth_Female <- 
+  dataset %>% 
+  filter(Gender == "Female") %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
+
+df_mf <- data.frame(Gender = c("Male", "Female"), 
+                    MeanAlcoholAmountAvgPerMonth = c(meanAlcoholAmountAvgPerMonth_Male[[1]], 
+                                                     meanAlcoholAmountAvgPerMonth_Female[[1]]))
+
+ggplot(df_mf, aes(x = Gender, y = MeanAlcoholAmountAvgPerMonth, fill = Gender)) + 
+  geom_col() + labs(x = "Gender", y = "Average monthly alcohol consumption") +
+  theme(legend.position = "none")
 
 #### Brief research with drugs again
 convert_to_class <- function(drug, cig) {
@@ -424,7 +496,7 @@ convert_to_class <- function(drug, cig) {
   }
   new_column
 }
-  
+
 dataset_drug_mean <- dataset_drug %>%
   group_by(DrugLast30d, Drug_CigsLast30d) %>%
   mutate(
@@ -446,3 +518,26 @@ ggplot(dataset_drug_mean, aes(x = Class, y = Count, fill = Class)) +
   ggtitle("Average monthly alcohol consumption - Drug Usage Class") + 
   theme_minimal() +
   fancy_plot_no_legend
+
+###########################
+#Logistic regression attempt
+training_labels <- dataset
+
+# Create a set of training indices
+trainIndex <- createDataPartition(
+  training_labels$AlcoholAmountAvgPerMonth, # Sample proportionally based on the outcome variable
+  p = .8,           # Percentage to be used for training
+  list = FALSE,     # Return the indices as a vector (not a list)
+  times = 1         # Only create one set of indices
+)
+
+# Subset your data into training and testing set
+training_set <- training_labels[ trainIndex, ] # Use indices to get training data
+test_set <- training_labels[ -trainIndex, ]    # Remove train indices to get test data
+
+logit <- glm(AlcoholAmountAvgPerMonth ~ Gender * MaritalStatus * FamilyPovertyIndex,data=training_set,family="gaussian")
+
+summary(logit)
+anova(logit)
+
+p<- predict(logit,test_set)

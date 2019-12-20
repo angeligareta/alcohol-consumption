@@ -9,9 +9,11 @@ knitr::opts_chunk$set(echo = TRUE)
 source("./main.R")
 ```
 
-### Abstract (**5 points**)
+### Abstract 
 
-- Succinctly summarizes the importance and findings of the project within the 150 word limit.
+We found out that there is a weak correlation between the poverty index and alcohol consumption. Additionally, alcohol consumption depends on the gender and marital status. Males tend to consume more alcohol than females and those who never married tend to drink more than those separated.
+
+ADD SUMMARY OF PREDICTION
 
 ### Introduction
 
@@ -89,16 +91,15 @@ The dataset is divided in several sections: demographic, medications or question
   - Written interpretation of graphic is provided (**1 point**)
   - Clear axis labels, titles, and legends are included, where appropriate (**1 point**)
 
-### Methods (**30 points**)
-
-The appropriate methods are employed to answer the question of interest, including:
+### Methods 
 
 - **Strength of relationships**:
 
   - A formula describing how you believe your features (independent variables) are related to your outcome of interest (dependent variable) (**5 points**)
+  I AM NOT SURE IF THIS IS WHAT KE ASKS FOR:
    We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.  
- We have also ran some Chi Squared tests between selected features and alcohol consumptions. 
-  - A defense of the variables included in your formula (**5 points**)
+   We also made several graphs and ran some Chi Squared tests between selected categorical features and alcohol consumptions. 
+
   Based on our motivation for the project, we decided to include relevant features. It was rather challenging, since the dataset had a huge number of variables. During the analysis of the data, we looked at the distributions and planned to focus more on the variables that are normally distributed or uniformly distributed among all groups, however that was challenging since most of them were not. It was also important to have enough data, since in some cases, there were a lot of missing values.
  
   - Creating the appropriate model based on your dataset (**5 points**)
@@ -111,7 +112,6 @@ The appropriate methods are employed to answer the question of interest, includi
   - Employing the algorithm of interest (**3 points**)
 
 ### Results (**20 points**)
-ADD VISUAL
 You must provide a clear interpretation of your statistical and machine learning results, including at least **one visual or table** for each.
 
 - **Strengths of relationships**: For the features you included in your model, you must describe the strength (significance) and magnitude of the relationships. This can be presented in a table or chart, and pertinent observations should be described in the text.
@@ -119,9 +119,43 @@ You must provide a clear interpretation of your statistical and machine learning
 
 Regarding the correlation between age and alcohol consumption, using the Pearson method gave us a 0.049 correlation, while the Spearman method returned a -0.145 coefficient. Although both coefficients are low, we notice a 10% difference between the two methods. This could possibly mean that there is a relation between these two variables that is not linear.
 
+
+```{r, warning=FALSE}
+cor(
+  dataset$Age, 
+  dataset$AlcoholAmountAvgPerMonth, 
+  method = "pearson"
+)
+```
+```{r, warning=FALSE}
+cor(
+  dataset$Age, 
+  dataset$AlcoholAmountAvgPerMonth, 
+  method = "spearman"
+)
+```
+
 Trying to correlate monthly average alcohol consumption with the Poverty Index, using the Spearman method resulted in a 19% correlation. Although it is also quite low, we can assume a weak correlation, especially given the social context. 
 
+```{r, warning=FALSE}
+cor(
+  income_dataset$FamilyPovertyIndex,
+  income_dataset$AlcoholAmountAvgPerMonth,
+  method = "spearman"
+)
+```
+
+
 After computing the Chi squared tests, we concluded based on the low p-value that alcohol consumption depends on the gender and marital status. It was very clear from the graphs that the gender is related to alcohol consumption as well.
+
+```{r, warning=FALSE}
+chisq.test(dataset$Gender, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
+```
+```{r, warning=FALSE}
+chisq.test(dataset$MaritalStatus, dataset$AlcoholAmountAvgPerMonth, correct=FALSE)
+```
+
+ADD VISUAL FOR GENDER
 
 
 - **Predictions**: How well were you able to predict values in the dataset? You should both report appropriate metrics based on the type of outcome you're predicting (e.g., root mean squared error v.s. accuracy), as well as a high quality visual showing the strength of your model (**10 points**)
