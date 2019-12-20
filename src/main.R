@@ -1,15 +1,30 @@
+
 library(ggplot2)
 library(tidyr)
 if (!require(hexbin)) {
   install.packages("hexbin")
   library(hexbin) # cuberoot transformation
 }
-
-library(GGally)
-library(randomForest)
-library(caTools)
-library(e1071)
-library(caret)
+if (!require(GGally)) {
+  install.packages("GGally")
+  library(GGally) # cuberoot transformation
+}
+if (!require(randomForest)) {
+  install.packages("randomForest")
+  library(randomForest) # cuberoot transformation
+}
+if (!require(caTools)) {
+  install.packages("caTools")
+  library(caTools) # cuberoot transformation
+}
+if (!require(e1071)) {
+  install.packages("e1071")
+  library(e1071) # cuberoot transformation
+}
+if (!require(caret)) {
+  install.packages("caret")
+  library(caret) # cuberoot transformation
+}
 
 source("./preprocessing/preprocess.R")
 
@@ -74,12 +89,22 @@ cor(
 )
 
 #Correlation matrix
+#transform to be able to do the matrix
 dataset[] <- lapply(dataset, as.integer)
 cor(dataset)
-
+dataset <- preprocessed_dataset #retransforn
 ##########################################################
 
+dataset_with_alcohol_mean_gender<-
+  dataset %>% group_by(Gender) %>% summarise(
+    AlcoholAmountAvgPerMonthMean = mean(AlcoholAmountAvgPerMonth)
+   )
+dataset_with_alcohol_mean_gender %>% ggplot(aes(x = Gender, y = AlcoholAmountAvgPerMonth)) + geom_bar(aes(fill = MaritalStatus), stat =
+                                                                                      "identity")
+
 ### Does Marital Status affect alcohol amount per month
+
+#Total amount - misleading since the dataset contains more data on married people than the other groups
 dataset %>% ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonth)) + geom_bar(aes(fill = MaritalStatus), stat =
                                                                                       "identity")
 
@@ -100,6 +125,7 @@ dataset_with_alcohol_mean_marital_status %>%
             color = "white")
 
 ## Show ponderated mean per marital status group
+#The fact that the dataset contains more data on married people affects the results
 #dataset_with_alcohol_mean_marital_status %>%
 #  ggplot(aes(x = MaritalStatus, y = AlcoholAmountAvgPerMonthPonderatedMean)) +
 #  geom_bar(aes(fill = MaritalStatus), stat = "identity") +
