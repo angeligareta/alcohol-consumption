@@ -115,15 +115,45 @@ For exploring the variables that are related to the mental health of the individ
 
 - **Strength of relationships**:
 
-  - A formula describing how you believe your features (independent variables) are related to your outcome of interest (dependent variable) (**5 points**)
-    We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.  
-    We have also ran some Chi Squared tests between selected features and alcohol consumptions.
+  The formula that we are going to use for describing the relationships between the dependent and independent variables is:
+
+  `AlcoholAmountAvgPerMonthCubeRoot = Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum`
+
+  As we can see we selected only a couple of variables from the list of transformed variables.
+  The main numerical criteria for chosing them is because of they performacnce in a correlation test (Pearson and Spearman tests).
+
+  Also, in a subjective perspective, we tried to add variables to the models that could be related with the alcohol consumption, in order to be relevant.
+
+  The list of chosen variables is:
+
+  . **`Gender`**
+
+  We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.  
+   We have also ran some Chi Squared tests between selected features and alcohol consumptions.
+
   - A defense of the variables included in your formula (**5 points**)
     Based on our motivation for the project, we decided to include relevant features. It was rather challenging, since the dataset had a huge number of variables. During the analysis of the data, we looked at the distributions and planned to focus more on the variables that are normally distributed or uniformly distributed among all groups, however that was challenging since most of them were not. It was also important to have enough data, since in some cases, there were a lot of missing values.
 
   - Creating the appropriate model based on your dataset (**5 points**)
 
-- **Prediction**: You must also make predictions for your outcome of interest. In doing so, you must demonstrate a clear use of:
+  Based on our dataset, we chose tree models for predicting the alcohol consumption. The idea is to test different approaches and choose the best one for our problem, according to the metrics.
+
+- **Models used and results**:
+
+  - **Linear model**
+
+  The first and simplest approach is to use a linear model. We use the formula that we explained before, and then using metrics to test the result.
+
+  ```{r}
+    lm3 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum, dataset)
+    summary(lm3)
+  ```
+  
+  As we can see in the summary of the model training, all the variables are significant in the model, ussing a significance level of `95%`. This happens because all the *p-values* are less than `0.05`. Also, we can see that the linear model is significant because we have a *p-value* of `2.2e-16`, using a *F-statistic*.
+  
+  But, we have a problem with the `r-squared`, which have a value of `0.1` approximately. In our field, having this value could be considered enough, because we have more than 900 columns in our original dataset, but we are going to try to improve it, using a different model.
+
+* **Prediction**: You must also make predictions for your outcome of interest. In doing so, you must demonstrate a clear use of:
   - Splitting your data into testing/training data (**2 points**)
   - Applying cross validation to your model (**3 points**)
   - Appropriately handling any missing values (**2 points**)
