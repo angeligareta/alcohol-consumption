@@ -426,3 +426,22 @@ chisq.test(tbl_2)
 tbl_3 <- table(dataset$AlcoholAmountAvgPerMonth,dataset$ThoughtSuicideLast2w)
 chisq.test(tbl_3)
 
+# Average alcohol by gender
+meanAlcoholAmountAvgPerMonth_Male <- 
+  dataset %>% 
+  filter(Gender == "Male") %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
+
+meanAlcoholAmountAvgPerMonth_Female <- 
+  dataset %>% 
+  filter(Gender == "Female") %>% 
+  summarize(mean(AlcoholAmountAvgPerMonth))
+
+df_mf <- data.frame(Gender = c("Male", "Female"), 
+                    MeanAlcoholAmountAvgPerMonth = c(meanAlcoholAmountAvgPerMonth_Male[[1]], 
+                                                     meanAlcoholAmountAvgPerMonth_Female[[1]]))
+
+ggplot(df_mf, aes(x = Gender, y = MeanAlcoholAmountAvgPerMonth, fill = Gender)) + 
+  geom_col() + labs(x = "Gender", y = "Average monthly alcohol consumption") +
+  theme(legend.position = "none")
+
