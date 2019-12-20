@@ -6,6 +6,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # Include the main file in order to do preprocessing.
+library(ggplot2)
+library(dplyr)
 source("./preprocessing/preprocess.R")
 dataset <- preprocessed_dataset
 
@@ -70,7 +72,7 @@ This data was obtained by the United States center of health statistics. It is a
 
 The data collection of this survey was a complex task that involved several parts, starting with body measurements to questionnaires to evaluate the mental health. A further description of the methodology can be found [here](https://www.cdc.gov/nchs/data/series/sr_01/sr01_056.pdf).
 
-#### Dataset description
+### Data description
 
 The dataset is divided in several sections: demographic, examinations, dietary data, laboratory, medications and questionnaires. For our study, we are going to focus on the questionnaire section, taking some columns from demographic (such as Gender, Age or Marital status) and from Laboratory (HasHIV). The variables in the questionary dataset refer to a response for a certain question, such as: _In the past 12 months, how often did you drink any type of alcoholic beverage?_ The selected datasets are composed of 10175 rows and 1422 columns. For instance, 15 of those columns refer to answers for questions related with alcohol consumption and 22 are related with mental health.
 
@@ -97,9 +99,60 @@ Also, there are some of the variables we chose which represent the mental health
 
 And finally, we have three variables selected for alcohol consumption. One is `AlcoholDrink5Last30d`, which we could not use as there were missing many of the values, and `AlcoholAmountAvg` and `AlcoholAmountUnit`. In order to have the AlcoholAmountAvg in the same unit, we had to normalize the variable and transform the values to store the AlcoholAmountAvg per month. In order to do so, if the unit was week, we multiplied the value by 4, otherwise, if it was Year, it would be divided by 12. After that, we are going to select that new variable `AlcoholAmountAvgPerMonth` as our response variable.
 
+### Data Preprocess
+
+#### Data Transformation
+
+All the data transformation and preprocessing can be found in the [preprocessing file](https://github.com/angeligareta/AlcoholConsumption/blob/master/src/preprocessing/preprocess.R).
+
+First of all we joined the selected datasets by the SEQN number, which corresponds to the individual identification number. After that, we renamed the variables codes into a more readable name, as we explained in the previous section.
+
+In the dataset, in some variables the repetition of 7's (7, 77, 777, 7777) or 9's (9, 99, 999, 9999) meant that the respondant refused to answer, so we had to replace them by NA, as they are not interesting in our research. Besides, we replaced the possible values of the selected categorical variables to readable factors.
+
+#### New Data Variables
+
+After doing an analysis of some of the selected variables, we added new columns to analyze if they could be useful. The added variables are:
+
+- AlcoholAmountAvgPerMonth: As we explained in the previous section, we merged AlcoholAmountAvg and AlcoholAmountUnit variables in a smart way to come with a new variable that would represent the AlcoholAmountAvg of the individuals per month.
+- AlcoholAmountAvgPerMonthCubeRoot: After analyzing the skewness of our response variable AlcoholAmountAvgPerMonth, we found that it had a high right skewness of approxmately 2.0. We decided to transform the variable using cuberoot transformation, which resulted in a much better distribution of the data, with a skewness of 0.38, almost being a normal distribution. However, we have to take into account that the possible results of any model using this variable would be the cube root of the real one.
+
+```{r, warning=FALSE}
+# Skewness for AlcoholAmountAvgPerMonth
+skewness(transformed_dataset$AlcoholAmountAvgPerMonth)
+# Skewness for cuberoot of AlcoholAmountAvgPerMonth
+skewness(kader:::cuberoot(transformed_dataset$AlcoholAmountAvgPerMonth))
+
+ggplot(dataset, aes(AlcoholAmountAvgPerMonth)) +
+  geom_histogram(fill = "brown", binwidth = 1) +
+  ylab("Number of People") +
+  xlab("Mothly Alcohol Consumption")
+
+ggplot(dataset,aes(kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))) +
+  geom_histogram(fill = "brown", binwidth = 0.1) +
+  ylab("Number of People") +
+  xlab("Mothly Alcohol Consumption")
+```
+
+- HighestEducationLevelDisc: We decided to try discretizing the HighestEducationLevel variable. We splitted the 6 levels into "Basic", "Intermediate" and "Advanced".
+- HadSTI: We grouped all the variables that refer to STI's and we added a new column that indicates if the individual has had an STI.
+- DrugUseLast30dSum: New variable that represents the sum of the number of days the individual has consumed any of the variables related to drugs such as `MethanfitamineLast30d`.
+- DrugCigsUseLast30dSum: Same as the previous variable but considering cigs as a drug.
+- DrugUseLast30d: Discretized variable of DrugUseLast30dSum, which represents if the individual used or did not use drugs in the last month, not giving importance to the exact amount.
+- DrugCigsUseLast30d: Same as the previous discretized variable but with DrugCigsUseLast30dSum.
+
+### Relationships among ariables
+
 - Creates 5 well designed and formatted graphics (**15 points**, 3 each)
 
 For exploring the relations between variables, we made some plots.
+
+```{r, warning=FALSE}
+cor(
+  income_dataset$FamilyPovertyIndex,
+  income_dataset$AlcoholAmountAvgPerMonth,
+  method = "spearman"
+)
+```
 
 For exploring the variables that are related to the mental health of the individual, we created some
 
@@ -138,7 +191,7 @@ For exploring the variables that are related to the mental health of the individ
 
   Based on our dataset, we chose tree models for predicting the alcohol consumption. The idea is to test different approaches and choose the best one for our problem, according to the metrics.
 
-- **Models used and results**:
+- **Machine Learning Models used**:
 
   - **Linear model**
 
@@ -148,18 +201,26 @@ For exploring the variables that are related to the mental health of the individ
     lm3 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum, dataset)
     summary(lm3)
   ```
-  
-  As we can see in the summary of the model training, all the variables are significant in the model, ussing a significance level of `95%`. This happens because all the *p-values* are less than `0.05`. Also, we can see that the linear model is significant because we have a *p-value* of `2.2e-16`, using a *F-statistic*.
-  
+
+  As we can see in the summary of the model training, all the variables are significant in the model, ussing a significance level of `95%`. This happens because all the _p-values_ are less than `0.05`. Also, we can see that the linear model is significant because we have a _p-value_ of `2.2e-16`, using a _F-statistic_.
+
   But, we have a problem with the `r-squared`, which have a value of `0.1` approximately. In our field, having this value could be considered enough, because we have more than 900 columns in our original dataset, but we are going to try to improve it, using a different model.
 
-* **Prediction**: You must also make predictions for your outcome of interest. In doing so, you must demonstrate a clear use of:
-  - Splitting your data into testing/training data (**2 points**)
-  - Applying cross validation to your model (**3 points**)
-  - Appropriately handling any missing values (**2 points**)
-  - Appropriately using categorical variables (**3 points**)
-  - Using a grid search to find the best parameters for you model of interest (**2 points**)
-  - Employing the algorithm of interest (**3 points**)
+  - **Generalized linear model**
+
+  We used the generalized linear model in order to improve the results of the basic linear model.
+
+  ```{r}
+  glm3 <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum, data = dataset, family="gaussian")
+  summary(glm3)
+  ```
+  As it happened with the previous model, all the variables are significative according to their *p-value*. But here the metric that we are going to use to measure the performance is the `AIC` (Akaike Information Criterion), which have a value of 9737.3
+
+  - **Regression Tree**
+  
+    Finally, we used a decision tree, becouse there are relationships in our data that are not linear. For doing this, we applied `CrossValidation`, with `k = 10` folds. Also we add aparamter grid search which was used for choosing the best combination of parameters from a given list.
+  
+  With this approach,, we obtained a `r-squared` of `0.05` with the best combination of parameters wich were `cp = 0.06`
 
 ### Results (**20 points**)
 

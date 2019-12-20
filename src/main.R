@@ -624,6 +624,7 @@ test_set <- training_labels[ -trainIndex, ]    # Remove train indices to get tes
 
 glm_test <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d, data=training_set, family="gaussian")
 
+
 summary(glm_test_set)
 anova(glm_test_set)
 
@@ -643,3 +644,18 @@ lm_test_r2_test <- R2(lm_test_prediction_test, test_set$AlcoholAmountAvgPerMonth
 
 # The result is the same
 ## TODO: Compare with decision tree
+
+set.seed(100)
+
+cvControl <- caret::trainControl(method = "cv", number = 10)
+dtGrid <- expand.grid(cp = (0:10) * 0.01)
+
+fit_dt_grid <- caret::train(
+  AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d,
+  data = dataset_without_na,
+  method = "rpart",
+  trControl = cvControl,
+  tuneGrid = dtGrid
+)
+
+fit_dt_grid
