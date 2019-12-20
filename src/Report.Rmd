@@ -6,6 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # Include the main file in order to do preprocessing.
+library(ggplot2)
 source("./preprocessing/preprocess.R")
 dataset <- preprocessed_dataset
 
@@ -97,9 +98,33 @@ Also, there are some of the variables we chose which represent the mental health
 
 And finally, we have three variables selected for alcohol consumption. One is `AlcoholDrink5Last30d`, which we could not use as there were missing many of the values, and `AlcoholAmountAvg` and `AlcoholAmountUnit`. In order to have the AlcoholAmountAvg in the same unit, we had to normalize the variable and transform the values to store the AlcoholAmountAvg per month. In order to do so, if the unit was week, we multiplied the value by 4, otherwise, if it was Year, it would be divided by 12. After that, we are going to select that new variable `AlcoholAmountAvgPerMonth` as our response variable.
 
-- Creates 5 well designed and formatted graphics (**15 points**, 3 each)
+#### Data Preprocess
+
+#### Data Transformation
+
+All the data transformation and preprocessing can be found in the [preprocessing file](https://github.com/angeligareta/AlcoholConsumption/blob/master/src/preprocessing/preprocess.R).
+
+First of all we joined the selected datasets by the SEQN number, which corresponds to the individual identification number. After that, we renamed the variables codes into a more readable name, as we explained in the previous section.
+
+In the dataset, in some variables the repetition of 7's (7, 77, 777, 7777) or 9's (9, 99, 999, 9999) meant that the respondant refused to answer, so we had to replace them by NA, as they are not interesting in our research. Besides, we replaced the possible values of the selected categorical variables to readable factors.
+
+#### New Data Variables
+
+After doing an analysis of some of the selected variables, we added new columns to analyze if they could be useful. The added variables are:
+
+-
+
+* Creates 5 well designed and formatted graphics (**15 points**, 3 each)
 
 For exploring the relations between variables, we made some plots.
+
+```{r, warning=FALSE}
+cor(
+  income_dataset$FamilyPovertyIndex,
+  income_dataset$AlcoholAmountAvgPerMonth,
+  method = "spearman"
+)
+```
 
 For exploring the variables that are related to the mental health of the individual, we created some
 
