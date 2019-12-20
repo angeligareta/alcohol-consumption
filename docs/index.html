@@ -368,14 +368,15 @@ summary {
 
 <div id="abstract" class="section level3">
 <h3>Abstract</h3>
-<p>We found out that there is a weak correlation between the poverty index and alcohol consumption. Additionally, alcohol consumption depends on the gender and marital status. Males tend to consume more alcohol than females and those who never married tend to drink more than those separated.</p>
-<p>The aim of this project is to discover and identify the relationships between alcohol consumption and other physical and social variables of the individuals. For achieving this we explored the dataset of the national health survey of United States.</p>
+<p>The aim of this project is to discover and identify the relationships between alcohol consumption and other physical and social variables of the individuals. For achieving this we explored the dataset of the <a href="https://www.kaggle.com/cdc/national-health-and-nutrition-examination-survey#questionnaire.csv">National Health survey of United States</a>.</p>
+<p>The main challenge we had to face was to select from over 2000 variables available in the dataset only those that were useful for our research. Apart from that, we had to transform the encountered variables and subsistute missing values from the response variable.</p>
+<p>We found out that there is a weak but significant correlation between the family poverty index and alcohol consumption. Additionally, alcohol consumption depends on the gender and marital status. Males tend to consume more alcohol than females and those who never married tend to drink more than those separated. On top of that, we found other relations to alcohol consumption with drug use and the education of the individual.</p>
 </div>
 <div id="introduction" class="section level3">
 <h3>Introduction</h3>
 <p>Is alcohol consumption related to factors such as mental health, marital status, income, gender and age?</p>
 <p>We did not have a very specific question in mind as we were more curious to analyze the factors related to alcohol consumption in general and find significant or unexpected insights. Some of our initial questions lead us to dead-ends after analyzing the data more in depth, this is why we decided to focus on a broader research, centered around alcohol consumption and with a focus on mental health and personal situations.</p>
-<p>One of the initial purpose of developing this project was to find out how mental health relates to alcohol consumption and this has been quite challenging. Establishing this correlation could potentially raise awareness on how alcohol consumption might affect the mental health or that certain untreated mental issues could lead to higher amount consumptions. We were also interested in knowing how alcohol consumption relates to income. For instance, if people of lower income or higher income tend to consume more alcohol. This could potentially raise awareness of vicious cycles in our society. This study could also help verify or deny common beliefs or expectations. For instance, do males consume more alcohol than females? Do married people consume less alcohol than the single and separated/widowed ones? All these could show results that would futher lead researches to continue with more in depth analysis such as why certain relations exist.</p>
+<p>One of the initial purposes of developing this project was to find out how mental health relates to alcohol consumption and this has been quite challenging. Establishing this correlation could potentially raise awareness on how alcohol consumption might affect the mental health or that certain untreated mental issues could lead to higher amount consumptions. We were also interested in knowing how alcohol consumption relates to income. For instance, if people of lower income or higher income tend to consume more alcohol. This could potentially raise awareness of vicious cycles in our society. This study could also help verify or deny common beliefs or expectations. For instance, do males consume more alcohol than females? Do married people consume less alcohol than the single and separated/widowed ones? All these could show results that would futher lead researches to continue with more in depth analysis such as why certain relations exist.</p>
 </div>
 <div id="related-work" class="section level3">
 <h3>Related Work</h3>
@@ -408,34 +409,35 @@ summary {
 <p>This is a study conducted by Bo Xi et al. and published in the Journal of the American College of Cardiology. As in the fourth project, heavy or binge drinking was associated with increased risk of all-cause mortality, while light and moderate alcohol intake might have, according to their study, a protective effect on all-cause and CVD-specific mortality in U.S. adults.</p>
 </div>
 </div>
-<div id="exploratory-data-analysis-20-points" class="section level3">
-<h3>Exploratory Data Analysis (<strong>20 points</strong>)</h3>
+<div id="exploratory-data-analysis" class="section level3">
+<h3>Exploratory Data Analysis</h3>
 </div>
 <div id="data-source-national-health-and-nutrition-examination-survey" class="section level3">
 <h3>Data Source: <a href="https://www.kaggle.com/cdc/national-health-and-nutrition-examination-survey">National health and nutrition examination survey</a></h3>
 <p>This data was obtained by the United States center of health statistics. It is an annual survey done for the civilian resident population of the United States. This is the public dataset corresponding to the period 2013-2014, and it was saved in the following folder: <a href="./data/national-health-survey/">/data/national-health-survey/</a></p>
-<div id="data-collection" class="section level5">
-<h5>Data collection</h5>
 <p>The data collection of this survey was a complex task that involved several parts, starting with body measurements to questionnaires to evaluate the mental health. A further description of the methodology can be found <a href="https://www.cdc.gov/nchs/data/series/sr_01/sr01_056.pdf">here</a>.</p>
-</div>
 <div id="dataset-description" class="section level4">
 <h4>Dataset description</h4>
-<p>The dataset is divided in several sections: demographic, medications or questionnaires. For our study, we are going to focus on the questionnaire section which is a dataset composed of several columns, where each one is a response to a certain question, such as: <em>In the past 12 months, how often did you drink any type of alcoholic beverage?</em> The questionnaire dataset is composed of 10175 rows and 953 columns. 15 of those columns are the answers for questions related with alcohol consumption and 22 are related with mental health. Some of the features we considered during our analysis were the following:</p>
+<p>The dataset is divided in several sections: demographic, examinations, dietary data, laboratory, medications and questionnaires. For our study, we are going to focus on the questionnaire section, taking some columns from demographic (such as Gender, Age or Marital status) and from Laboratory (HasHIV). The variables in the questionary dataset refer to a response for a certain question, such as: <em>In the past 12 months, how often did you drink any type of alcoholic beverage?</em> The selected datasets are composed of 10175 rows and 1422 columns. For instance, 15 of those columns refer to answers for questions related with alcohol consumption and 22 are related with mental health.</p>
+<p>In order to select the interesting variables for our research question, we reserach over the 1422 variables in the 3 selected datasets for questions that could be related with alcohol consumption. After doing so, we had to rename the variable codes to a readable description of the column, in order to be able to work in a more usable way with them. Not only we renamed the variables but the possible values that those variables could have. For instance, the possible values for indicating the marital status of an individual were codes from <code>1 to 6</code>, where <code>1</code> meant <code>Married</code>, <code>2</code> was <code>Widowed</code> and so on. A huge advantage in the process is the great documentation of the dataset, given a variable code, it was well explained in the <strong>National Center for Health Statistics</strong> website.</p>
+<p>We considered 44 variables from the total 1422, which are described in a more detailed manner at the <a href="https://github.com/angeligareta/AlcoholConsumption/tree/master/data">data folder</a>. Some of the features we considered during our analysis were the following:</p>
 <ul>
-<li>HighestEducationLevel</li>
-<li>MaritalStatus</li>
-<li>Gender</li>
-<li>Age</li>
-<li>DifficultyConcentrating</li>
-<li>ThoughtSuicideLast2w</li>
+<li>Age: <code>0 to 79: Range of years, 80: 80+ years</code></li>
+<li>Gender: <code>1: Female, 2: Male</code></li>
+<li>MaritalStatus: <code>1: Married, 2: Widowed, 3: Divorced, 4: Separated, 5: Never Married and 6: Living with partner</code></li>
+<li>HighestEducationLevel: <code>Less than 9th grade, 9-11th grade, High School, College, College graduate or above</code></li>
+<li>DifficultyConcentrating: <code>1: Yes, 2: No</code></li>
+<li>HadHPV: <code>1: Yes, 2: No</code></li>
+<li>ProblemsRememberingThingsLast30d: <code>1: Never, 2: About once, 3: Two or three times, 3: Nearly every day, 4: Several times a day</code></li>
+<li>AlcoholAmountAvg: <code>0 to 365: range of values</code></li>
+<li>AlcoholAmountUnit: Explains the unit of the value in <code>AlcoholAmountAvg</code>, that can be <code>1: Week, 2: Month</code> or <code>3: Year</code></li>
 <li>MonthlyFamilyIncome</li>
 <li>FamilyPovertyIndex</li>
-<li>AlcoholAmountAvgPerMonth</li>
-<li>AlcoholAmountUnitPerMonth.</li>
+<li>AlcoholDrink5Last30d</li>
 </ul>
-<p>As we can see, there are four variables related with the demographics of the individual (<code>HightestEducationLevel</code>, <code>MaritalStatus</code>, <code>Gender</code>, <code>Age</code>, <code>MonthlyFamilyIncome</code>).</p>
-<p>Also, we have variables which represents the mental health of the individual: <code>DifficultyConcentrating</code>, <code>ThoughtSuicideLast2w</code>,</p>
-<p>And finally, we have two variables selected for alcohol consumption, and we are going to select <code>AlcoholAmountAvgPerMonth</code> as our response variable.</p>
+<p>As we can see from the presented features, there are four variables related with the demographics of the individual (<code>HighestEducationLevel</code>, <code>MaritalStatus</code>, <code>Gender</code>, <code>Age</code>, <code>MonthlyFamilyIncome</code>).</p>
+<p>Also, there are some of the variables we chose which represent the mental health of the individual: <code>DifficultyConcentrating</code>, <code>ThoughtSuicideLast2w</code>,</p>
+<p>And finally, we have three variables selected for alcohol consumption. One is <code>AlcoholDrink5Last30d</code>, which we could not use as there were missing many of the values, and <code>AlcoholAmountAvg</code> and <code>AlcoholAmountUnit</code>. In order to have the AlcoholAmountAvg in the same unit, we had to normalize the variable and transform the values to store the AlcoholAmountAvg per month. In order to do so, if the unit was week, we multiplied the value by 4, otherwise, if it was Year, it would be divided by 12. After that, we are going to select that new variable <code>AlcoholAmountAvgPerMonth</code> as our response variable.</p>
 <ul>
 <li>Creates 5 well designed and formatted graphics (<strong>15 points</strong>, 3 each)</li>
 </ul>
