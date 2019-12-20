@@ -1,4 +1,5 @@
-
+library(dplyr)
+library(tidyverse)
 library(tidyr)
 if (!require(hexbin)) {
   install.packages("hexbin")
@@ -445,3 +446,25 @@ ggplot(df_mf, aes(x = Gender, y = MeanAlcoholAmountAvgPerMonth, fill = Gender)) 
   geom_col() + labs(x = "Gender", y = "Average monthly alcohol consumption") +
   theme(legend.position = "none")
 
+###########################
+#Logistic regression attempt
+training_labels <- dataset
+
+# Create a set of training indices
+trainIndex <- createDataPartition(
+  training_labels$AlcoholAmountAvgPerMonth, # Sample proportionally based on the outcome variable
+  p = .8,           # Percentage to be used for training
+  list = FALSE,     # Return the indices as a vector (not a list)
+  times = 1         # Only create one set of indices
+)
+
+# Subset your data into training and testing set
+training_set <- training_labels[ trainIndex, ] # Use indices to get training data
+test_set <- training_labels[ -trainIndex, ]    # Remove train indices to get test data
+
+logit <- glm(AlcoholAmountAvgPerMonth ~ Gender * MaritalStatus * FamilyPovertyIndex,data=training_set,family="gaussian")
+
+summary(logit)
+anova(logit)
+
+p<- predict(logit,test_set)
