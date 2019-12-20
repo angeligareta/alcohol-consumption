@@ -68,30 +68,34 @@ This is a study conducted by Bo Xi et al. and published in the Journal of the Am
 
 This data was obtained by the United States center of health statistics. It is an annual survey done for the civilian resident population of the United States. This is the public dataset corresponding to the period 2013-2014, and it was saved in the following folder: [/data/national-health-survey/](./data/national-health-survey/)
 
-##### Data collection
-
 The data collection of this survey was a complex task that involved several parts, starting with body measurements to questionnaires to evaluate the mental health. A further description of the methodology can be found [here](https://www.cdc.gov/nchs/data/series/sr_01/sr01_056.pdf).
 
 #### Dataset description
 
-The dataset is divided in several sections: demographic, medications or questionnaires. For our study, we are going to focus on the questionnaire section which is a dataset composed of several columns, where each one is a response to a certain question, such as: _In the past 12 months, how often did you drink any type of alcoholic beverage?_ The questionnaire dataset is composed of 10175 rows and 953 columns. 15 of those columns are the answers for questions related with alcohol consumption and 22 are related with mental health. Some of the features we considered during our analysis were the following:
+The dataset is divided in several sections: demographic, examinations, dietary data, laboratory, medications and questionnaires. For our study, we are going to focus on the questionnaire section, taking some columns from demographic (such as Gender, Age or Marital status) and from Laboratory (HasHIV). The variables in the questionary dataset refer to a response for a certain question, such as: _In the past 12 months, how often did you drink any type of alcoholic beverage?_ The selected datasets are composed of 10175 rows and 1422 columns. For instance, 15 of those columns refer to answers for questions related with alcohol consumption and 22 are related with mental health.
 
-- HighestEducationLevel
-- MaritalStatus
-- Gender
-- Age
-- DifficultyConcentrating
-- ThoughtSuicideLast2w
+In order to select the interesting variables for our research question, we reserach over the 1422 variables in the 3 selected datasets for questions that could be related with alcohol consumption. After doing so, we had to rename the variable codes to a readable description of the column, in order to be able to work in a more usable way with them. Not only we renamed the variables but the possible values that those variables could have. For instance, the possible values for indicating the marital status of an individual were codes from `1 to 6`, where `1` meant `Married`, `2` was `Widowed` and so on. A huge advantage in the process is the great documentation of the dataset, given a variable code, it was well explained in the **National Center for Health Statistics** website.
+
+We considered 44 variables from the total 1422, which are described in a more detailed manner at the [data folder](https://github.com/angeligareta/AlcoholConsumption/tree/master/data). Some of the features we considered during our analysis were the following:
+
+- Age: `0 to 79: Range of years, 80: 80+ years`
+- Gender: `1: Female, 2: Male`
+- MaritalStatus: `1: Married, 2: Widowed, 3: Divorced, 4: Separated, 5: Never Married and 6: Living with partner`
+- HighestEducationLevel: `Less than 9th grade, 9-11th grade, High School, College, College graduate or above`
+- DifficultyConcentrating: `1: Yes, 2: No`
+- HadHPV: `1: Yes, 2: No`
+- ProblemsRememberingThingsLast30d: `1: Never, 2: About once, 3: Two or three times, 3: Nearly every day, 4: Several times a day`
+- AlcoholAmountAvg: `0 to 365: range of values`
+- AlcoholAmountUnit: Explains the unit of the value in `AlcoholAmountAvg`, that can be `1: Week, 2: Month` or `3: Year`
 - MonthlyFamilyIncome
 - FamilyPovertyIndex
-- AlcoholAmountAvgPerMonth
-- AlcoholAmountUnitPerMonth.
+- AlcoholDrink5Last30d
 
-As we can see, there are four variables related with the demographics of the individual (`HightestEducationLevel`, `MaritalStatus`, `Gender`, `Age`, `MonthlyFamilyIncome`).
+As we can see from the presented features, there are four variables related with the demographics of the individual (`HighestEducationLevel`, `MaritalStatus`, `Gender`, `Age`, `MonthlyFamilyIncome`).
 
-Also, we have variables which represents the mental health of the individual: `DifficultyConcentrating`, `ThoughtSuicideLast2w`,
+Also, there are some of the variables we chose which represent the mental health of the individual: `DifficultyConcentrating`, `ThoughtSuicideLast2w`,
 
-And finally, we have two variables selected for alcohol consumption, and we are going to select `AlcoholAmountAvgPerMonth` as our response variable.
+And finally, we have three variables selected for alcohol consumption. One is `AlcoholDrink5Last30d`, which we could not use as there were missing many of the values, and `AlcoholAmountAvg` and `AlcoholAmountUnit`. In order to have the AlcoholAmountAvg in the same unit, we had to normalize the variable and transform the values to store the AlcoholAmountAvg per month. In order to do so, if the unit was week, we multiplied the value by 4, otherwise, if it was Year, it would be divided by 12. After that, we are going to select that new variable `AlcoholAmountAvgPerMonth` as our response variable.
 
 - Creates 5 well designed and formatted graphics (**15 points**, 3 each)
 
