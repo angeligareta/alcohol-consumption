@@ -229,10 +229,6 @@ dataset %>%
 
   Also, in a subjective perspective, we tried to add variables to the models that could be related with the alcohol consumption, in order to be relevant.
 
-  The list of chosen variables is:
-
-  . **`Gender`**
-
   We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.  
    We have also ran some Chi Squared tests between selected features and alcohol consumptions.
 
