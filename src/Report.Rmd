@@ -222,7 +222,7 @@ dataset %>%
 
   The formula that we are going to use for describing the relationships between the dependent and independent variables is:
 
-  `AlcoholAmountAvgPerMonthCubeRoot = Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum`
+  `AlcoholAmountAvgPerMonthCubeRoot = Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d`
 
   As we can see we selected only a couple of variables from the list of transformed variables.
   The main numerical criteria for chosing them is because of they performacnce in a correlation test (Pearson and Spearman tests).
@@ -232,10 +232,10 @@ dataset %>%
   We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.  
    We have also ran some Chi Squared tests between selected features and alcohol consumptions.
 
-  - A defense of the variables included in your formula (**5 points**)
+  - A defense of the variables included in your formula
     Based on our motivation for the project, we decided to include relevant features. It was rather challenging, since the dataset had a huge number of variables. During the analysis of the data, we looked at the distributions and planned to focus more on the variables that are normally distributed or uniformly distributed among all groups, however that was challenging since most of them were not. It was also important to have enough data, since in some cases, there were a lot of missing values.
 
-  - Creating the appropriate model based on your dataset (**5 points**)
+  - Creating the appropriate model based on your dataset
 
   Based on our dataset, we chose tree models for predicting the alcohol consumption. The idea is to test different approaches and choose the best one for our problem, according to the metrics.
 
@@ -245,31 +245,100 @@ dataset %>%
 
   The first and simplest approach is to use a linear model. We use the formula that we explained before, and then using metrics to test the result.
 
-  ```{r}
-    lm3 <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum, dataset)
-    summary(lm3)
-  ```
+```{r}
+  library(caret)
+  # We can deal with the missing values of FamilyPovertyIndex by doing an average
+  dataset_without_na <- dataset
+  mean_fpi <- mean(dataset_without_na$FamilyPovertyIndex, na.rm = T)
+  dataset_without_na$FamilyPovertyIndex[is.na(dataset_without_na$FamilyPovertyIndex)] <- mean_fpi
 
-  As we can see in the summary of the model training, all the variables are significant in the model, ussing a significance level of `95%`. This happens because all the _p-values_ are less than `0.05`. Also, we can see that the linear model is significant because we have a _p-value_ of `2.2e-16`, using a _F-statistic_.
+  # For the highest education level we would do the mean and subsitute for the corresponding factor
+  mean_hel <- mean(dataset_without_na$HighestEducationLevel, na.rm = T) # It is 3.52, rounded to 4, which is Advanced
+  dataset_without_na$HighestEducationLevelDisc[is.na(dataset_without_na$HighestEducationLevelDisc)] <- "Advanced"
+  dataset_without_na$HighestEducationLevel[is.na(dataset_without_na$HighestEducationLevel)] <- mean_hel
 
-  But, we have a problem with the `r-squared`, which have a value of `0.1` approximately. In our field, having this value could be considered enough, because we have more than 900 columns in our original dataset, but we are going to try to improve it, using a different model.
+  dataset_without_na <-
+    DataCombine::DropNA(dataset_without_na, Var = "CountryBorn")
 
-  - **Generalized linear model**
+  training_labels <- dataset_without_na
 
-  We used the generalized linear model in order to improve the results of the basic linear model.
+  # Create a set of training indices
+  trainIndex <- createDataPartition(
+    training_labels$AlcoholAmountAvgPerMonthCubeRoot, # Sample proportionally based on the outcome variable
+    p = .8,           # Percentage to be used for training
+    list = FALSE,     # Return the indices as a vector (not a list)
+    times = 1         # Only create one set of indices
+  )
 
-  ```{r}
-  glm3 <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum, data = dataset, family="gaussian")
-  summary(glm3)
-  ```
+  # Subset your data into training and testing set
+  training_set <- training_labels[ trainIndex, ] # Use indices to get training data
+  test_set <- training_labels[ -trainIndex, ]    # Remove train indices to get test data
 
-  As it happened with the previous model, all the variables are significative according to their _p-value_. But here the metric that we are going to use to measure the performance is the `AIC` (Akaike Information Criterion), which have a value of 9737.3
+  lm <- lm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d, data = training_set)
+  lm_prediction_train <- predict(lm, training_set)
+  lm_prediction_test <- predict(lm, test_set)
 
-  - **Regression Tree**
+  lm_r2_train <- R2(lm_prediction_train, training_set$AlcoholAmountAvgPerMonthCubeRoot)
+  lm_r2_test <- R2(lm_prediction_test, test_set$AlcoholAmountAvgPerMonthCubeRoot)
 
-    Finally, we used a decision tree, becouse there are relationships in our data that are not linear. For doing this, we applied `CrossValidation`, with `k = 10` folds. Also we add aparamter grid search which was used for choosing the best combination of parameters from a given list.
+  # R2 for LM in train
+  print(lm_r2_train)
+  # R2 for LM in test
+  print(lm_r2_test)
 
-  With this approach,, we obtained a `r-squared` of `0.05` with the best combination of parameters wich were `cp = 0.06`
+  summary(lm)
+```
+
+As we can see in the summary of the model training, all the variables are significant in the model, ussing a significance level of `95%`. This happens because all the _p-values_ are less than `0.05`. Also, we can see that the linear model is significant because we have a _p-value_ of `2.2e-16`, using a _F-statistic_.
+
+But, we have a problem with the `r-squared`, which have a value of `0.15` approximately. In our field, having this value could be considered enough, because we have more than 1244 columns in our original dataset. However, we will try to improve it using a different model.
+
+- **Generalized linear model**
+
+We used the generalized linear model in order to improve the results of the basic linear model.
+
+```{r}
+  glm <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d, data = training_set)
+  glm_prediction_train <- predict(glm, training_set)
+  glm_prediction_test <- predict(glm, test_set)
+
+  glm_r2_train <- R2(glm_prediction_train, training_set$AlcoholAmountAvgPerMonthCubeRoot)
+  glm_r2_test <- R2(glm_prediction_test, test_set$AlcoholAmountAvgPerMonthCubeRoot)
+
+  # R2 for GLM in train
+  print(glm_r2_train)
+  # R2 for GLM in test
+  print(glm_r2_test)
+
+  summary(glm)
+```
+
+As it happened with the previous model, all the variables are significative according to their _p-value_, an the r2 is very similar to the previous model. Here, the metric that we are going to use to measure the performance is the `AIC` (Akaike Information Criterion), which have a value of 8695.6
+
+- **Regression Tree**
+
+  Finally, we used a decision tree, becouse there are relationships in our data that are not linear. For doing this, we applied `CrossValidation`, with `k = 10` folds. Also we add aparamter grid search which was used for choosing the best combination of parameters from a given list.
+  
+```{r}
+  set.seed(100)
+
+  cvControl <- caret::trainControl(method = "cv", number = 10)
+  dtGrid <- expand.grid(cp = (0:10) * 0.01)
+  
+  fit_dt_grid <- caret::train(
+    AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + CountryBorn + FamilyPovertyIndex + HighestEducationLevel + DrugCigsUseLast30dSum + SpendTimeBar7d,
+    data = dataset_without_na,
+    method = "rpart",
+    trControl = cvControl,
+    tuneGrid = dtGrid
+  )
+  
+  fit_dt_grid
+```
+
+With this approach, we obtained a much lower `r-squared` of around `0.09`.
+
+We can conclude the better model is linear regression, despite its `r-squared` is low 0.15, it is superior than the others.
 
 ### Discussion and Future Work
 
