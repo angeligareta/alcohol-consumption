@@ -7,6 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 # Include the main file in order to do preprocessing.
 library(ggplot2)
+library(dplyr)
 source("./preprocessing/preprocess.R")
 dataset <- preprocessed_dataset
 
@@ -71,7 +72,7 @@ This data was obtained by the United States center of health statistics. It is a
 
 The data collection of this survey was a complex task that involved several parts, starting with body measurements to questionnaires to evaluate the mental health. A further description of the methodology can be found [here](https://www.cdc.gov/nchs/data/series/sr_01/sr01_056.pdf).
 
-#### Dataset description
+### Data description
 
 The dataset is divided in several sections: demographic, examinations, dietary data, laboratory, medications and questionnaires. For our study, we are going to focus on the questionnaire section, taking some columns from demographic (such as Gender, Age or Marital status) and from Laboratory (HasHIV). The variables in the questionary dataset refer to a response for a certain question, such as: _In the past 12 months, how often did you drink any type of alcoholic beverage?_ The selected datasets are composed of 10175 rows and 1422 columns. For instance, 15 of those columns refer to answers for questions related with alcohol consumption and 22 are related with mental health.
 
@@ -98,7 +99,7 @@ Also, there are some of the variables we chose which represent the mental health
 
 And finally, we have three variables selected for alcohol consumption. One is `AlcoholDrink5Last30d`, which we could not use as there were missing many of the values, and `AlcoholAmountAvg` and `AlcoholAmountUnit`. In order to have the AlcoholAmountAvg in the same unit, we had to normalize the variable and transform the values to store the AlcoholAmountAvg per month. In order to do so, if the unit was week, we multiplied the value by 4, otherwise, if it was Year, it would be divided by 12. After that, we are going to select that new variable `AlcoholAmountAvgPerMonth` as our response variable.
 
-#### Data Preprocess
+### Data Preprocess
 
 #### Data Transformation
 
@@ -112,9 +113,36 @@ In the dataset, in some variables the repetition of 7's (7, 77, 777, 7777) or 9'
 
 After doing an analysis of some of the selected variables, we added new columns to analyze if they could be useful. The added variables are:
 
--
+- AlcoholAmountAvgPerMonth: As we explained in the previous section, we merged AlcoholAmountAvg and AlcoholAmountUnit variables in a smart way to come with a new variable that would represent the AlcoholAmountAvg of the individuals per month.
+- AlcoholAmountAvgPerMonthCubeRoot: After analyzing the skewness of our response variable AlcoholAmountAvgPerMonth, we found that it had a high right skewness of approxmately 2.0. We decided to transform the variable using cuberoot transformation, which resulted in a much better distribution of the data, with a skewness of 0.38, almost being a normal distribution. However, we have to take into account that the possible results of any model using this variable would be the cube root of the real one.
 
-* Creates 5 well designed and formatted graphics (**15 points**, 3 each)
+```{r, warning=FALSE}
+# Skewness for AlcoholAmountAvgPerMonth
+skewness(transformed_dataset$AlcoholAmountAvgPerMonth)
+# Skewness for cuberoot of AlcoholAmountAvgPerMonth
+skewness(kader:::cuberoot(transformed_dataset$AlcoholAmountAvgPerMonth))
+
+ggplot(dataset, aes(AlcoholAmountAvgPerMonth)) +
+  geom_histogram(fill = "brown", binwidth = 1) +
+  ylab("Number of People") +
+  xlab("Mothly Alcohol Consumption")
+
+ggplot(dataset,aes(kader:::cuberoot(dataset$AlcoholAmountAvgPerMonth))) +
+  geom_histogram(fill = "brown", binwidth = 0.1) +
+  ylab("Number of People") +
+  xlab("Mothly Alcohol Consumption")
+```
+
+- HighestEducationLevelDisc: We decided to try discretizing the HighestEducationLevel variable. We splitted the 6 levels into "Basic", "Intermediate" and "Advanced".
+- HadSTI: We grouped all the variables that refer to STI's and we added a new column that indicates if the individual has had an STI.
+- DrugUseLast30dSum: New variable that represents the sum of the number of days the individual has consumed any of the variables related to drugs such as `MethanfitamineLast30d`.
+- DrugCigsUseLast30dSum: Same as the previous variable but considering cigs as a drug.
+- DrugUseLast30d: Discretized variable of DrugUseLast30dSum, which represents if the individual used or did not use drugs in the last month, not giving importance to the exact amount.
+- DrugCigsUseLast30d: Same as the previous discretized variable but with DrugCigsUseLast30dSum.
+
+### Relationships among ariables
+
+- Creates 5 well designed and formatted graphics (**15 points**, 3 each)
 
 For exploring the relations between variables, we made some plots.
 
