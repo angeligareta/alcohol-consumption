@@ -513,8 +513,6 @@ skewness(kader:::cuberoot(transformed_dataset$AlcoholAmountAvgPerMonth))</code><
 <p><code>AlcoholAmountAvgPerMonthCubeRoot = Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum</code></p>
 <p>As we can see we selected only a couple of variables from the list of transformed variables. The main numerical criteria for chosing them is because of they performacnce in a correlation test (Pearson and Spearman tests).</p>
 <p>Also, in a subjective perspective, we tried to add variables to the models that could be related with the alcohol consumption, in order to be relevant.</p>
-<p>The list of chosen variables is:</p>
-<p>. <strong><code>Gender</code></strong></p>
 <p>We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.<br />
 We have also ran some Chi Squared tests between selected features and alcohol consumptions.</p>
 <ul>
@@ -608,23 +606,21 @@ summary(glm3)</code></pre>
 ##   (584 observations deleted due to missingness)
 ## AIC: 9737.3
 ## 
-## Number of Fisher Scoring iterations: 2</code></pre></li>
-<li><strong>Prediction</strong>: You must also make predictions for your outcome of interest. In doing so, you must demonstrate a clear use of:
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p>As it happened with the previous model, all the variables are significative according to their <em>p-value</em>. But here the metric that we are going to use to measure the performance is the <code>AIC</code> (Akaike Information Criterion), which have a value of 9737.3</p>
 <ul>
-<li>Splitting your data into testing/training data (<strong>2 points</strong>)</li>
-<li>Applying cross validation to your model (<strong>3 points</strong>)</li>
-<li>Appropriately handling any missing values (<strong>2 points</strong>)</li>
-<li>Appropriately using categorical variables (<strong>3 points</strong>)</li>
-<li>Using a grid search to find the best parameters for you model of interest (<strong>2 points</strong>)</li>
-<li>Employing the algorithm of interest (<strong>3 points</strong>)</li>
-</ul></li>
+<li><p><strong>Regression Tree</strong></p>
+<p>Finally, we used a decision tree, becouse there are relationships in our data that are not linear. For doing this, we applied <code>CrossValidation</code>, with <code>k = 10</code> folds. Also we add aparamter grid search which was used for choosing the best combination of parameters from a given list.</p></li>
+</ul>
+<p>With this approach,, we obtained a <code>r-squared</code> of <code>0.05</code> with the best combination of parameters wich were <code>cp = 0.06</code></p></li>
 </ul>
 </div>
 <div id="results-20-points" class="section level3">
 <h3>Results (<strong>20 points</strong>)</h3>
+<p>As we can see the best result is the linear model with the discretized variables.</p>
 <p>ADD VISUAL You must provide a clear interpretation of your statistical and machine learning results, including at least <strong>one visual or table</strong> for each.</p>
 <ul>
-<li><strong>Strengths of relationships</strong>: For the features you included in your model, you must describe the strength (significance) and magnitude of the relationships. This can be presented in a table or chart, and pertinent observations should be described in the text. (<strong>10 points</strong>)</li>
+<li><strong>Strengths of relationships</strong>:</li>
 </ul>
 <p>Regarding the correlation between age and alcohol consumption, using the Pearson method gave us a 0.049 correlation, while the Spearman method returned a -0.145 coefficient. Although both coefficients are low, we notice a 10% difference between the two methods. This could possibly mean that there is a relation between these two variables that is not linear.</p>
 <p>Trying to correlate monthly average alcohol consumption with the Poverty Index, using the Spearman method resulted in a 19% correlation. Although it is also quite low, we can assume a weak correlation, especially given the social context.</p>
@@ -635,9 +631,6 @@ summary(glm3)</code></pre>
 )</code></pre>
 <pre><code>## [1] 0.1922415</code></pre>
 <p>After computing the Chi squared tests, we concluded based on the low p-value that alcohol consumption depends on the gender and marital status. It was very clear from the graphs that the gender is related to alcohol consumption as well.</p>
-<ul>
-<li><strong>Predictions</strong>: How well were you able to predict values in the dataset? You should both report appropriate metrics based on the type of outcome you’re predicting (e.g., root mean squared error v.s. accuracy), as well as a high quality visual showing the strength of your model (<strong>10 points</strong>)</li>
-</ul>
 </div>
 <div id="discussion-and-future-work-10-points" class="section level3">
 <h3>Discussion and Future Work (<strong>10 points</strong>)</h3>

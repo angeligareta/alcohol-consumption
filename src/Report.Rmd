@@ -177,10 +177,6 @@ For exploring the variables that are related to the mental health of the individ
 
   Also, in a subjective perspective, we tried to add variables to the models that could be related with the alcohol consumption, in order to be relevant.
 
-  The list of chosen variables is:
-
-  . **`Gender`**
-
   We tried to asses the correlation between numerical features and average monthly alcohol consumption using the Pearson and Spearman coefficients.  
    We have also ran some Chi Squared tests between selected features and alcohol consumptions.
 
@@ -214,21 +210,23 @@ For exploring the variables that are related to the mental health of the individ
   glm3 <- glm(AlcoholAmountAvgPerMonthCubeRoot ~ Gender + Age + FamilyPovertyIndex + HighestEducationLevelDisc + DrugCigsUseLast30dSum, data = dataset, family="gaussian")
   summary(glm3)
   ```
-  As it happened with the previous model, all the variables are significative according to their *p-value*. But here the metric that we are going to use to measure the performance is the `AIC` (Akaike Information Criterion), which have a value of 9737.3
+
+  As it happened with the previous model, all the variables are significative according to their _p-value_. But here the metric that we are going to use to measure the performance is the `AIC` (Akaike Information Criterion), which have a value of 9737.3
 
   - **Regression Tree**
-  
+
     Finally, we used a decision tree, becouse there are relationships in our data that are not linear. For doing this, we applied `CrossValidation`, with `k = 10` folds. Also we add aparamter grid search which was used for choosing the best combination of parameters from a given list.
-  
+
   With this approach,, we obtained a `r-squared` of `0.05` with the best combination of parameters wich were `cp = 0.06`
 
 ### Results (**20 points**)
 
+As we can see the best result is the linear model with the discretized variables.
+
 ADD VISUAL
 You must provide a clear interpretation of your statistical and machine learning results, including at least **one visual or table** for each.
 
-- **Strengths of relationships**: For the features you included in your model, you must describe the strength (significance) and magnitude of the relationships. This can be presented in a table or chart, and pertinent observations should be described in the text.
-  (**10 points**)
+- **Strengths of relationships**:
 
 Regarding the correlation between age and alcohol consumption, using the Pearson method gave us a 0.049 correlation, while the Spearman method returned a -0.145 coefficient. Although both coefficients are low, we notice a 10% difference between the two methods. This could possibly mean that there is a relation between these two variables that is not linear.
 
@@ -243,8 +241,6 @@ cor(
 ```
 
 After computing the Chi squared tests, we concluded based on the low p-value that alcohol consumption depends on the gender and marital status. It was very clear from the graphs that the gender is related to alcohol consumption as well.
-
-- **Predictions**: How well were you able to predict values in the dataset? You should both report appropriate metrics based on the type of outcome you're predicting (e.g., root mean squared error v.s. accuracy), as well as a high quality visual showing the strength of your model (**10 points**)
 
 ### Discussion and Future Work (**10 points**)
 
