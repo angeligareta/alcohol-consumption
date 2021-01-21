@@ -1,5 +1,5 @@
 <h1 align="center">Alcohol Consumption analysis</h1>
-<h4 align="center">Repository for the final project of the Data processes course of the EIT Digital data science master at <a href="https://www.upm.es/">UPM</h4>
+<h4 align="center">Repository for the final project of the Data processes course of the EIT Digital data science master at <a href="https://www.upm.es/">UPM</a></h4>
 
 <p align="center">
   <img alt="UPM" src="https://img.shields.io/badge/EIT%20Digital-UPM-blue?style=flat-square">
