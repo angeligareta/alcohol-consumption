@@ -8,13 +8,17 @@
 
 ## Objective
 
-The objective of this project is to analyze the effects of the alcohol consumption using R, and given different variables extracted from the [national health and nutrition examination survey dataset](https://www.kaggle.com/cdc/national-health-and-nutrition-examination-survey#questionnaire.csv).
+The objective of this project is to analyze the effects of the alcohol consumption using R, and given different variables extracted from the [national health and nutrition examination survey dataset](https://www.kaggle.com/cdc/national-health-and-nutrition-examination-survey#questionnaire.csv). 
 
 ## Project structure:
 
 - `data`: Datasets used for the analysis.
 - `docs`: Documentation of the project.
 - `src`: Source code of the analysis.
+
+## Results
+
+Research results can be found on the [project website](https://angeligareta.com/alcohol-consumption/).
 
 ## Authors
 
